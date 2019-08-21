@@ -1,0 +1,87 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 00:00:00
+
+_export:
+  td:
+    database: bi_report
+  log_database: sample #set web_log database
+  log_table: sample #set web_log table
+  user_id: user_id #set user_id column
+  dev_mst_db: bi_report
+  dev_mst_tb: jp_dev_mst
+  master_segment: xxxxx
+  check_host: 
+  ref_exception: 
+  login_check: false #true or false / login exists true
+
+#AudienceStudio用IDマスタ
++id_mst:
+  if>: ${login_check}
+  _do:
+    td>: query/l_id_mst.sql
+    create_table: id_mst
+  _else_do:
+    td>: query/id_mst.sql
+    create_table: id_mst
+
+#昨日/週/月のPVUU集計
++total_pvuu:
+  if>: ${login_check}
+  _do:
+    td>: query/l_total_pvuu.sql
+    create_table: total_pvuu
+  _else_do:
+    td>: query/total_pvuu.sql
+    create_table: total_pvuu
+
+#AudienceStudio用90日分のログテーブル作成
++bh_90:
+  if>: ${login_check}
+  _do:
+    td>: query/l_bh_90.sql
+    create_table: bh_90
+  _else_do:
+    td>: query/bh_90.sql
+    create_table: bh_90
+  
++dashboard_uaip:
+  td>: query/dashboard_uaip.sql
+  create_table: dashboard_uaip
+
++ip_pf_1day:
+  td>: query/ip_pf_1day.sql
+  create_table: ip_pf_1day
+  
++ua_os_14d:
+  td>: query/ua_os_14d.sql
+  create_table: ua_os_14d
+
++ua_vendor_14d:
+  td>: query/ua_vendor_14d.sql
+  create_table: ua_vendor_14d
+
++ua_browser_14d:
+  td>: query/ua_browser_14d.sql
+  create_table: ua_browser_14d
+
++ua_category_14d:
+  td>: query/ua_category_14d.sql
+  create_table: ua_category_14d
+
++ua_pf_14d:
+  td>: query/ua_pf_14d.sql
+  create_table: ua_pf_14d
+
++ua_city_14d:
+  td>: query/ua_city_14d.sql
+  create_table: ua_city_14d
+
+#MasterSegmentの実行
+#+kick_audience_workflow:
+#  http>: "https://api-cdp.treasuredata.com/audiences/${master_segment}/run"
+#  method: POST
+#  headers:
+#    - authorization: "TD1 ${secret:td.apikey}"
+#  retry: true

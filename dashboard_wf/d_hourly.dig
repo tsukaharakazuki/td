@@ -1,0 +1,38 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  hourly>: 00:00
+
+_export:
+  td:
+    database: bi_report
+  log_database: sample #set web_log database
+  log_table: sample #set web_log table
+  user_id: user_id #set user_id column
+  dev_mst_db: bi_report
+  dev_mst_tb: jp_dev_mst
+  check_host: 
+  ref_exception: 
+  login_check: false #true or false / login exists true
+
++hourly_ref:
+  td>: query/hourly_ref.sql
+  create_table: hourly_ref
+
++this_week_pvuu:
+  if>: ${login_check}
+  _do:
+    td>: query/l_this_week_pvuu.sql
+    create_table: this_week_pvuu
+  _else_do:
+    td>: query/this_week_pvuu.sql
+    create_table: this_week_pvuu
+
++this_month_pvuu:
+  if>: ${login_check}
+  _do:
+    td>: query/l_this_month_pvuu.sql
+    create_table: this_month_pvuu
+  _else_do:
+    td>: query/this_month_pvuu.sql
+    create_table: this_month_pvuu

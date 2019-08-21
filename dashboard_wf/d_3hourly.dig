@@ -1,0 +1,36 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 0 0-23/3 * * *
+
+_export:
+  td:
+    database: bi_report
+  log_database: sample #set web_log database
+  log_table: sample #set web_log table
+  user_id: user_id #set user_id column
+  dev_mst_db: bi_report
+  dev_mst_tb: jp_dev_mst
+  check_host: 
+  ref_exception: 
+  login_check: false #true or false / login exists true
+
++referrer_analytics:
+  if>: ${login_check}
+  _do:
+    td>: query/l_ref_tmp1.sql
+    create_table: ref_tmp1 #初回実行
+    #insert_into: ref_tmp1 #２回目以降
+  _else_do:
+    td>: query/ref_tmp1.sql
+    create_table: ref_tmp1 #初回実行
+    #insert_into: ref_tmp1 #２回目以降
+
++referrer_analytics2:
+  if>: ${login_check}
+  _do:
+    td>: query/l_ref_tmp2.sql
+    create_table: ref_tmp2
+  _else_do:
+    td>: query/ref_tmp2.sql
+    create_table: ref_tmp2

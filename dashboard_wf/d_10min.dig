@@ -1,0 +1,45 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 1-52/10 * * * * 
+
+_export:
+  td:
+    database: bi_report
+  log_database: sample #set web_log database
+  log_table: sample #set web_log table
+  user_id: user_id #set user_id column
+  dev_mst_db: bi_report
+  dev_mst_tb: jp_dev_mst
+  check_host: 
+  ref_exception: 
+  login_check: false #true or false / login exists true
+
++min_pvuu:
+  if>: ${login_check}
+  _do:
+    td>: query/l_min_pvuu.sql
+    create_table: min_pvuu #初回実行
+    #insert_into: min_pvuu #２回目以降
+  _else_do:
+    td>: query/min_pvuu.sql
+    create_table: min_pvuu #初回実行
+    #insert_into: min_pvuu #２回目以降
+
++today_pvuu:
+  if>: ${login_check}
+  _do:
+    td>: query/l_today_pvuu.sql
+    create_table: today_pvuu
+  _else_do:
+    td>: query/today_pvuu.sql
+    create_table: today_pvuu
+
++article_rank:
+  if>: ${login_check}
+  _do:
+    td>: query/l_article_rank.sql
+    create_table: article_rank
+  _else_do:
+    td>: query/article_rank.sql
+    create_table: article_rank

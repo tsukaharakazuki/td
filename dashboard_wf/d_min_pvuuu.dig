@@ -1,0 +1,46 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 00:09:00
+
+_export:
+  td:
+    database: bi_report
+  log_database: sample #set web_log database
+  log_table: sample #set web_log table
+  user_id: user_id #set user_id column
+  dev_mst_db: bi_report
+  dev_mst_tb: jp_dev_mst
+  check_host: 
+  ref_exception: 
+  login_check: false #true or false / login exists true
+  
++rename_pvuu:
+  td_ddl>:
+  rename_tables: [{from: "min_pvuu", to: "min_pvuu_tmp"}]
+
++empty_pvuu_new:
+  td_ddl>:
+  empty_tables: ["min_pvuu"]
+
++create_yesterday_table:
+  if>: ${login_check}
+  _do:
+    td>: query/l_create_yesterday_table.sql
+    create_table: min_pvuu_yesterday
+  _else_do:
+    td>: query/create_yesterday_table.sql
+    create_table: min_pvuu_yesterday
+
++insert_hist_table:
+  if>: ${login_check}
+  _do:
+    td>: query/l_insert_hist_table.sql
+    insert_into: min_pvuu_hist
+  _else_do:
+    td>: query/insert_hist_table.sql
+    insert_into: min_pvuu_hist
+
++drop_old_table:
+  td_ddl>:
+  drop_tables: ["min_pvuu_tmp"]

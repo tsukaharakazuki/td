@@ -1,0 +1,25 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  td:
+    database: bi_report
+  log_database: sample #set web_log database
+  log_table: sample #set web_log table
+  user_id: user_id #set user_id column
+  dev_mst_db: bi_report
+  dev_mst_tb: jp_dev_mst
+  bh_table: sample
+  master_segment: xxxxx
+  check_host: 
+  ref_exception: 
+
++bh_keyword:
+  td>: query/bh_keyword.sql
+  create_table: bh_keyword
+
++affinity_categorie:
+  td>: query/affinity_categorie.sql
+  create_table: affinity_categorie
