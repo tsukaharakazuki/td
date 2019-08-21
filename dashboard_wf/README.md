@@ -16,6 +16,11 @@ $ td wf push dashboard_wf
 
 このサンプルでは`bi_report`というDBにデータを出力しています。
 
+## 地図表示用対照表のアップロード
+
+`jp_dev_mst.csv`をTDコンソールから`bi_report`にアップロードしてください。
+TDのUDFでIPアドレスを分解すると、都道府県パースが可能ですが、ダッシュボードの地図で表示させるために表記揺れが存在します。こちらのデータで変換作業を取り込んでいます。
+
 ## データセット準備
 
 このWorkflowセットは8つの異なるdigで構成されています。（実行スケジュールのタイミングが異なります）
@@ -31,8 +36,8 @@ _export:
   user_id: user_id #ユーザーIDがある場合カラム名を指定
   dev_mst_db: bi_report
   dev_mst_tb: jp_dev_mst
-  master_segment: xxxxx
-  check_host: 
-  ref_exception: 
-  login_check: false #true or false / login exists true
+  master_segment: xxxxx #キーワード、興味関心カテゴリの付与をする場合、事前にMaster Segmentの作成
+  check_host: #hostを指定する場合記入
+  ref_exception: #集計から除外する流入元を指定する場合記入
+  login_check: false #true or false / ログインIDがある場合は true　ない場合は　false
 ```
