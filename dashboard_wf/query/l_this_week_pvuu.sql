@@ -10,7 +10,7 @@ FROM
   SELECT
      time
     ,td_client_id
-    ,${user_id} AS user_id
+    ,COALESCE(NULLIF(${user_id},''), NULL) AS user_id
     ,td_host
   FROM
     ${log_database}.${log_table}
