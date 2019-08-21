@@ -1,13 +1,11 @@
 # はじめに
 
-このWorkflowは、ダッシュボード用の基礎データを集計するWorkflowのサンプルです。WeblogカラムにログインIDカラムがある場合は、ログインユーザーのPV/UUも集計可能です。
+TreasureDataでのデータ集計におけるサンプルを公開しています。
 
-# 準備(TDへのアップロード)
+# 準備(Treasure Data Toolbelt: Command-line Interfaceのダウンロード)
 
-First, please upload your workflow project by `td wf push` command.
-```
-# Upload
-$ td wf push dashboard_wf
-```
-
-
+ - ドキュメント
+ https://support.treasuredata.com/hc/en-us/articles/360000720048-Treasure-Data-Toolbelt-Command-line-Interface
+ 
+ - Toolbeltダウンロードリンク
+ https://toolbelt.treasuredata.com/
