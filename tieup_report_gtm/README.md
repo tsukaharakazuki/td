@@ -81,3 +81,11 @@ ls_page_url	-> ダッシュボード内で表示するURL
 ls_client_name_jp	-> ダッシュボード内で表示するクライアント名
 ls_page_title	-> ダッシュボード内で表示する該当タイアップ記事タイトル
 ```
+
+## ダッシュボードの作成
+
+今回はGoogleが提供するダッシュボードツール`データポータル `を使って可視化をしています。TDレポーティングなどでの可視化も可能です。
+データの取得もとはdatatankを指定しています。
+※datatankはTDが提供するPostgreSQL環境です。（Googleシートなどでも運用可能ですが、日時更新でリレーションが欠損するといった運用上の注意点が存在ます。）
+
+[サンプルダッシュボード](https://datastudio.google.com/open/1MHYfrBTWqVa1nC-VRHhnzbAyPpVi7Uff)
