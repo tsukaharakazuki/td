@@ -45,7 +45,7 @@ SELECT
   root_id ,
   TD_TIME_FORMAT(MIN_BY(time,time), 'yyyyMMdd', 'JST') AS d ,
   TD_TIME_FORMAT(MIN_BY(time,time), 'HH', 'JST') AS h ,
-  max(${rd_col}) AS max_rd
+  max(read_rate) AS max_rd
 FROM
   rd_${td.each.db_client_name}_${td.each.db_label}
 WHERE
