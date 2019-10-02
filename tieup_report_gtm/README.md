@@ -58,17 +58,4 @@ _export:
   check_host: www.treasuredata.co.jp #hostを指定する場合記入
   click_check: true #クリック集計を実行する場合>true　ない場合>false
   rd_check: true #読了率集計を実行する場合>true　ない場合>false
-
-_export:
-  td:
-    database: bi_report
-  log_database: sample 
-  log_table: sample 
-  user_id: user_id 
-  dev_mst_db: bi_report
-  dev_mst_tb: jp_dev_mst
-  master_segment: xxxxx 
-  check_host: 
-  ref_exception: #集計から除外する流入元を指定する場合記入
-  login_check: false #true or false / 
 ```
