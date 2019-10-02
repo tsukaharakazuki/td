@@ -1,0 +1,232 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  td:
+    database: tie_up_report
+  user_id: user_id #set user_id column
+  log_db: sample_log_db #set web_log database
+  log_tb: sample_log_tb #set web_log table
+  ls_db: tie_up_report
+  ls_tb: tie_up_list
+  click_db: sample_click_db #set click_log database
+  click_tb: sample_click_tb #set click_log table
+  click_col: click_url #set click column
+  rd_db: sample_rd_db #set read_through database
+  rd_tb: sample_rd_tb #set read_through table
+  rd_col: scroll_depth_threshold #set read_through column
+  dev_mst_db: bi_report
+  dev_mst_tb: jp_dev_mst
+  master_segment: '1012' #set master_segment number
+  check_host: www.treasuredata.co.jp
+  click_check: true #true or false / click cnt exists true
+  rd_check: true #true or false / read_depth cnt exists true
+
++for_each_users:
+  td_for_each>: query/tieup_list.sql
+  _do:
+
+    +create_all_table:
+      td_ddl>:
+      empty_tables: ["tieup_${td.each.db_client_name}_${td.each.db_label}"]
+
+#PV/UU集計
+    +pvuu_hour:
+       td>: query/hour_pvuu.sql
+       insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+#クリックカウントあり
+    +create_click_tmp:
+      if>: ${click_check}
+      _do:
+        td_ddl>:
+        empty_tables: ["click_tmp_${td.each.db_client_name}_${td.each.db_label}"]
+
+    +pvuu_total_tmp:
+      if>: ${click_check}
+      _do:
+         td>: query/pvuu_click_total_tmp.sql
+         create_table: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +click_cnt_1:
+      if>: ${click_check}
+      _do:
+         td>: query/click_1.sql
+         insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+        
+    +click_cnt_2:
+      if>: ${click_check}
+      _do:        
+         td>: query/click_2.sql
+         insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+         
+    +click_cnt_3:
+      if>: ${click_check}
+      _do:        
+         td>: query/click_3.sql
+         insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+        
+    +click_cnt_4:
+      if>: ${click_check}
+      _do:        
+         td>: query/click_4.sql
+         insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+        
+    +click_cnt_5:
+      if>: ${click_check}
+      _do:        
+         td>: query/click_5.sql
+         insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +click_total:
+      if>: ${click_check}
+      _do:
+        td>: query/click_total.sql
+        insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +search_query:
+      if>: ${click_check}
+      _do:
+        td>: query/get_max.sql
+        store_last_results: true
+    
+    +aggregate:
+      if>: ${click_check}
+      _do:
+        td>:
+          data: |
+            ${td.last_results.sql_contents}
+        create_table: click_tmp2_${td.each.db_client_name}_${td.each.db_label}
+
+    +pvuu_click_total:
+      if>: ${click_check}
+      _do:
+         td>: query/pvuu_click_total.sql
+         insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +click_kv:
+      if>: ${click_check}
+      _do:
+         td>: query/click_kv.sql
+         insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +drop_table_click:
+      if>: ${click_check}
+      _do:
+        td_ddl>:
+        drop_tables: ["pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}", "click_tmp_${td.each.db_client_name}_${td.each.db_label}", "click_tmp2_${td.each.db_client_name}_${td.each.db_label}"]
+      
+#クリックカウントなし
+    +pvuu_total_nonclick:
+      if>: ${click_check}
+      _else_do:
+        td>: query/pvuu_total_nonclick.sql
+        insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+#UA/IP集計
+    +uaip:
+     td>: query/uaip.sql
+     insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+ 
+#タイアップ閲覧者のメディア内行動
+    +tie_up_bh:
+     td>: query/bh.sql
+     create_table: bh_${td.each.db_client_name}_${td.each.db_label}
+
+    +tie_up_bh_article:
+     td>: query/bh_article.sql
+     insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +tie_up_bh_ref:
+     td>: query/bh_ref.sql
+     insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +tie_up_bh_next:
+     td>: query/bh_next.sql
+     insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+     
+    +drop_table_bh:
+     td_ddl>:
+     drop_tables: ["bh_${td.each.db_client_name}_${td.each.db_label}"]
+
+#タイアップ閲覧者がもつカテゴリ
+    +affinity_categorie:
+     td>: query/af.sql
+     insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+#タイアップ閲覧者がもつ特徴キーワード
+    +tie_up_ky:
+     td>: query/ky.sql
+     insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +tie_up_info:
+     td>: query/tieup_info.sql
+     insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +avg_browsing_time:
+     td>: query/avg_browsing_time.sql
+     insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+#読了率計測
+    +create_read_depth:
+      if>: ${rd_check}
+      _do:
+         td>: query/create_read_depth.sql
+         create_table: rd_${td.each.db_client_name}_${td.each.db_label}
+
+    +read_depth:
+      if>: ${rd_check}
+      _do:
+         td>: query/read_depth.sql
+         insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +read_depth_pc:
+      if>: ${rd_check}
+      _do:
+         td>: query/read_depth_pc.sql
+         insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +read_depth_sp:
+      if>: ${rd_check}
+      _do:
+         td>: query/read_depth_sp.sql
+         insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +rd_avg_browsing_time_pc:
+      if>: ${rd_check}
+      _do:
+         td>: query/rd_avg_browsing_time_pc.sql
+         insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +rd_avg_browsing_time_sp:
+      if>: ${rd_check}
+      _do:
+         td>: query/rd_avg_browsing_time_sp.sql
+         insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +avg_hour:
+      if>: ${rd_check}
+      _do:
+         td>: query/avg_hour.sql
+         insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +drop_table_rd:
+      if>: ${rd_check}
+      _do:
+        td_ddl>:
+        drop_tables: ["rd_${td.each.db_client_name}_${td.each.db_label}"]
+
+#datatankにデータを送信する場合
+#    +td-result-output-datatanks:
+#      td>:
+#      query: SELECT * FROM tieup_${td.each.db_client_name}_${td.each.db_label}
+#      database: tie_up_report
+#      result_connection: datatank
+#      result_settings:
+#        database: datatank
+#        table: tieup_${td.each.db_client_name}_${td.each.db_label}
+#        mode: replace
+#        method: copy
+#        schema: public
