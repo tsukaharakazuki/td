@@ -2,12 +2,14 @@
 
 このWorkflowは、メディア企業向けにタイアップ広告のレポートを半自動的に生成するWorkflowサンプルです。
 
+
 # 準備
 
 ## GTMでスクロール距離、Click計測の設定
 
 通常のpageviewトラッキングとは別で、スクロール距離、クリックの計測を実施する必要があります。
 データ取得の設定については、担当までお問い合わせください。
+
 
 ## TDへのdig/queryファイルアップロード
 
@@ -18,9 +20,11 @@ First, please upload your workflow project by `td wf push` command.
 $ td wf push tieup_report_gtm
 ```
 
+
 ## 結果出力DBの作成
 
 このサンプルでは`tie_up_report`というDBにデータを出力しています。
+
 
 ## 地図表示用対照表のアップロード
 
