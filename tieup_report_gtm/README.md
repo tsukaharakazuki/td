@@ -15,7 +15,7 @@
 ## TDへのdig/queryファイルアップロード
 
 digファイル、queryファイルをダウンロードいただき、CLIからTD環境にアップロードをお願いします。
-　
+  
 First, please upload your workflow project by `td wf push` command.
 ```
 # Upload
