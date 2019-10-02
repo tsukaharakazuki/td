@@ -14,7 +14,7 @@
 
 ## TDへのdig/queryファイルアップロード
 
-digファイル、queryファイルをダウンロードいただき、CLIからTD環境にアップロードをお願いします。
+digファイル、queryファイルをダウンロードして、CLIからTD環境にアップロードをお願いします。
   
 First, please upload your workflow project by `td wf push` command.
 ```
@@ -33,7 +33,12 @@ $ td wf push tieup_report_gtm
 `jp_dev_mst.csv`をTDコンソールからデータベース`tie_up_report`にアップロードしてください。
   
 TDのUDFでIPアドレスを分解すると、都道府県パースが可能ですが、ダッシュボードの地図で表示させるために表記揺れが存在します。こちらのデータで変換作業を取り込んでいます。
-※すでにダッシュボード用などでアップロードしている場合、そちらを設定いただいても構いません。
+※すでにダッシュボード用などでアップロードしている場合、そちらのテーブルを指定してください。
+
+```
+  dev_mst_db: tie_up_report
+  dev_mst_tb: jp_dev_mst
+```
 
 ## データセット準備
 
