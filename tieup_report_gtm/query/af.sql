@@ -43,7 +43,7 @@ ORDER BY 1 DESC
 
 SELECT
    af_cnt
-  ,td_affinity_categorie AS af_mane
+  ,td_affinity_categorie AS af_name
   ,'af' AS label
 FROM
   t1
