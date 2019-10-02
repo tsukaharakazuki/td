@@ -15,7 +15,7 @@ FROM
   (
     -- URLを整形 (presto) --
     SELECT
-      td_path, AS article_id,
+      td_path AS article_id ,
       LEAD(time) OVER (PARTITION BY td_client_id ORDER BY time) - time AS diff
     FROM ${log_db}.${log_tb}
     WHERE
