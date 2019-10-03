@@ -143,3 +143,34 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
    
    6. カテゴリ/ブラウザ/OS
     ![画像6](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_6.png?raw=true "画像6")     
+
+2. 流入元・遷移先・興味関心シート
+  
+   1. 流入元・遷移先・キーワード
+    ![画像7](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_7.png?raw=true "画像7") 
+    
+   2. 関心カテゴリ
+    ![画像8](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_8.png?raw=true "画像8")    
+  
+3. 読了率シート
+  
+   1. 読了率
+    ![画像9](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_9.png?raw=true "画像9")   
+  
+4. 閲覧者記事分析
+  
+   1. 該当記事閲覧者のメディア内記事閲覧カウント
+    ![画像10](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_10.png?raw=true "画像10")  
+  
+5. 時間帯毎平均閲覧・読了シート（このシートは2つのグラフを重ねて表現しています）
+  
+   1. 平均PV（棒グラフ）
+    ![画像11](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_11.png?raw=true "画像11")  
+  
+   2. 平均読了率（折れ線グラフ）
+    ![画像12](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_12.png?raw=true "画像12")  
+  
+6. クリック集計シート
+  
+   1. クリック集計
+    ![画像13](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_13.png?raw=true "画像13")  
