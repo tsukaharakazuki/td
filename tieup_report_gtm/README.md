@@ -127,8 +127,8 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
 1. 概要シート
 このシートでは、PV・UU、UAなど大まかなアクセスの概要を表示します。
   
-  1. 基礎情報：クライアント/タイトル/URL
-  ![画像1](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_1.png?raw=true "画像1")
+   1. 基礎情報：クライアント/タイトル/URL
+    ![画像1](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_1.png?raw=true "画像1")
     
-  NULLを除去する必要があるので、以下の設定でフィルタ設定してください。
-  ![画像2](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_2.png?raw=true "画像2")
+   2. NULLを除去する必要があるので、以下の設定でフィルタ設定してください。
+    ![画像2](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_2.png?raw=true "画像2")
