@@ -53,7 +53,7 @@ _export:
   log_db: sample_log_db #ウェブログが蓄積されるDB名
   log_tb: sample_log_tb #ウェブログが蓄積されるテーブル名
   ls_db: tie_up_report
-  ls_tb: tie_up_list
+  ls_tb: sample_tieup_list
   click_db: sample_click_db #クリックログが蓄積されるDB名
   click_tb: sample_click_tb #クリックログが蓄積されるテーブル名
   click_col: click_url #クリックログが格納されるカラム名
