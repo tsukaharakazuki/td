@@ -94,8 +94,18 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
 
 ## データソースの接続とデータ型の変更
 
-①
-![データソース選択](https://github.com/tsukaharakazuki/image/blob/master/dataportal_1.png?raw=true "datasourse")
+①PostgreSQLを選択
+![データソース選択](https://github.com/tsukaharakazuki/image/blob/master/dataportal_1.png?raw=true "データソース")
+  
+②Datatankとの接続設定
+![接続設定](https://github.com/tsukaharakazuki/image/blob/master/dataportal_2.png?raw=true "データソース")
+
+③データ型の変更(hour_date)
+![hour_date](https://github.com/tsukaharakazuki/image/blob/master/dataportal_3.png?raw=true "hour_date")
+
+④データ型の変更(uaip_div_name_en)
+![uaip_div_name_en](https://github.com/tsukaharakazuki/image/blob/master/dataportal_4.png?raw=true "uaip_div_name_en")
+　
 　　
 ## ダッシュボードの作成
 
