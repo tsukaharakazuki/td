@@ -91,7 +91,18 @@ ls_client_name_jp	-> ダッシュボード内で表示するクライアント�
 ls_page_title	-> ダッシュボード内で表示する該当タイアップ記事タイトル
 ```
 
+  
+# ダッシュボードの作成
 
+今回はGoogleが提供するダッシュボードツール`データポータル`を使って可視化をしています。TDレポーティングなどでの可視化も可能です。
+  
+可視化するデータは`datatank`に格納しています。
+  
+※datatankはTDが提供するPostgreSQL環境です。（Googleシートなどでも運用可能ですが、日時更新でリレーションが欠損するといった運用上の注意点が存在ます。）
+
+[サンプルダッシュボード](https://datastudio.google.com/open/1MHYfrBTWqVa1nC-VRHhnzbAyPpVi7Uff)
+  
+  
 ## データソースの接続とデータ型の変更
 
 ①PostgreSQLを選択
@@ -105,14 +116,8 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
 
 ④データ型の変更(uaip_div_name_en)
 ![uaip_div_name_en](https://github.com/tsukaharakazuki/image/blob/master/dataportal_4.png?raw=true "uaip_div_name_en")
+  
 　
-　　
-## ダッシュボードの作成
+## グラフ設定
 
-今回はGoogleが提供するダッシュボードツール`データポータル`を使って可視化をしています。TDレポーティングなどでの可視化も可能です。
-  
-可視化するデータは`datatank`に格納しています。
-  
-※datatankはTDが提供するPostgreSQL環境です。（Googleシートなどでも運用可能ですが、日時更新でリレーションが欠損するといった運用上の注意点が存在ます。）
 
-[サンプルダッシュボード](https://datastudio.google.com/open/1MHYfrBTWqVa1nC-VRHhnzbAyPpVi7Uff)
