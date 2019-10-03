@@ -33,6 +33,7 @@ $ td wf push tieup_report_gtm
 `jp_dev_mst.csv`をTDコンソールからデータベース`tie_up_report`にアップロードしてください。
   
 TDのUDFでIPアドレスを分解すると、都道府県パースが可能ですが、ダッシュボードの地図で表示させるために表記揺れが存在します。こちらのデータで変換作業を取り込んでいます。
+  
 ※すでにダッシュボード用などでアップロードしている場合、そちらのテーブルを指定してください。
 
 ```
@@ -73,6 +74,7 @@ _export:
 
 今回は`sample_tieup_list`というデータをcsvで作成し、TDに手動アップロードしています。
 リストの中身は以下の構成で作成されています。
+  
 ※`c-1`-`c-5`は記事のよっては全て指定しない場合があります。その場合は、`hoge`を記入してください。
 
 ```
@@ -105,21 +107,28 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
   
 ## データソースの接続とデータ型の変更
 
-①PostgreSQLを選択
+1. PostgreSQLを選択
 ![データソース選択](https://github.com/tsukaharakazuki/image/blob/master/dataportal_1.png?raw=true "データソース")
   
-②Datatankとの接続設定
+2. Datatankとの接続設定
 ![接続設定](https://github.com/tsukaharakazuki/image/blob/master/dataportal_2.png?raw=true "データソース")
 
-③データ型の変更(hour_date)
+3. データ型の変更(hour_date)
 ![hour_date](https://github.com/tsukaharakazuki/image/blob/master/dataportal_3.png?raw=true "hour_date")
 
-④データ型の変更(uaip_div_name_en)
+4. データ型の変更(uaip_div_name_en)
 ![uaip_div_name_en](https://github.com/tsukaharakazuki/image/blob/master/dataportal_4.png?raw=true "uaip_div_name_en")
 
-⑤データ型の変更(テキスト->数値)
+5. データ型の変更(テキスト->数値)
 ![テキスト->数値](https://github.com/tsukaharakazuki/image/blob/master/dataportal_5.png?raw=true "テキスト->数値")
 　
 ## グラフ設定
 
-
+1. 概要シート
+このシートでは、PV・UU、UAなど大まかなアクセスの概要を表示します。
+  
+  1. 基礎情報：クライアント/タイトル/URL
+  ![画像1](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_1.png?raw=true "画像1")
+    
+  NULLを除去する必要があるので、以下の設定でフィルタ設定してください。
+  ![画像2](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_2.png?raw=true "画像2")
