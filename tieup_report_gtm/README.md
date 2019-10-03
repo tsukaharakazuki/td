@@ -116,7 +116,9 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
 
 ④データ型の変更(uaip_div_name_en)
 ![uaip_div_name_en](https://github.com/tsukaharakazuki/image/blob/master/dataportal_4.png?raw=true "uaip_div_name_en")
-  
+
+⑤データ型の変更(テキスト->数値)
+![テキスト->数値](https://github.com/tsukaharakazuki/image/blob/master/dataportal_5.png?raw=true "テキスト->数値")
 　
 ## グラフ設定
 
