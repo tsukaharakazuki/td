@@ -125,6 +125,7 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
 ## グラフ設定
 
 1. 概要シート
+  
 このシートでは、PV・UU、UAなど大まかなアクセスの概要を表示します。
   
    1. 基礎情報：クライアント/タイトル/URL
@@ -132,3 +133,15 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
     
    2. NULLを除去する必要があるので、以下の設定でフィルタ設定してください。
     ![画像2](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_2.png?raw=true "画像2")
+   
+   3. PV/UU/平均読了時間
+    ![画像３](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_３.png?raw=true "画像３")   
+   
+   4. 時間毎のPV/UU推移
+    ![画像4](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_4.png?raw=true "画像4")  
+   
+   5. アクセス地域
+    ![画像5](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_5.png?raw=true "画像5")  
+   
+   6. カテゴリ/ブラウザ/OS
+    ![画像6](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_6.png?raw=true "画像6")     
