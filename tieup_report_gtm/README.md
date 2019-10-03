@@ -2,7 +2,7 @@
 
 このWorkflowは、メディア企業向けにタイアップ広告のレポートを半自動的に生成するWorkflowサンプルです。  
 
-
+  
 # 準備
 
 ## GTMでスクロール距離、Click計測の設定
@@ -11,7 +11,7 @@
   
 データ取得の設定については、担当までお問い合わせください。
 
-
+  
 ## TDへのdig/queryファイルアップロード
 
 digファイル、queryファイルをダウンロードして、CLIからTD環境にアップロードをお願いします。
@@ -22,12 +22,12 @@ First, please upload your workflow project by `td wf push` command.
 $ td wf push tieup_report_gtm
 ```
 
-
+  
 ## 結果出力DBの作成
 
 このサンプルでは`tie_up_report`というDBにデータを出力しています。
 
-
+  
 ## 地図表示用対照表のアップロード
 
 `jp_dev_mst.csv`をTDコンソールからデータベース`tie_up_report`にアップロードしてください。
@@ -39,7 +39,7 @@ TDのUDFでIPアドレスを分解すると、都道府県パースが可能で�
   dev_mst_db: tie_up_report
   dev_mst_tb: jp_dev_mst
 ```
-
+  
 ## データセット準備
 
 `_export:`にて環境におけるデータ定義をする必要があります。
@@ -68,6 +68,7 @@ _export:
   rd_check: true #読了率集計を実行する場合>true　ない場合>false
 ```
 
+  
 ## 集計するページリストの準備
 
 今回は`sample_tieup_list`というデータをcsvで作成し、TDに手動アップロードしています。
@@ -90,6 +91,11 @@ ls_client_name_jp	-> ダッシュボード内で表示するクライアント�
 ls_page_title	-> ダッシュボード内で表示する該当タイアップ記事タイトル
 ```
 
+
+## データソースの接続とデータ型の変更
+
+あああ
+　　
 ## ダッシュボードの作成
 
 今回はGoogleが提供するダッシュボードツール`データポータル`を使って可視化をしています。TDレポーティングなどでの可視化も可能です。
