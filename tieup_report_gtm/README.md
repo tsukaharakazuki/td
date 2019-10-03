@@ -95,7 +95,7 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
 ## データソースの接続とデータ型の変更
 
 ①
-
+![データソース選択](https://github.com/tsukaharakazuki/image/blob/master/dataportal_1.png?raw=true "datasourse")
 　　
 ## ダッシュボードの作成
 
