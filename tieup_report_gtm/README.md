@@ -135,7 +135,7 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
     ![画像2](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_2.png?raw=true "画像2")
    
    3. PV/UU/平均読了時間
-    ![画像３](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_３.png?raw=true "画像３")   
+    ![画像３](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_3.png?raw=true "画像３")   
    
    4. 時間毎のPV/UU推移
     ![画像4](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_4.png?raw=true "画像4")  
