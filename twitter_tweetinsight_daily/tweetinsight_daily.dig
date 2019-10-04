@@ -1,0 +1,36 @@
+timezone: Asia/Tokyo
+
+schedule:
+  daily>: 01:30:00
+
+_export:
+ td:
+  database: sample_tw
+ alltweet_tb: in_tw_alltweet
+ account_tb: in_tw_account 
+ retweet_tb: in_tw_retweet
+
++import_alltweet:
+  td_load>: twitter_tweet_insights_import_1111111111 #alltweet
+
++import_account:
+  td_load>: twitter_tweet_insights_import_2222222222 #account
+
++import_retweet:
+  td_load>: twitter_tweet_insights_import_3333333333 #retweet
+
++tw_alltweet_perth:
+  td>: query/tw_alltweet_perth.sql
+  create_table: tw_alltweet_perth
+
++tw_account_perth:
+  td>: query/tw_account_perth.sql
+  create_table: tw_account_perth
+
++tw_retweet_perth:
+  td>: query/tw_retweet_perth.sql
+  create_table: tw_retweet_perth
+
++tw_tweet_id_mst:
+  td>: query/tw_tweet_id_mst.sql
+  create_table: tw_tweet_id_mst
