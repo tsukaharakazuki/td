@@ -23,11 +23,11 @@
   // Configure an instance for your database
   var td = new Treasure({
     host: 'in.treasuredata.com',
-    writeKey: 'YOUR AIP KEY',
-    database: 'DATABASE NAME',
+    writeKey: 'YOUR AIP KEY',   //変更点
+    database: 'DATABASE NAME',  //変更点
     startInSignedMode: true
   });
-  var table = 'TABLE NAME';  //tableを変更する
+  var table = 'TABLE NAME';     //変更点
 
   var customParam = {
     ga_id: getcookie('_ga')
@@ -45,7 +45,7 @@
 
           // Init TD Extension
           tdext.init({
-              table: 'TABLE NAME',
+              table: 'TABLE NAME',  //変更点
               eventName: 'TDExtRecurringEvent',
               eventFrequency: 250,
               targetWindow: 'self',
