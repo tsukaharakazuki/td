@@ -1,0 +1,33 @@
+timezone: Asia/Tokyo
+
+#schedule:
+#  daily>: 01:00:00
+
+_export:
+ td:
+  database: sample_fb
+ page_tb: fb_pi_page
+ post_tb: fb_pi_post
+ video_tb: fb_pi_video
+ 
+
++import_page:
+  td_load>: facebook_page_insights_import_1111111111
+
++import_post:
+  td_load>: facebook_page_insights_import_2222222222
+
++import_video:
+  td_load>: facebook_page_insights_import_3333333333
+
++fb_pi_perth_page:
+  td>: query/fb_pi_perth_page.sql
+  create_table: fb_pi_perth_page
+
++fb_pi_perth_post:
+  td>: query/fb_pi_perth_post.sql
+  create_table: fb_pi_perth_post
+
++fb_pi_perth_video:
+  td>: query/fb_pi_perth_video.sql
+  create_table: fb_pi_perth_video
