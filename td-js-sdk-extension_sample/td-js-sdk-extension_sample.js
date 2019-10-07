@@ -40,12 +40,11 @@
           'td' in window &&
           'tdext' in window
       ) {
-          // Enable signedMode
-          td.setSignedMode();
-
+        // Wait for TD-JS-SDK is ready
+        td.ready(function(){
           // Init TD Extension
           tdext.init({
-              table: 'TABLE NAME',  //変更点
+              table: table, 
               eventName: 'TDExtRecurringEvent',
               eventFrequency: 250,
               targetWindow: 'self',
@@ -79,6 +78,7 @@
 
           // Track PV
           tdext.trackPageview();
+        });
       }
   }());
 
