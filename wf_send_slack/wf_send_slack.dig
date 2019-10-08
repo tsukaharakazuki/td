@@ -40,7 +40,7 @@ _export:
         value: "${td.last_results.uu}"
         short: true
       - title: Console Access
-        value: "https://console.treasuredata.co.jp/app/workflows/sessions/${session_id}"
+        value: "https://console.treasuredata.com/app/workflows/sessions/${session_id}"
         short: false
       - title: session_time
         value: "${session_time}"
