@@ -24,7 +24,7 @@ _export:
 
 #slackに送信
 +send_slack:
-  if>: ${td.last_results.pv > 1}
+  if>: ${td.last_results.pv > 100} #規定数値を変更
   _do:
     http>: https://hooks.slack.com/services/xxxxx/yyyyy/zzzzzzzzzzzzzz
     method: POST
