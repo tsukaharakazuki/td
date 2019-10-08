@@ -1,0 +1,48 @@
+timezone: Asia/Tokyo
+
+#schedule:
+#  daily>: 01:30:00
+
+_export:
+ td:
+  database: sample_db #結果出力テーブル
+ log_db: sample_db　#アクセスログが入っているDB
+ log_tb: sample_tb　#アクセスログが入っているテーブル
+
+#PV/UU集計
++pvuu_count:
+  td>:
+  query: |
+    SELECT
+      COUNT(*) AS pv ,
+      COUNT(DISTINCT td_client_id) AS uu
+    FROM
+      ${log_db}.${sample_tb}
+    WHERE
+      TD_INTERVAL(time, '-1h/now', 'JST')
+  store_last_results: true
+
+#slackに送信
++send_slack:
+  if>: ${td.last_results.pv > 1}
+  _do:
+    http>: https://hooks.slack.com/services/xxxxx/yyyyy/zzzzzzzzzzzzzz
+    method: POST
+    content:
+      username: "TD Workflow bot"
+      icon_emoji: ':fireball:'
+      channel: "#general"
+      fields:
+      - title: PV
+        value: "${td.last_results.pv}"
+        short: true
+      - title: UU
+        value: "${td.last_results.uu}"
+        short: true
+      - title: Console Access
+        value: "https://console.treasuredata.co.jp/app/workflows/sessions/${session_id}"
+        short: false
+      - title: session_time
+        value: "${session_time}"
+        short: false
+      content_format: json
