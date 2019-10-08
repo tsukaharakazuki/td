@@ -17,7 +17,7 @@ _export:
       COUNT(*) AS pv ,
       COUNT(DISTINCT td_client_id) AS uu
     FROM
-      ${log_db}.${sample_tb}
+      ${log_db}.${log_tb}
     WHERE
       TD_INTERVAL(time, '-1h/now', 'JST')
   store_last_results: true
