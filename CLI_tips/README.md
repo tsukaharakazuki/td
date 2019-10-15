@@ -9,7 +9,7 @@
 1. 事前のログイン情報削除
 `rm ~/.td/td.conf`
   
-2.API KEYをセッティング
+2. API KEYをセッティング
 `td apikey:set YOUR_API_KEY`
 
 # WorkflowのDLやUploadの際のフォルダ変更（チェンジディレクトリ）
