@@ -9,8 +9,8 @@ _export:
   log_db: web_db #set web_log database
   log_tb: web_tb #set web_log table
   user_id: user_id #set user_id column
-  back_week: 4
   pv_threshold: 2
+  back_week: 4
 
 +royal_user:
   td>: query/royal_user.sql
