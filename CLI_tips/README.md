@@ -23,12 +23,14 @@
 # Workflowのアップロード
   
 以下コマンドを実行する前に`cd`コマンドでアップロードしたいWFファイルが存在するフォルダに移動してください。
+  
 `td wf push set_project_name`
   
 # secrets keyの設定
   
 1. 設定するプロジェクト,呼び出しkey,値の設定
 `td wf secrets --project set_project_name --set td.apikey`
+  
 ※この場合`set_project_name`というWFに`td.apikey`というkeyを設定する。
   
 2. 🔑の中に値を設定（CLIでは値は確認できません）
