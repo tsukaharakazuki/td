@@ -11,15 +11,11 @@ SELECT
   td_client_id ,
   td_global_id ,
   ${user_id} AS user_id ,
-  --root_id ,
-  td_referrer ,
   td_url ,
   td_host ,
   td_path ,
   td_ip ,
   td_user_agent ,
-  article_category ,
-  article_type ,
   TD_TIME_FORMAT(time,'yyyy','JST') AS year ,
   TD_TIME_FORMAT(time,'ww','JST') AS week_num
 FROM ${log_db}.${log_tb}
@@ -38,21 +34,24 @@ WHERE
 ),
 
 
-t2 AS
+t1 AS
 (
 SELECT
-  td_client_id
-  , week_num
+  td_client_id ,
+  --user_id ,
+  week_num
 FROM
   (
     SELECT
-      td_client_id
-      , week_num
-      , ROW_NUMBER() OVER (PARTITION BY td_client_id ORDER BY week_num DESC) AS rank
+      td_client_id ,
+      --user_id ,
+      week_num ,
+      ROW_NUMBER() OVER (PARTITION BY td_client_id ORDER BY week_num DESC) AS rank
     FROM
     (
       SELECT
         td_client_id ,
+        --user_id ,
         week_num
       FROM
         t0
@@ -70,7 +69,8 @@ WHERE
 
 SELECT
   td_client_id
+  --,user_id 
 FROM
-  t2
+  t1
 WHERE
   week_num = TD_TIME_FORMAT(TD_TIME_ADD(TD_SCHEDULED_TIME(),'-${back_week}w','JST'),'ww','JST')
