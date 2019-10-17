@@ -6,23 +6,23 @@ SELECT
   article_id,
   COUNT(*) AS "0",
   SUM(CASE
-      WHEN (read_depth = 10) THEN 1 ELSE 0 END) AS "10",
+      WHEN (read_depth >= 10) THEN 1 ELSE 0 END) AS "10",
   SUM(CASE
-      WHEN (read_depth = 20) THEN 1 ELSE 0 END) AS "20",
+      WHEN (read_depth >= 20) THEN 1 ELSE 0 END) AS "20",
   SUM(CASE
-      WHEN (read_depth = 30) THEN 1 ELSE 0 END) AS "30",
+      WHEN (read_depth >= 30) THEN 1 ELSE 0 END) AS "30",
   SUM(CASE
-      WHEN (read_depth = 40) THEN 1 ELSE 0 END) AS "40",
+      WHEN (read_depth >= 40) THEN 1 ELSE 0 END) AS "40",
   SUM(CASE
-      WHEN (read_depth = 50) THEN 1 ELSE 0 END) AS "50",
+      WHEN (read_depth >= 50) THEN 1 ELSE 0 END) AS "50",
   SUM(CASE
-      WHEN (read_depth = 60) THEN 1 ELSE 0 END) AS "60",
+      WHEN (read_depth >= 60) THEN 1 ELSE 0 END) AS "60",
   SUM(CASE
-      WHEN (read_depth = 70) THEN 1 ELSE 0 END) AS "70",
+      WHEN (read_depth >= 70) THEN 1 ELSE 0 END) AS "70",
   SUM(CASE
-      WHEN (read_depth = 80) THEN 1 ELSE 0 END) AS "80",
+      WHEN (read_depth >= 80) THEN 1 ELSE 0 END) AS "80",
   SUM(CASE
-      WHEN (read_depth = 90) THEN 1 ELSE 0 END) AS "90",
+      WHEN (read_depth >= 90) THEN 1 ELSE 0 END) AS "90",
   SUM(CASE
       WHEN (read_depth = 100) THEN 1 ELSE 0 END) AS "100",
   SUM(instance) AS content_viewed
