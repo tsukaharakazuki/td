@@ -18,7 +18,8 @@ SELECT
   td_user_agent ,
   TD_TIME_FORMAT(time,'yyyy','JST') AS year ,
   TD_TIME_FORMAT(time,'ww','JST') AS week_num
-FROM ${log_db}.${log_tb}
+FROM 
+  ${log_db}.${log_tb}
 WHERE
   TD_TIME_RANGE( time,
     NULL,
