@@ -38,6 +38,7 @@ GROUP BY 1,2
 SELECT
   time ,
   TD_TIME_FORMAT(time, 'yyyy-MM-dd HH:mm:ss', 'JST') AS hour_date ,
+  TD_TIME_FORMAT(time,'EEEE','JST') AS hour_day_of_the_week ,
   td_host AS hour_host,
   pv AS hour_pv ,
   uu AS hour_uu ,
