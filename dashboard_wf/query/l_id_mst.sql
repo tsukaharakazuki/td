@@ -23,4 +23,4 @@ FROM
     td_client_id <> 'undefined'
   )
 WHERE newer = 1
-GROUP BY 1,2,3
+GROUP BY 1,2,3,4
