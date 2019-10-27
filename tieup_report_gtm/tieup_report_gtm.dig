@@ -10,7 +10,7 @@ _export:
   log_db: sample_log_db #set web_log database
   log_tb: sample_log_tb #set web_log table
   ls_db: tie_up_report
-  ls_tb: sample_tieup_list
+  ls_tb: tieup_list
   click_db: sample_click_db #set click_log database
   click_tb: sample_click_tb #set click_log table
   click_col: click_url #set click column
