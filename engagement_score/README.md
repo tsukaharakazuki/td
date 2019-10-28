@@ -32,32 +32,33 @@ _export:
   
 - engagement_score_client
   
-1st Party cookieに対してエンゲージメントスコアを付与。基礎分析にはこちらを使用。
+  1st Party cookieに対してエンゲージメントスコアを付与。基礎分析にはこちらを使用。
   
 - engagement_score_global
   
-1st Party cookieに対してエンゲージメントスコアを付与。バナーインプレッションなど他ツールから取得するデータに対してスコアをつけた分析をしたい場合に使用。
+  1st Party cookieに対してエンゲージメントスコアを付与。バナーインプレッションなど他ツールから取得するデータに対してスコアをつけた分析をしたい場合に使用。
   
 - population_engagement_score_client
   
-スコア（0.0以上）に対して、何ブラウザが存在するかカウント。Degreeでどういったスコア分けをするか判断するために使用。
+  スコア（0.0以上）に対して、何ブラウザが存在するかカウント。Degreeでどういったスコア分けをするか判断するために使用。
    
 - degree_engagement_score_client
   
-スコアに基づいたユーザー仕分けを実施し、そのカウント。
+  スコアに基づいたユーザー仕分けを実施し、そのカウント。
   
 - seg_engagement_score_client
   
-Degreeで分けたセグメントを1st Party cookieに対して付与。AudienceStudioなどで活用。
+  Degreeで分けたセグメントを1st Party cookieに対して付与。AudienceStudioなどで活用。
+    
   
-
--- engagement_score_by_media_client
   
-メディアごとの分析が存在する場合。
+- engagement_score_by_media_client
   
--- engagement_score_by_media_global
+  メディアごとの分析が存在する場合。
   
-メディアごとの分析が存在する場合。
+- engagement_score_by_media_global
+  
+  メディアごとの分析が存在する場合。
   
   
 
