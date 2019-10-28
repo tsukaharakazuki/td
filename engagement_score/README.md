@@ -27,6 +27,37 @@ _export:
   seg_score_middle_loyal: 2.3 #エンゲージメントスコアを元にセグメントわけをする閾値（middle -> loyal）
   multi_media_check: false #true or false / 一つのドメインで他メディア展開している場合trueに
 ```
+  
+# 出力されるデータ
+  
+- engagement_score_client
+  
+1st Party cookieに対してエンゲージメントスコアを付与。基礎分析にはこちらを使用。
+  
+- engagement_score_global
+  
+1st Party cookieに対してエンゲージメントスコアを付与。バナーインプレッションなど他ツールから取得するデータに対してスコアをつけた分析をしたい場合に使用。
+  
+- population_engagement_score_client
+  
+スコア（0.0以上）に対して、何ブラウザが存在するかカウント。Degreeでどういったスコア分けをするか判断するために使用。
+   
+- degree_engagement_score_client
+  
+スコアに基づいたユーザー仕分けを実施し、そのカウント。
+  
+- seg_engagement_score_client
+  
+Degreeで分けたセグメントを1st Party cookieに対して付与。AudienceStudioなどで活用。
+  
 
-
+-- engagement_score_by_media_client
+  
+メディアごとの分析が存在する場合。
+  
+-- engagement_score_by_media_global
+  
+メディアごとの分析が存在する場合。
+  
+  
 
