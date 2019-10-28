@@ -4,7 +4,7 @@ SELECT
   ,pv_pc AS total_pv_pc
   ,uu_pc AS total_uu_pc
   ,pv_sp AS total_pv_sp
-  ,uu_sp AS total_pv_sp
+  ,uu_sp AS total_uu_sp
   ,c_1_cnt
   ,c_1
   ,c_2_cnt
