@@ -77,3 +77,7 @@ _export:
 +degree_engagement_score_client:
   td>: query/degree_engagement_score_client.sql
   create_table: degree_engagement_score_client
+
++seg_engagement_score_client:
+  td>: query/seg_engagement_score_client.sql
+  create_table: seg_engagement_score_client
