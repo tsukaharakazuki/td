@@ -1,0 +1,79 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:15:00
+
+_export:
+  td:
+    database: engagement_score
+  log_db: sample_db
+  log_tb: sample_tb
+  cookie_1: td_client_id
+  cookie_2: td_global_id
+  check_host: sample.jp
+  multi_media_check: false #true or false / read_depth cnt exists true
+
+
++drop_tmp_tables:
+  if>: ${multi_media_check}
+  _do:
+    td_ddl>:
+    drop_tables:
+      - "old_engagement_score_client"
+      - "old_engagement_score_global"
+      - "old_engagement_score_by_media_client"
+      - "old_engagement_score_by_media_global"
+  _else_do:
+    td_ddl>:
+    drop_tables:
+      - "old_engagement_score_client"
+      - "old_engagement_score_global"
+
++calc_engagement_score_client:
+  td>: query/calc_score_client.sql
+  create_table: tmp_engagement_score_client
+
++calc_engagement_score_global:
+  td>: query/calc_score_global.sql
+  create_table: tmp_engagement_score_global
+
++calc_engagement_score_per_brand_client:
+  if>: ${multi_media_check}
+  _do:
+     td>: query/calc_score_per_brand_client.sql
+     create_table: tmp_engagement_score_by_media_client
+
++calc_engagement_score_per_brand_global:
+  if>: ${multi_media_check}
+  _do:
+    td>: query/calc_score_per_brand_global.sql
+    create_table: tmp_engagement_score_by_media_global
+
++swap_tables:
+  if>: ${multi_media_check}
+  _do:
+    td_ddl>:
+    rename_tables:
+      - {from: "engagement_score_client", to: "old_engagement_score_client"}
+      - {from: "tmp_engagement_score_client", to: "engagement_score_client"}
+      - {from: "engagement_score_global", to: "old_engagement_score_global"}
+      - {from: "tmp_engagement_score_global", to: "engagement_score_global"}
+      - {from: "engagement_score_by_media_client", to: "old_engagement_score_by_media_client"}
+      - {from: "tmp_engagement_score_by_media_client", to: "engagement_score_by_media_client"}
+      - {from: "engagement_score_by_media_global", to: "old_engagement_score_by_media_global"}
+      - {from: "tmp_engagement_score_by_media_global", to: "engagement_score_by_media_global"}
+  _else_do:
+    td_ddl>:
+    rename_tables:
+      - {from: "engagement_score_client", to: "old_engagement_score_client"}
+      - {from: "tmp_engagement_score_client", to: "engagement_score_client"}
+      - {from: "engagement_score_global", to: "old_engagement_score_global"}
+      - {from: "tmp_engagement_score_global", to: "engagement_score_global"}
+
++population_engagement_score_client:
+  td>: query/population_engagement_score_client.sql
+  create_table: population_engagement_score_client
+
++degree_engagement_score_client:
+  td>: query/degree_engagement_score_client.sql
+  create_table: degree_engagement_score_client
