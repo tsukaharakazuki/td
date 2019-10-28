@@ -11,6 +11,9 @@ _export:
   cookie_1: td_client_id
   cookie_2: td_global_id
   check_host: sample.jp
+  seg_score_accidental_low : 1
+  seg_score_low_middle : 1.5
+  seg_score_middle_loyal : 2.3
   multi_media_check: false #true or false / read_depth cnt exists true
 
 
