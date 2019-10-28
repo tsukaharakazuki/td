@@ -15,8 +15,8 @@ SELECT
       engagement_score > 2.3
     ) THEN 'Loyal'
     ELSE 'Unknown'
-  END AS Segment,
-  COUNT(*) AS Population
+  END AS segment,
+  COUNT(*) AS population
 FROM
   engagement_score_client
 GROUP BY
