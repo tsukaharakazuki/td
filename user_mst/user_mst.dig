@@ -1,0 +1,69 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  td:
+    database: user_mst
+  user_mst_db: user_data
+  user_mst_tb: base_user_data
+  id: id
+  email: email
+  birthday: birthday
+  sex: sex
+  regist_day: regist_day
+  prefecture: prefecture
+  address_1: address_1
+  address_2: address_2
+  address_3: address_3
+  first_name: first_name
+  last_name: last_name
+  phone: phone
+  zip_code: zip_code
+  
+
++user_mst:
+  td>: query/user_mst.sql
+  create_table: user_mst
+
++create_all_table:
+  td_ddl>:
+  empty_tables: ["agg_user_mst"]
+
++agg_sex:
+  td>: query/agg_sex.sql
+  insert_into: agg_user_mst
+
++agg_age:
+  td>: query/agg_age.sql
+  insert_into: agg_user_mst
+
++agg_age_group:
+  td>: query/agg_age_group.sql
+  insert_into: agg_user_mst
+
++agg_fm_category:
+  td>: query/agg_fm_category.sql
+  insert_into: agg_user_mst
+
++agg_duration_days:
+  td>: query/agg_duration_days.sql
+  insert_into: agg_user_mst
+
++agg_prefecture:
+  td>: query/agg_prefecture.sql
+  insert_into: agg_user_mst
+
+#datatankにデータを送信
+#+td-result-output-datatanks:
+#  td>:
+#  query: SELECT * FROM agg_user_mst
+#  database: user_mst
+#  result_connection: datatank
+#  result_settings:
+#    database: datatank
+#    table: agg_user_mst
+#    mode: replace
+#    method: copy
+#    schema: public
