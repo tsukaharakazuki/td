@@ -12,26 +12,36 @@
 ```
 _export:
   td:
-    database: tie_up_report
-  user_id: user_id #ユーザーIDがある場合カラム名を指定
-  log_db: sample_log_db #ウェブログが蓄積されるDB名
-  log_tb: sample_log_tb #ウェブログが蓄積されるテーブル名
-  ls_db: tie_up_report
-  ls_tb: sample_tieup_list
-  click_db: sample_click_db #クリックログが蓄積されるDB名
-  click_tb: sample_click_tb #クリックログが蓄積されるテーブル名
-  click_col: click_url #クリックログが格納されるカラム名
-  rd_db: sample_rd_db #読了ログが蓄積されるDB名
-  rd_tb: sample_rd_tb #読了ログが蓄積されるテーブル名
-  rd_col: scroll_depth_threshold #読了ログが格納されるカラム名
-  dev_mst_db: tie_up_report
-  dev_mst_tb: jp_dev_mst
-  master_segment: 'xxxxx' #キーワード、興味関心カテゴリの付与をする場合、事前にMaster Segmentの作成
-  check_host: www.treasuredata.co.jp #hostを指定する場合記入
-  click_check: true #クリック集計を実行する場合>true　ない場合>false
-  rd_check: true #読了率集計を実行する場合>true　ない場合>false
+    database: user_mst　#結果出力DB
+  user_mst_db: user_data　#処理前の会員データ保存DB
+  user_mst_tb: base_user_data　#処理前の会員データテーブル
+  id: id　#会員IDカラム(JSでアクセスログから取得するID)
+  email: email #e-mailカラム
+  birthday: birthday #誕生日カラム
+  sex: sex #性別カラム
+  regist_day: regist_day #会員登録日カラム
+  prefecture: prefecture #都道府県カラム
+  address_1: address_1 #住所カラム
+  address_2: address_2 #住所カラム
+  address_3: address_3 #住所カラム
+  first_name: first_name #性カラム
+  last_name: last_name #名カラム
+  phone: phone #電話番号カラム
+  zip_code: zip_code #郵便番号カラム
 ```
-
-[サンプルダッシュボード](https://datastudio.google.com/open/1MHYfrBTWqVa1nC-VRHhnzbAyPpVi7Uff)
+  
+今回のサンプルでは以下のようなデータセットを変換しています。企業ごとに会員データの持ち方は変わりますので、queryの変更は必要です。
+  
+[サンプルデータセット:base_user_data](https://github.com/tsukaharakazuki/td/blob/master/user_mst/base_user_data.csv)
+  
+# データ加工のポイント
+  
+今回のサンプルでは以下の変換を実施しています。
+  
+- id
+  
+'1' -> '00000001'
+  
+アクセスログとJOINするために、全ての桁巣を８桁に揃えています。
 
 
