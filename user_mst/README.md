@@ -61,7 +61,7 @@ _export:
   
   `2018-01-01 00:30:30.654` -> `2018-01-01`
   
-  ex. `DATE_FORMAT(DATE_PARSE(${birthday}, '%Y-%m-%d %H:%i:%s.000'),'%Y-%m-%d')`
+  ex. `DATE_FORMAT(DATE_PARSE(${regist_day}, '%Y-%m-%d %H:%i:%s.%f'),'%Y-%m-%d')`
   
 - duration_days
   
