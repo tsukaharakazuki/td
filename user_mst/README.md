@@ -24,7 +24,7 @@ _export:
   address_1: address_1 #住所カラム
   address_2: address_2 #住所カラム
   address_3: address_3 #住所カラム
-  first_name: first_name #性カラム
+  first_name: first_name #姓カラム
   last_name: last_name #名カラム
   phone: phone #電話番号カラム
   zip_code: zip_code #郵便番号カラム
@@ -40,8 +40,37 @@ _export:
   
 - id
   
-'1' -> '00000001'
+  `1` -> `00000001`
   
-アクセスログとJOINするために、全ての桁巣を８桁に揃えています。
-
-
+  アクセスログとJOINするために、全ての桁巣を８桁に揃えています。
+  ex. `lpad(${id}, 8, '0')`
+  
+- birthday
+  
+  `1990-01-01 09:00:00.000` -> `1990-01-01`
+  
+  ex. `DATE_FORMAT(DATE_PARSE(${birthday}, '%Y-%m-%d %H:%i:%s.000'),'%Y-%m-%d')`
+  
+- age
+  
+  誕生日から計算して現在何歳かを計算しています。
+  
+  ex. `DATE_DIFF('YEAR', CAST(DATE_FORMAT(DATE_PARSE(${birthday}, '%Y-%m-%d %H:%i:%s.000'),'%Y-%m-%d') as DATE), CAST(TD_TIME_FORMAT(TD_SCHEDULED_TIME(), 'yyyy-MM-dd') as DATE))`
+  
+- regist_day
+  
+  `2018-01-01 00:30:30.654` -> `2018-01-01`
+  
+  ex. `DATE_FORMAT(DATE_PARSE(${birthday}, '%Y-%m-%d %H:%i:%s.000'),'%Y-%m-%d')`
+  
+- duration_days
+  
+  登録日から計算して現在登録何日目かを計算しています。
+  
+  ex. `DATE_DIFF('DAY', CAST(DATE_FORMAT(DATE_PARSE(${regist_day}, '%Y-%m-%d %H:%i:%s.%f'),'%Y-%m-%d') as DATE), CAST(TD_TIME_FORMAT(TD_SCHEDULED_TIME(), 'yyyy-MM-dd') as DATE))`
+  
+- name
+  
+  姓カラムと名カラムをコンキャットし氏名カラムを作成しています。
+  
+  ex. `${first_name}||' '||${last_name}`
