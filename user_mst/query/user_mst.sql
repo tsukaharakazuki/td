@@ -33,7 +33,7 @@ SELECT
   age ,
   sex ,
   CASE
-    WHEN (age <= 16) THEN '中学生以下'
+    WHEN (age < 16) THEN '中学生以下'
     WHEN (age >= 16 and age < 19) THEN '高校生'
     WHEN (age >= 19 and age < 23) THEN '大学生'
     WHEN (age >= 23 and age < 30) THEN '20代'
