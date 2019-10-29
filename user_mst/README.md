@@ -32,3 +32,6 @@ _export:
   rd_check: true #読了率集計を実行する場合>true　ない場合>false
 ```
 
+[サンプルダッシュボード](https://datastudio.google.com/open/1MHYfrBTWqVa1nC-VRHhnzbAyPpVi7Uff)
+
+
