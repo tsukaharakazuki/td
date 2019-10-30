@@ -51,6 +51,10 @@ _export:
   td>: query/agg_duration_days.sql
   insert_into: agg_user_mst
 
++agg_duration_range:
+  td>: query/agg_duration_range.sql
+  insert_into: agg_user_mst
+
 +agg_prefecture:
   td>: query/agg_prefecture.sql
   insert_into: agg_user_mst
