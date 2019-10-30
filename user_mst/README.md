@@ -24,8 +24,8 @@ _export:
   address_1: address_1 #住所カラム
   address_2: address_2 #住所カラム
   address_3: address_3 #住所カラム
-  first_name: first_name #姓カラム
-  last_name: last_name #名カラム
+  first_name: first_name #名カラム
+  last_name: last_name #姓カラム
   phone: phone #電話番号カラム
   zip_code: zip_code #郵便番号カラム
 ```
@@ -74,7 +74,7 @@ _export:
   
   姓カラムと名カラムをコンキャットし氏名カラムを作成しています。
   
-  ex. `${first_name}||' '||${last_name}`
+  ex. `${last_name}||' '||${first_name}`
   
 - fb_phone
   
