@@ -46,6 +46,8 @@ FROM
     1 as instance
   FROM
     t1
+  WHERE
+    diff <= 3600
   GROUP BY
     article_id ,
     root_id ,
