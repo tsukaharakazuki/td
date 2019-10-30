@@ -54,6 +54,18 @@ SELECT
   END age_category ,
   regist_day ,
   duration_days ,
+  CASE 
+    WHEN (duration_days <= 6) THEN '7日未満'
+    WHEN (duration_days >= 7 and duration_days < 15) THEN '7日-14日'
+    WHEN (duration_days >= 15 and duration_days < 29) THEN '15日-28日'
+    WHEN (duration_days >= 29 and duration_days < 91) THEN '1ヶ月-3ヶ月'
+    WHEN (duration_days >= 91 and duration_days < 181) THEN '3ヶ月-半年'
+    WHEN (duration_days >= 181 and duration_days < 361) THEN '半年-1年未満'
+    WHEN (duration_days >= 361 and duration_days < 541) THEN '1年-1年半'
+    WHEN (duration_days >= 541 and duration_days < 721) THEN '1年半-2年未満'
+    WHEN (duration_days >= 721) THEN '2年以上'
+    ELSE NULL
+  END duration_range ,
   name ,
   last_name ,
   first_name ,
@@ -79,6 +91,7 @@ SELECT
   sex||age_category AS fm_category ,
   regist_day ,
   duration_days ,
+  duration_range ,
   name ,
   last_name ,
   first_name ,
