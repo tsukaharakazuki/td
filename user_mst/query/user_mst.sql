@@ -10,7 +10,7 @@ SELECT
   sex ,
   DATE_FORMAT(DATE_PARSE(${regist_day}, '%Y-%m-%d %H:%i:%s.%f'),'%Y-%m-%d') AS regist_day ,
   DATE_DIFF('DAY', CAST(DATE_FORMAT(DATE_PARSE(${regist_day}, '%Y-%m-%d %H:%i:%s.%f'),'%Y-%m-%d') as DATE), CAST(TD_TIME_FORMAT(TD_SCHEDULED_TIME(), 'yyyy-MM-dd') as DATE)) AS duration_days ,
-  ${first_name}||' '||${last_name} AS name ,
+  ${last_name}||' '||${first_name} AS name ,
   ${last_name} AS last_name ,
   ${first_name} AS first_name ,
   ${phone} AS phone ,
