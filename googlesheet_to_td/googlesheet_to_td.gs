@@ -3,7 +3,7 @@ CONSTANTS = {
   rowsPerRead: 200,
   maxRows: 100,
   tdAPIKey: 'YOUT_API_KEY', //write only keyを記入
-  databaseName: 'DB?NAME', //DB名を記入
+  databaseName: 'DB_NAME', //DB名を記入
   tableName: 'TABLE_NAME', //テーブル名を記入
   timeColName: "time",
   timeLowerBound: Date.parse(new Date())/1000 - 7*86400,
