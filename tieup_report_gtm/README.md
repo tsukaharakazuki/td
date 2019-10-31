@@ -56,6 +56,7 @@ _export:
   log_tb: sample_log_tb #ウェブログが蓄積されるテーブル名
   ls_db: tie_up_report
   ls_tb: sample_tieup_list
+  ls_tmp: tieup_list_tmp #Googleスプレッドシートから送信されるリストデータの事前処理テーブル。GAS(GoogleAppScript)で指定しているtmpテーブルと揃える必要があります。
   click_db: sample_click_db #クリックログが蓄積されるDB名
   click_tb: sample_click_tb #クリックログが蓄積されるテーブル名
   click_col: click_url #クリックログが格納されるカラム名
@@ -73,7 +74,7 @@ _export:
   
 ## 集計するページリストの準備
 
-今回は`sample_tieup_list.csv`というデータをcsvで作成し、TDに手動アップロードしています。
+今回は`sample_tieup_list`というデータをGoogleスプレッドシートで作成し、TDにアップロードしています。
 リストの中身は以下の構成で作成されています。
   
 ※`c-1`-`c-5`は記事よにっては全て指定しない場合があります。その場合は、`hoge`を入力してください。
@@ -93,18 +94,35 @@ ls_page_url	-> ダッシュボード内で表示するURL
 ls_client_name_jp	-> ダッシュボード内で表示するクライアント名 ※日本語可
 ls_page_title	-> ダッシュボード内で表示する該当タイアップ記事タイトル ※日本語可
 ```
-
+  
+## GoogleスプレッドシートからTDに集計リストデータをアップロード
+  
+1.スクリプトエディタを選択
+![スクリプトエディタ選択](https://github.com/tsukaharakazuki/image/blob/master/tieup_gs_1.png?raw=true "スクリプトエディタ")
+  
+[サンプルリスト](https://datastudio.google.com/open/1MHYfrBTWqVa1nC-VRHhnzbAyPpVi7Uff)
+  
+サンプルも公開しています。ポイントは全てstring(書式なしテキスト)形式で作成することです。 
+  
+2.GoogleAppScriptの編集
+![スクリプトエディタ編集](https://github.com/tsukaharakazuki/image/blob/master/tieup_gs_2.png?raw=true "スクリプトエディタ編集")
+  
+3.GoogleAppScriptの実行
+![スクリプトエディタ実行](https://github.com/tsukaharakazuki/image/blob/master/tieup_gs_3.png?raw=true "スクリプトエディタ実行")
+  
+初回実行次はGoogle認証が立ち上がります。認証をしていただくとスクリプトが動きますので完了です。2回目以降は実行のみでリストのアップロードが実行されます。
+  
+※特に実行完了等のポップアップは出ませんので、実行後はTDにデータアップロードされているか確認してください。`FluentD`でデータ送信を実行していますのでアペンドのみでのデータ転送になります。今回の処理では一度tmpテーブルにデータを送信し、Workflowでtmpテーブルのデータの有無を確認して処理の分かちをしています。リストが更新されていなくても毎日の処理に影響はございません。
   
 # ダッシュボードの作成
-
+  
 今回はGoogleが提供するダッシュボードツール`データポータル`を使って可視化をしています。`TreasureReporting`での可視化も可能です。
   
 可視化するデータは`datatank`に格納しています。
   
 ※datatankはTDが提供するPostgreSQL環境です。（Googleシートなどでも運用可能ですが、日時更新でリレーションが欠損するといった運用上の注意点が存在ます。）
 
-[サンプルダッシュボード](https://datastudio.google.com/open/1MHYfrBTWqVa1nC-VRHhnzbAyPpVi7Uff)
-  
+[サンプルダッシュボード](https://docs.google.com/spreadsheets/d/1uuwHBj_CSeaWT9JMWbdC8eewNEWrLQS1R8Lxp1yNEc0/edit?usp=sharing)
   
 ## データソースの接続とデータ型の変更
 
