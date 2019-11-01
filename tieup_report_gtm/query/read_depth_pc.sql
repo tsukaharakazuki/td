@@ -77,7 +77,7 @@ SELECT
   pc_dp_key ,
   pc_dp_value,
   label ,
-  100.0 * (CAST(pc_dp_value AS DOUBLE) / CAST(total_dp_value AS DOUBLE)) AS pc_dp_percent
+  CAST(pc_dp_value AS DOUBLE) / CAST(total_dp_value AS DOUBLE) AS pc_dp_percent
 FROM
   (
   SELECT
