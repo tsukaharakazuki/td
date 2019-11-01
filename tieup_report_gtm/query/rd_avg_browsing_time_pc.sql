@@ -57,7 +57,7 @@ FROM
 
 
 SELECT
-  read_depth AS pc_rd_time_ky ,
+  CAST(read_depth AS bigint) AS pc_rd_time_ky ,
   AVG(diff) AS pc_rd_avg_browsing_time ,
   VARIANCE(diff) AS pc_rd_var_browsing_time ,
   'pc_rd_avg' AS label
