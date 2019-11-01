@@ -74,7 +74,8 @@ SELECT '100' AS sp_dp_key, "100" AS sp_dp_value, 'rd_sp' AS label FROM t1
 
 SELECT
   CAST(sp_dp_key AS bigint) AS sp_dp_key ,
-  sp_dp_value 
+  sp_dp_value ,
+  label
 FROM
   t2
   
