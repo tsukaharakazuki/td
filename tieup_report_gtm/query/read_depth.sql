@@ -43,8 +43,11 @@ FROM
 )
 GROUP BY
   article_id
-)
+),
 
+
+t2 AS
+(
 SELECT '0' AS dp_key, "0" AS dp_value, 'rd' AS label FROM t1
 UNION ALL
 SELECT '10' AS dp_key, "10" AS dp_value, 'rd' AS label FROM t1
@@ -66,3 +69,12 @@ UNION ALL
 SELECT '90' AS dp_key, "90" AS dp_value, 'rd' AS label FROM t1
 UNION ALL
 SELECT '100' AS dp_key, "100" AS dp_value, 'rd' AS label FROM t1
+)
+
+SELECT
+  CAST(dp_key AS bigint) AS dp_key ,
+  sp_dp_value ,
+  label
+FROM
+  t2
+ 
