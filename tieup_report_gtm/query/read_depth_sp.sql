@@ -72,10 +72,29 @@ UNION ALL
 SELECT '100' AS sp_dp_key, "100" AS sp_dp_value, 'rd_sp' AS label FROM t1
 )
 
+
 SELECT
-  CAST(sp_dp_key AS bigint) AS sp_dp_key ,
-  sp_dp_value ,
-  label
+  sp_dp_key ,
+  sp_dp_value,
+  label ,
+  100.0 * (CAST(sp_dp_value AS DOUBLE) / CAST(total_dp_value AS DOUBLE)) AS sp_dp_percent
 FROM
-  t2
-  
+  (
+  SELECT
+    CAST(sp_dp_key AS bigint) AS sp_dp_key ,
+    sp_dp_value ,
+    label ,
+    SUM(sp_dp_value) OVER (PARTITION BY dum) AS total_dp_value
+  FROM
+    (
+    SELECT
+      CAST(sp_dp_key AS bigint) AS sp_dp_key ,
+      sp_dp_value ,
+      label ,
+      '1' AS dum
+    FROM
+      t2
+    )
+  )
+GROUP BY
+  1,2,3,4
