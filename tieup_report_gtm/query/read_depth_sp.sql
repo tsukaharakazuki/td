@@ -77,7 +77,7 @@ SELECT
   sp_dp_key ,
   sp_dp_value,
   label ,
-  100.0 * (CAST(sp_dp_value AS DOUBLE) / CAST(total_dp_value AS DOUBLE)) AS sp_dp_percent
+  CAST(sp_dp_value AS DOUBLE) / CAST(total_dp_value AS DOUBLE) AS sp_dp_percent
 FROM
   (
   SELECT
