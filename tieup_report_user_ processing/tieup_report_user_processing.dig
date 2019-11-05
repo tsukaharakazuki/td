@@ -1,0 +1,63 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  td:
+    database: tie_up_report
+  user_id: user_id #set user_id column
+  log_db: sample_db #set web_log database
+  log_tb: sample_tb #set web_log table
+  ls_db: tie_up_report
+  ls_tb: tieup_list
+  user_mst_db: user_mst
+  user_mst_tb: user_mst
+  check_host: treasure-data.com
+  user_processing_check: true #true or false / click cnt exists true
+
++for_each_users:
+  td_for_each>: query/tieup_list.sql
+  _do:
+
+    +user_bh:
+      if>: ${user_processing_check}
+      _do:
+        td>: query/user_bh.sql
+        create_table: user_${td.each.db_client_name}_${td.each.db_label}
+
+    +member_sex:
+      if>: ${user_processing_check}
+      _do:
+        td>: query/member_sex.sql
+        insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +member_age:
+      if>: ${user_processing_check}
+      _do:
+        td>: query/member_age.sql
+        insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +member_age_group:
+      if>: ${user_processing_check}
+      _do:
+        td>: query/member_age_group.sql
+        insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +member_fm_category:
+      if>: ${user_processing_check}
+      _do:
+        td>: query/member_fm_category.sql
+        insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +member_duration_range:
+      if>: ${user_processing_check}
+      _do: 
+        td>: query/member_duration_range.sql
+        insert_into: agg_user_mst
+ 
+    +drop_userbh_table:
+      if>: ${user_processing_check}
+      _do:
+        td_ddl>:
+        drop_tables: ["user_${td.each.db_client_name}_${td.each.db_label}"]
