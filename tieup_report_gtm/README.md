@@ -100,7 +100,7 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
 1.スクリプトエディタを選択
 ![スクリプトエディタ選択](https://github.com/tsukaharakazuki/image/blob/master/tieup_gs_1.png?raw=true "スクリプトエディタ")
   
-[サンプルリスト](https://datastudio.google.com/open/1MHYfrBTWqVa1nC-VRHhnzbAyPpVi7Uff)
+[サンプルリスト](https://docs.google.com/spreadsheets/d/1uuwHBj_CSeaWT9JMWbdC8eewNEWrLQS1R8Lxp1yNEc0/edit?usp=sharing)
   
 サンプルも公開しています。ポイントは全てstring(書式なしテキスト)形式で作成することです。 
   
@@ -122,7 +122,7 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
   
 ※datatankはTDが提供するPostgreSQL環境です。（Googleシートなどでも運用可能ですが、日時更新でリレーションが欠損するといった運用上の注意点が存在ます。）
 
-[サンプルダッシュボード](https://docs.google.com/spreadsheets/d/1uuwHBj_CSeaWT9JMWbdC8eewNEWrLQS1R8Lxp1yNEc0/edit?usp=sharing)
+[サンプルダッシュボード](https://datastudio.google.com/open/1MHYfrBTWqVa1nC-VRHhnzbAyPpVi7Uff)
   
 ## データソースの接続とデータ型の変更
 
