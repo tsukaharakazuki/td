@@ -18,7 +18,7 @@ SELECT
   ,b.sex
   ,b.age_group
   ,b.fm_category
-  ,b.entry_time
+  ,b.regist_day
   ,b.duration_range
 FROM
   ${log_db}.${log_tb} AS a
