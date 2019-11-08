@@ -20,8 +20,9 @@ FROM
   WHERE
     td_host IN ('${check_host}') AND
     regexp_like(td_path,'${td.each.article_id}') AND
-    TD_TIME_RANGE(time, TD_TIME_FORMAT(time,'${td.each.start_date}','JST'),
-      TD_TIME_FORMAT(time,'${td.each.end_date}','JST'),
+    TD_TIME_RANGE(time, 
+      '${td.each.start_date}',
+      '${td.each.end_date}',
       'JST') AND
     TD_PARSE_AGENT(td_user_agent) ['category'] <> 'crawler' AND
     td_client_id != '00000000-0000-4000-8000-000000000000' AND
