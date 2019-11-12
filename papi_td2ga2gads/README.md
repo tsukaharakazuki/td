@@ -36,6 +36,9 @@ TDの提供するProfileAPIを活用し、GAを経由してGoogleAdsにTDで作�
   
 2-6.GTM：GAユニバーサルタグの設定②
 ![GTM2-6](https://github.com/tsukaharakazuki/image/blob/master/td_ga_papi_10.png?raw=true "GTM2-6") 
+
+2-7.GTM：GAユニバーサルタグのトリガー設定
+![GTM2-6](https://github.com/tsukaharakazuki/image/blob/master/td_ga_papi_20.png?raw=true "GTM2-6") 
   
 ## ProfileAPIタグ
   
