@@ -12,7 +12,7 @@
   
   var cdp_token = 'YOUR_CDP_TOKEN';
 
-  //`AddTdSegments`というイベント名でdataLayerにセグメントIDの書き出し
+  //'AddTdSegments'というイベント名でdataLayerにセグメントIDの書き出し
   var dataLayer = dataLayer || [];
   var successCallback = function(segments){
     console.log(segments);
@@ -34,11 +34,11 @@
     });
   };
  
-  //`td_client_id`をKEYにする場合JS内で呼び出す必要がある
+  //'td_client_id'をKEYにする場合JS内で呼び出す必要がある
   var getcookie=function(a){var b=document.cookie;if(b)for(var c=b.split("; "),d=0;d<c.length;d++){var b=c[d].split("=");if(b[0]===a)return b[1]}return"null"};
   td_client_id = getcookie('_td')
   
-  //`fetchUserSegments`関数でセグメントの呼び出し
+  //'fetchUserSegments'関数でセグメントの呼び出し
   td.fetchUserSegments({
     audienceToken: [cdp_token],
     keys: {td_client_id: td_client_id}
