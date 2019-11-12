@@ -42,23 +42,24 @@ FROM
     FROM
       ${log_db}.${log_tb}
     WHERE
-    td_host IN ('${check_host}') AND
-    regexp_like(td_path,'${td.each.article_id}') AND
-    TD_TIME_RANGE(time,
-      TD_TIME_FORMAT(time,'${td.each.start_date}','JST'),
-      TD_TIME_FORMAT(time,'${td.each.end_date}','JST'),
-      'JST') AND
-    TD_PARSE_AGENT(td_user_agent) ['category'] <> 'crawler' AND
-    td_client_id != '00000000-0000-4000-8000-000000000000' AND
-    NOT regexp_like(td_browser, '^(?:Googlebot(?:-.*)?|BingPreview|bingbot|YandexBot|PingdomBot)$') AND
-    td_host != 'gtm-msr.appspot.com' AND
-    td_client_id is not NULL AND
-    td_client_id <> 'undefined'
+      td_host IN ('${check_host}') AND
+      regexp_like(td_path,'${td.each.article_id}') AND
+      TD_TIME_RANGE(time,
+        '${td.each.start_date}',
+        '${td.each.end_date}',
+        'JST') AND
+      TD_PARSE_AGENT(td_user_agent) ['category'] <> 'crawler' AND
+      td_client_id != '00000000-0000-4000-8000-000000000000' AND
+      NOT regexp_like(td_browser, '^(?:Googlebot(?:-.*)?|BingPreview|bingbot|YandexBot|PingdomBot)$') AND
+      td_host != 'gtm-msr.appspot.com' AND
+      td_client_id is not NULL AND
+      td_client_id <> 'undefined'
     )
   )
 WHERE
   newer = 1
-GROUP BY 1,2,3,4,5,6,7,8,9
+GROUP BY 
+  1,2,3,4,5,6,7,8,9
 )
 
 SELECT
@@ -76,5 +77,7 @@ SELECT
   , 'uaip' AS label
 FROM
   t1 AS a
-LEFT JOIN ${dev_mst_db}.${dev_mst_tb} AS b
-ON a.pf = b.div_name_jp
+LEFT JOIN 
+  ${dev_mst_db}.${dev_mst_tb} AS b
+ON
+  a.pf = b.div_name_jp
