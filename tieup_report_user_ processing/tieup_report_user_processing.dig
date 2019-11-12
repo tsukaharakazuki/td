@@ -54,7 +54,7 @@ _export:
       if>: ${user_processing_check}
       _do: 
         td>: query/member_duration_range.sql
-        insert_into: agg_user_mst
+        insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
  
     +drop_userbh_table:
       if>: ${user_processing_check}
