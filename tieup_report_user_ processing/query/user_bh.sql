@@ -1,10 +1,14 @@
+WITH
+
+t0 AS
+(
 SELECT
    a.time
   ,a.td_title
   ,a.td_description
   ,a.td_global_id
   ,a.td_client_id
-  ,a.${user_id}
+  ,a.${user_id} 
   ,a.td_referrer
   ,a.td_url
   ,a.td_host
@@ -39,3 +43,21 @@ WHERE
   a.td_host != 'gtm-msr.appspot.com' AND
   a.td_client_id is not NULL AND
   a.td_client_id <> 'undefined'
+)
+
+
+SELECT
+  ${user_id} ,
+  email ,
+  name ,
+  birthday ,
+  age ,
+  sex ,
+  age_group ,
+  fm_category ,
+  regist_day ,
+  duration_range
+FROM
+  t0
+GROUP BY
+  1,2,3,4,5,6,7,8,9,10
