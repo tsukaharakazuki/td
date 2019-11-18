@@ -56,3 +56,7 @@
   
 ## テーブル名などフィルタをかける場合
 `td sched:list | grep "filter"`
+  
+# Other
+現在いるディレクトリを表示
+`pwd`
