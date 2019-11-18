@@ -33,8 +33,11 @@ FROM
     td_client_id <> 'undefined'
   )
 GROUP BY 1,2
-)
+),
 
+
+t2 AS
+(
 SELECT
   time ,
   TD_TIME_FORMAT(time, 'yyyy-MM-dd HH:mm:ss', 'JST') AS hour_date ,
@@ -43,4 +46,26 @@ SELECT
   pv AS hour_pv ,
   uu AS hour_uu ,
   'hour_pvuu' AS label
-FROM t1
+FROM 
+   t1
+)
+
+
+SELECT
+  time ,
+  hour_date ,
+  CASE
+    WHEN  hour_day_of_the_week = 'Monday' THEN '1_Monday'
+    WHEN  hour_day_of_the_week = 'Tuesday' THEN '2_Tuesday'
+    WHEN  hour_day_of_the_week = 'Wednesday' THEN '3_Wednesday'
+    WHEN  hour_day_of_the_week = 'Thursday' THEN '4_Thursday'
+    WHEN  hour_day_of_the_week = 'Friday' THEN '5_Friday'
+    WHEN  hour_day_of_the_week = 'Saturday' THEN '6_Saturday'
+    WHEN  hour_day_of_the_week = 'Sunday' THEN '7_Sunday'   
+  END hour_day_of_the_week ,
+  hour_host ,
+  hour_pv ,
+  hour_uu ,
+  label
+FROM 
+   t2
