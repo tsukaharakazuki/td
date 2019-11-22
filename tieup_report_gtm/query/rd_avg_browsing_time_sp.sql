@@ -33,11 +33,11 @@ SELECT
     WHEN (read_depth = 90) THEN '90'
     WHEN (read_depth = 100) THEN '100'
     ELSE NULL
-   END AS read_depth ,
-   diff ,
-   instance
+  END AS read_depth ,
+  diff ,
+  instance
 FROM
-(
+  (
   SELECT
     article_id ,
     root_id,
@@ -52,14 +52,65 @@ FROM
     article_id ,
     root_id ,
     diff
-)
+  )
+),
+
+
+t3 AS
+(
+SELECT
+  0 AS sp_rd_time_ky 
+UNION
+SELECT
+  10 AS sp_rd_time_ky 
+UNION
+SELECT
+  20 AS sp_rd_time_ky
+UNION
+SELECT
+  30 AS sp_rd_time_ky 
+UNION
+SELECT
+  40 AS sp_rd_time_ky 
+UNION
+SELECT
+  50 AS sp_rd_time_ky 
+UNION
+SELECT
+  60 AS sp_rd_time_ky 
+UNION
+SELECT
+  70 AS sp_rd_time_ky 
+UNION
+SELECT
+  80 AS sp_rd_time_ky
+UNION
+SELECT
+  90 AS sp_rd_time_ky 
+UNION
+SELECT
+  100 AS sp_rd_time_ky 
 )
 
 
 SELECT
-  CAST(read_depth AS bigint) AS sp_rd_time_ky ,
-  AVG(diff) AS sp_rd_avg_browsing_time ,
-  VARIANCE(diff) AS sp_rd_var_browsing_time ,
-  'sp_rd_avg' AS label
-FROM t2
-GROUP BY 1
+  a.sp_rd_time_ky ,
+  b.sp_rd_avg_browsing_time ,
+  b.sp_rd_var_browsing_time ,
+  b.label
+FROM 
+  t3 AS a
+LEFT JOIN
+  (
+  SELECT
+    CAST(read_depth AS bigint) AS sp_rd_time_ky,
+    AVG(diff) AS sp_rd_avg_browsing_time,
+    VARIANCE(diff) AS sp_rd_var_browsing_time ,
+    'sp_rd_avg' AS label
+  FROM 
+    t2
+  GROUP BY 
+    1
+  ) AS b
+ON 
+  a.sp_rd_time_ky = b.sp_rd_time_ky
