@@ -37,7 +37,7 @@ SELECT
   diff ,
   instance
 FROM
-(
+  (
   SELECT
     article_id ,
     root_id,
@@ -52,14 +52,65 @@ FROM
     article_id ,
     root_id ,
     diff
-)
+  )
+),
+
+
+t3 AS
+(
+SELECT
+  0 AS pc_rd_time_ky 
+UNION
+SELECT
+  10 AS pc_rd_time_ky 
+UNION
+SELECT
+  20 AS pc_rd_time_ky
+UNION
+SELECT
+  30 AS pc_rd_time_ky 
+UNION
+SELECT
+  40 AS pc_rd_time_ky 
+UNION
+SELECT
+  50 AS pc_rd_time_ky 
+UNION
+SELECT
+  60 AS pc_rd_time_ky 
+UNION
+SELECT
+  70 AS pc_rd_time_ky 
+UNION
+SELECT
+  80 AS pc_rd_time_ky
+UNION
+SELECT
+  90 AS pc_rd_time_ky 
+UNION
+SELECT
+  100 AS pc_rd_time_ky 
 )
 
 
 SELECT
-  CAST(read_depth AS bigint) AS pc_rd_time_ky ,
-  AVG(diff) AS pc_rd_avg_browsing_time ,
-  VARIANCE(diff) AS pc_rd_var_browsing_time ,
-  'pc_rd_avg' AS label
-FROM t2
-GROUP BY 1
+  a.pc_rd_time_ky ,
+  b.pc_rd_avg_browsing_time ,
+  b.pc_rd_var_browsing_time ,
+  b.label
+FROM 
+  t3 AS a
+LEFT JOIN
+  (
+  SELECT
+    CAST(read_depth AS bigint) AS pc_rd_time_ky,
+    AVG(diff) AS pc_rd_avg_browsing_time,
+    VARIANCE(diff) AS pc_rd_var_browsing_time ,
+    'pc_rd_avg' AS label
+  FROM 
+    t2
+  GROUP BY 
+    1
+  ) AS b
+ON 
+  a.pc_rd_time_ky = b.pc_rd_time_ky
