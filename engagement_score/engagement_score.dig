@@ -15,8 +15,8 @@ _export:
   seg_score_low_middle: 1.5
   seg_score_middle_loyal: 2.3
   multi_media_check: false #true or false / read_depth cnt exists true
-  multi_media_col_mane:
-  multi_media_content:
+  multi_media_col_mane: media
+  multi_media_content: split_part(td_path, '/', 2) #どこでパースするかはメディアごとに異なります。またメディアIDカラムがある場合メディアIDカラムをセット
 
 #初回実行create_tables
 +create_tables:
