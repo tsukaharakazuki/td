@@ -41,7 +41,7 @@ FROM
 SELECT
   device_id,
   id_type,
-  ROW_NUMBER() OVER(PARTITION BY device_id　ORDER BY　engagement_score DESC) AS priority,
+  ROW_NUMBER() OVER(PARTITION BY device_id ORDER BY engagement_score DESC) AS priority,
   ${multi_media_col_mane},
   recency,
   frequency,
