@@ -5,7 +5,7 @@ score_table AS
 SELECT
   device_id,
   id_type,
-  media,
+  ${multi_media_col_mane},
   recency,
   frequency,
   volume,
@@ -15,7 +15,7 @@ FROM
   SELECT
     ${cookie_1} AS device_id,
     '${cookie_1}' AS id_type,
-    split_part(td_path, '/', 2) AS media, --どこでパースするかはメディアごとに異なります。またメディアIDカラムがある場合メディアIDカラムをセット
+    ${multi_media_content} AS ${multi_media_col_mane}, --どこでパースするかはメディアごとに異なります。またメディアIDカラムがある場合メディアIDカラムをセット
     CAST(TRUNCATE((MAX(time)- TO_UNIXTIME(now()))/ 86400) AS INT) AS recency,
     COUNT(DISTINCT TD_TIME_FORMAT(time,'yyyy-MM-dd','JST')) AS frequency,
     COUNT(DISTINCT td_path) AS volume
@@ -42,7 +42,7 @@ SELECT
   device_id,
   id_type,
   ROW_NUMBER() OVER(PARTITION BY device_id　ORDER BY　engagement_score DESC) AS priority,
-  media,
+  ${multi_media_col_mane},
   recency,
   frequency,
   volume,
