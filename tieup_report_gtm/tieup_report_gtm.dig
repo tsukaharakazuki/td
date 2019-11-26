@@ -296,6 +296,16 @@ _export:
         td_ddl>:
         drop_tables: ["rd_${td.each.db_client_name}_${td.each.db_label}"]
 
+#google_sheetsにデータを送信
+    +to_google_sheets:
+      td>: 
+      query: SELECT * FROM tieup_${td.each.db_client_name}_${td.each.db_label}
+      result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
+      result_settings:
+        spreadsheet_title: tieup_${td.each.db_client_name}_${td.each.db_label}
+        sheet_title: "tieup"
+        mode: truncate
+
 #datatankにデータを送信する場合
 #    +td-result-output-datatanks:
 #      td>:
