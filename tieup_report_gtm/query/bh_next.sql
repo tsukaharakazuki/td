@@ -93,12 +93,30 @@ FROM t2
 )
 
 SELECT
-  td_title AS bh_next_title ,
-  COUNT(*) AS bh_next_cnt ,
-  'bh_next' AS label
+  bh_next_title ,
+  bh_next_cnt ,
+  label 
 FROM
-  t3
+  (
+  SELECT
+    bh_next_title ,
+    bh_next_cnt ,
+    label ,
+    RANK() OVER(PARTITION BY label ORDER BY bh_next_cnt DESC) AS rnk
+  FROM
+    (
+    SELECT
+      td_title AS bh_next_title ,
+      COUNT(*) AS bh_next_cnt ,
+      'bh_next' AS label
+    FROM
+      t3
+    WHERE
+      NOT regexp_like(td_url,'${td.each.article_id}')
+      AND older = 1
+    GROUP BY 
+      1
+    )
+  )
 WHERE
-  NOT regexp_like(td_url,'${td.each.article_id}')
-  AND older = 1
-GROUP BY 1
+  rnk <= 200
