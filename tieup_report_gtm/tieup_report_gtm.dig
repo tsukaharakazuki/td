@@ -174,8 +174,40 @@ _export:
 #UA/IP集計
     +uaip:
       td>: query/uaip.sql
+      create_table: uaip_${td.each.db_client_name}_${td.each.db_label}
+
+    +os:
+      td>: query/os.sql
       insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
- 
+      
+    +vendor:
+      td>: query/vendor.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}      
+
+    +browser:
+      td>: query/browser.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +category:
+      td>: query/category.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +country:
+      td>: query/country.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +city:
+      td>: query/city.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +pf:
+      td>: query/pf.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +drop_table_uaip:
+      td_ddl>:
+      drop_tables: ["uaip_${td.each.db_client_name}_${td.each.db_label}"]
+
 #タイアップ閲覧者のメディア内行動
     +tie_up_bh:
       td>: query/bh.sql
