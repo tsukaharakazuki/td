@@ -6,7 +6,7 @@
   
 基礎となる集計はJaccard係数です。
   
-![Jaccard](https://github.com/tsukaharakazuki/image/blob/master/Jaccard_1.png?raw=true "Jaccard")  
+![Jaccard](https://github.com/tsukaharakazuki/image/blob/master/jaccard_1.png?raw=true? "Jaccard")  
   
 二つの記事の相関を測るにあたり、
   
