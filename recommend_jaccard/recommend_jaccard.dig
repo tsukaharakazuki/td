@@ -1,0 +1,19 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  td:
+    database: recommend
+  log_db: sample #set web_log database
+  log_tb: sample #set web_log table
+  days: 7
+  base_pv_cnt: 1000
+  article_id: td_path
+  article_heck: article_type
+  cookie_type: td_client_id
+
++jaccard:
+  td>: query/jaccard.sql
+  create_table: recommend_jaccard
