@@ -18,3 +18,26 @@
 # digファイルの変数設定
   
 以下の変数を変更することで、それぞれの環境に合わせて算出が可能です。
+  
+```
+_export:
+  td:
+    database: recommend
+  log_db: sample #set web_log database
+  log_tb: sample #set web_log table
+  days: 7
+  base_pv_cnt: 1000
+  article_id: td_path
+  article_check: article_type
+  cookie_type: td_client_id
+```
+  
+|項目|内容|
+|--------------|---------------|
+|log_db|集計するトランザクションログが存在するDB|
+|log_tb|集計するトランザクションログが存在するテーブル|
+|days|集計対象期間（日）|
+|base_pv_cnt|足切りPV数|
+|article_id|比較対象とするカラム|
+|article_check|記事を特定できるカラムが存在する場合指定|
+|cookie_type|集計対象cookie(ユーザーID)カラム|
