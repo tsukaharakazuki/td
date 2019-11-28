@@ -122,7 +122,7 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
   
 ※datatankはTDが提供するPostgreSQL環境です。（Googleシートなどでも運用可能ですが、日時更新でリレーションが欠損するといった運用上の注意点が存在ます。）
 
-[サンプルダッシュボード](https://datastudio.google.com/open/1MHYfrBTWqVa1nC-VRHhnzbAyPpVi7Uff)
+[サンプルダッシュボード](https://datastudio.google.com/open/1Ee2RAukcUaFf4lzp43ieJamave6YUauJ)
   
 ## データソースの接続とデータ型の変更
 
