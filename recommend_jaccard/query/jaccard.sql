@@ -9,7 +9,7 @@ source AS
     ${log_db}.${log_tb}
   WHERE
     td_interval(time, '-${days}d/now', 'JST')
-    --AND ${article_heck} IN (オリジナル記事', 'PR記事')
+    --AND ${article_check} IN (オリジナル記事', 'PR記事')
 ),
 
 
