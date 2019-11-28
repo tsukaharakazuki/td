@@ -6,7 +6,6 @@
   
 基礎となる集計はJaccard係数です。
   
-![Jaccard](https://github.com/tsukaharakazuki/image/blob/master/jaccard_1.png?raw=true? "Jaccard")
 <img src="https://github.com/tsukaharakazuki/image/blob/master/jaccard_1.png"
  alt="Jaccard" title="Jaccard" width="400" height="400" />
   
