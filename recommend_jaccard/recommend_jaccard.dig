@@ -11,7 +11,7 @@ _export:
   days: 7
   base_pv_cnt: 1000
   article_id: td_path
-  article_heck: article_type
+  article_check: article_type
   cookie_type: td_client_id
 
 +jaccard:
