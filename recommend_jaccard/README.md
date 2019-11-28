@@ -8,7 +8,7 @@
   
 ![Jaccard](https://github.com/tsukaharakazuki/image/blob/master/jaccard_1.png?raw=true? "Jaccard")
 <img src="https://github.com/tsukaharakazuki/image/blob/master/jaccard_1.png"
- alt="Jaccard" title="Jaccard" width="800" height="800" />
+ alt="Jaccard" title="Jaccard" width="400" height="400" />
   
 二つの記事の相関を測るにあたり、
   
