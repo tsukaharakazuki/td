@@ -302,6 +302,7 @@ _export:
       query: SELECT * FROM tieup_${td.each.db_client_name}_${td.each.db_label}
       result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
       result_settings:
+        spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
         spreadsheet_title: tieup_${td.each.db_client_name}_${td.each.db_label}
         sheet_title: "tieup"
         mode: truncate
