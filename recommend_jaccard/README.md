@@ -45,4 +45,4 @@ _export:
 # 結果イメージ
   
 <img src="https://github.com/tsukaharakazuki/image/blob/master/jaccard_2.png"
- alt="Jaccard2" title="Jaccard" width="800" height="800" />
+ alt="Jaccard2" title="Jaccard" width="800" />
