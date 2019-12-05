@@ -5,7 +5,7 @@ t1 AS
 (
 SELECT
   time ,
-  td_global_id ,
+  td_client_id ,
   url_extract_host(td_referrer) AS ref_host ,
   td_referrer
 FROM 
