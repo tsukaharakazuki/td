@@ -4,12 +4,12 @@ WITH
 t1 AS 
 (
 SELECT
-  time
-  ,td_global_id
-  ,url_extract_host(td_referrer) AS ref_host
-  ,td_referrer
+  time ,
+  td_global_id ,
+  url_extract_host(td_referrer) AS ref_host ,
+  td_referrer
 FROM 
-  access
+  YOUR_DATA_TABLE
 WHERE
   TD_PARSE_AGENT(td_user_agent) ['category'] <> 'crawler'
   AND td_global_id != '00000000-0000-4000-8000-000000000000'
@@ -169,9 +169,9 @@ FROM
 
 
 SELECT
-  ref_host 
-  ,td_referrer_name
-  ,COUNT(*) AS cnt
+  ref_host , 
+  td_referrer_name ,
+  COUNT(*) AS cnt
 FROM 
   t2
 WHERE 
