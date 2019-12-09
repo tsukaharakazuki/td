@@ -4,7 +4,7 @@ source AS
 (
   SELECT
     distinct ${article_id} AS article_id
-    ,${cookie_type}
+    ,${cookie_type} AS cookie
   FROM
     ${log_db}.${log_tb}
   WHERE
@@ -38,7 +38,7 @@ intersection AS
   INNER JOIN
     source r
   ON
-    l.${cookie_type} = r.${cookie_type}
+    l.cookie = r.cookie
   WHERE
     l.article_id <> r.article_id
   GROUP BY
