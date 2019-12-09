@@ -17,3 +17,7 @@ _export:
 +jaccard:
   td>: query/jaccard.sql
   create_table: recommend_jaccard
+
++recommend_list:
+  td>: query/recommend_list.sql
+  create_table: recommend_list
