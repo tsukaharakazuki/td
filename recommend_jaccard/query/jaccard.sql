@@ -3,7 +3,7 @@ WITH
 source AS 
 (
   SELECT
-    distinct ${article_id}
+    distinct ${article_id} AS article_id
     ,${cookie_type}
   FROM
     ${log_db}.${log_tb}
@@ -16,7 +16,7 @@ source AS
 size AS 
 (
   SELECT
-    ${article_id}
+    article_id
     ,count(*) AS size
   FROM
     source
@@ -30,8 +30,8 @@ size AS
 intersection AS 
 (
   SELECT
-    l.${article_id} AS l
-    ,r.${article_id} AS r
+    l.article_id AS l
+    ,r.article_id AS r
     ,count(*) AS n
   FROM
     source l
@@ -40,7 +40,7 @@ intersection AS
   ON
     l.${cookie_type} = r.${cookie_type}
   WHERE
-    l.${article_id} <> r.${article_id}
+    l.article_id <> r.article_id
   GROUP BY
     1,2
 )
@@ -57,8 +57,8 @@ FROM
 INNER JOIN
   size l_size
 ON
-  intersection.l = l_size.${article_id}
+  intersection.l = l_size.article_id
 INNER JOIN
   size r_size
 ON
-  intersection.r = r_size.${article_id}
+  intersection.r = r_size.article_id
