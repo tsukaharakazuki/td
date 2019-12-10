@@ -310,15 +310,3 @@ _export:
         sheet_title: "tieup"
         mode: truncate
 
-#datatankにデータを送信する場合
-#    +td-result-output-datatanks:
-#      td>:
-#      query: SELECT * FROM tieup_${td.each.db_client_name}_${td.each.db_label}
-#      database: tie_up_report
-#      result_connection: datatank
-#      result_settings:
-#        database: datatank
-#        table: tieup_${td.each.db_client_name}_${td.each.db_label}
-#        mode: replace
-#        method: copy
-#        schema: public
