@@ -6,9 +6,9 @@ user_category AS
 SELECT
   ${cookie} AS uid ,
   ${category_col} AS category ,
-  CAST(count(DISTINCT ${article_col}) AS double) / sum(CAST(count(DISTINCT ${article_col}) AS double)) over(partition by ${cookie}) AS ratio ,
-  CAST(count(DISTINCT ${article_col}) AS double) AS n_article ,
-  SUM(CAST(count(DISTINCT ${article_col}) AS double)) OVER(PARTITION BY ${cookie}) AS n_total_article
+  CAST(COUNT(DISTINCT ${article_col}) AS double) / SUM(CAST(COUNT(DISTINCT ${article_col}) AS double)) OVER(PARTITION BY ${cookie}) AS ratio ,
+  CAST(COUNT(DISTINCT ${article_col}) AS double) AS n_article ,
+  SUM(CAST(COUNT(DISTINCT ${article_col}) AS double)) OVER(PARTITION BY ${cookie}) AS n_total_article
 FROM
   ${log_db}.${log_tb}
 WHERE
@@ -24,7 +24,7 @@ average AS
 (
 SELECT
   category ,
-  avg(ratio) AS average
+  AVG(ratio) AS average
 FROM
   user_category
 GROUP BY
