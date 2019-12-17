@@ -1,0 +1,25 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:15:00
+
+_export:
+  td:
+    database: engagement_score
+  log_db: sample_db
+  log_tb: sample_tb
+  user_id: userid
+  cookie: td_client_id
+  category_col: category
+  article_col: td_path
+  days: 28
+  category_flag: 'ニュース','経済','エンタメ','スポーツ','国内','国際'
+  check_host: sample.jp
+
++user_interest_category_oddsratio:
+  td>: query/user_interest_category.sql
+  create_table: user_interest_category_oddsratio
+
+#+coolie_interest_category_oddsratio:
+#  td>: query/cookie_interest_category.sql
+#  create_table: cookie_interest_category_oddsratio
