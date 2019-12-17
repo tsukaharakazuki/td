@@ -6,10 +6,6 @@
   
 ![RFV](https://github.com/tsukaharakazuki/image/blob/master/rfv.png?raw=true "RFV")
   
-/ オッズ
-ある事象の起こる確率を p として、p/(1 − p) の値をいう。
-
-
 メディアごとに、細かい集計ロジックの調整は必要になりますが、ベースとなるデータを作成し、チューニングを楽にすることが可能です。
   
 # 準備
