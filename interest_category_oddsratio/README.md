@@ -1,7 +1,11 @@
 # はじめに
 
 このWorkflowはodds比を用いて、ユーザー（or ブラウザ）に対して、アクセスログから興味関心の傾向値を算出します。
-
+  
+# odds比
+  
+![odds](https://github.com/tsukaharakazuki/image/blob/master/oddsratio.png?raw=true "odds")
+  
 # digの変数設定
   
 以下の変数を変更することで、それぞれの環境に合わせて算出が可能です。
