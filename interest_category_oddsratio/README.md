@@ -1,26 +1,35 @@
 # はじめに
 
-TreasureDataでのデータ集計におけるサンプルを公開しています。
+このWorkflowはodds比を用いて、ユーザー（or ブラウザ）に対して、アクセスログから興味関心の傾向値を算出します。
 
-# 準備(Treasure Data Toolbelt: Command-line Interfaceのダウンロード)
-
- - ドキュメント
- https://support.treasuredata.com/hc/en-us/articles/360000720048-Treasure-Data-Toolbelt-Command-line-Interface
+# digの変数設定
+  
+以下の変数を変更することで、それぞれの環境に合わせて算出が可能です。
+  
+```
+_export:
+  td:
+    database: engagement_score
+  log_db: sample_db
+  log_tb: sample_tb
+  user_id: userid
+  cookie: td_client_id
+  category_col: category
+  article_col: td_path
+  days: 28
+  category_flag: 'ニュース','経済','エンタメ','スポーツ','国内','国際'
+  check_host: sample.jp
+```
+  
+|項目           |内容                               |
+|--------------|-----------------------------------|
+|log_db        |集計するトランザクションログが存在するDB    |
+|log_tb        |集計するトランザクションログが存在するテーブル|
+|user_id       |ユーザーIDカラム                      |
+|cookie 　　　  |cookieカラム                         |
+|category_col  |カテゴリ分類するカラム                   |
+|article_col　 |記事カラム                           |
+|days　　　　   |集計対象期間                         |
+|category_flag　|カテゴリカラム内の分類するカテゴリ         |
+|check_host　  |ホストを指定する場合                   |
  
- - Toolbeltダウンロードリンク
- https://toolbelt.treasuredata.com/
-  
-# GitgubからWorkflowファイルのダウンロード
-  
-  1. `Clone or dowload`をクリック
-  ![Clone or dowload](https://github.com/tsukaharakazuki/image/blob/master/git_dl_1.png?raw=true "Clone or dowload")
-  
-  2. ダウンロードURLをコピー
-  ![ダウンロードURL](https://github.com/tsukaharakazuki/image/blob/master/git_dl_2.png?raw=true "ダウンロードURL")
-    
-  3. CLIからファイルのダウンロード
-  
-  `$ git clone https://github.com/tsukaharakazuki/td.git`
-  
-  上記コマンドを実行いただくと、Workflowフォルダのダウンロードが完了します。
-  
