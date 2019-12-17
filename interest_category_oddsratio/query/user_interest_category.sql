@@ -6,9 +6,9 @@ user_category AS
 SELECT
   ${user_id} AS uid ,
   ${category_col} AS category ,
-  CAST(count(DISTINCT ${article_col}) AS double) / sum(CAST(count(DISTINCT ${article_col}) AS double)) over(partition by ${user_id}) AS ratio ,
-  CAST(count(DISTINCT ${article_col}) AS double) AS n_article ,
-  SUM(CAST(count(DISTINCT ${article_col}) AS double)) OVER(PARTITION BY ${user_id}) AS n_total_article
+  CAST(COUNT(DISTINCT ${article_col}) AS double) / SUM(CAST(COUNT(DISTINCT ${article_col}) AS double)) OVER(PARTITION BY ${user_id}) AS ratio ,
+  CAST(COUNT(DISTINCT ${article_col}) AS double) AS n_article ,
+  SUM(CAST(COUNT(DISTINCT ${article_col}) AS double)) OVER(PARTITION BY ${user_id}) AS n_total_article
 FROM
   ${log_db}.${log_tb}
 WHERE
@@ -24,7 +24,7 @@ average AS
 (
 SELECT
   category ,
-  avg(ratio) AS average
+  AVG(ratio) AS average
 FROM
   user_category
 GROUP BY
@@ -40,7 +40,7 @@ SELECT
   ratio AS n_article_ratio ,
   (least(ratio, 0.99999) / (1-least(ratio, 0.99999))) / (average / (1-average)) AS odds_ratio ,
   RANK() OVER(PARTITION BY uid ORDER BY 
-    (least(ratio, 0.99999) / (1-least(ratio, 0.99999))) / (average / (1-average)) desc) AS rnk
+    (least(ratio, 0.99999) / (1-least(ratio, 0.99999))) / (average / (1-average)) DESC) AS rnk
 FROM
   user_category u
 LEFT OUTER JOIN
