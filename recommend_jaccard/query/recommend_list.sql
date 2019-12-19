@@ -11,7 +11,7 @@ FROM
 SELECT
   l AS base_article ,
   r AS recommend ,
-  ROW_NUMBER() OVER (PARTITION BY l ORDER BY r_size desc) as sizelange
+  ROW_NUMBER() OVER (PARTITION BY l ORDER BY jaccard desc) as sizelange
 FROM
   recommend_jaccard
 )
