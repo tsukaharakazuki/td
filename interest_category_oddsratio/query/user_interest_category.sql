@@ -33,7 +33,7 @@ GROUP BY
 
 
 SELECT
-  uid
+  uid ,
   u.category ,
   n_article ,
   n_total_article ,
