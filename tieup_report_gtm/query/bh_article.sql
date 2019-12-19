@@ -17,6 +17,7 @@ FROM
       'bh_article' AS label
     FROM
       bh_${td.each.db_client_name}_${td.each.db_label}
+    --WHERE NOT regexp_like(td_path,'${td.each.article_id}') --タイアップページ自体を集計から外す場合コメントアウト解除
     GROUP BY 
       1
     )
