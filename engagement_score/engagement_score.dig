@@ -28,11 +28,17 @@ _export:
       - "engagement_score_global"
       - "engagement_score_by_media_client"
       - "engagement_score_by_media_global"
+      - "old_engagement_score_client"
+      - "old_engagement_score_global"
+      - "old_engagement_score_by_media_client"
+      - "old_engagement_score_by_media_global"
   _else_do:
     td_ddl>:
     create_tables:
       - "engagement_score_client"
       - "engagement_score_global"
+      - "old_engagement_score_client"
+      - "old_engagement_score_global"
 
 +drop_tmp_tables:
   if>: ${multi_media_check}
