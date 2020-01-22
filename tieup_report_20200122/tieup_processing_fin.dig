@@ -1,0 +1,44 @@
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: tie_up_report
+
++for_each_users:
+  td_for_each>: query/tieup_list.sql
+  _do:
+
+#google_sheetsにデータを送信
+    +to_google_sheets:
+      td>: 
+      query: SELECT * FROM tieup_${td.each.db_client_name}_${td.each.db_label}
+      result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
+      result_settings:
+        spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
+        spreadsheet_title: tieup_${td.each.db_client_name}_${td.each.db_label}
+        sheet_title: "tieup"
+        mode: truncate
+
+#テーブル整理
+    +drop_tables_base:
+      if>: ${click_check}
+      _do:
+        td_ddl>:
+        drop_tables:
+        - "pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}"
+        - "click_tmp_${td.each.db_client_name}_${td.each.db_label}"
+        - "click_tmp2_${td.each.db_client_name}_${td.each.db_label}"
+        - "pvuu_total_tmp2_${td.each.db_client_name}_${td.each.db_label}"
+        - "uaip_${td.each.db_client_name}_${td.each.db_label}"
+        - "bh_${td.each.db_client_name}_${td.each.db_label}"
+      _else_do:
+        td_ddl>:
+        drop_tables:
+        - "uaip_${td.each.db_client_name}_${td.each.db_label}"
+        - "bh_${td.each.db_client_name}_${td.each.db_label}"
+
+    +drop_table_rd:
+      if>: ${rd_check}
+      _do:
+        td_ddl>:
+        drop_tables: 
+        - "rd_${td.each.db_client_name}_${td.each.db_label}"

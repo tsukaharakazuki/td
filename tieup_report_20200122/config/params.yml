@@ -1,0 +1,19 @@
+---
+user_id: user_id #set user_id column
+log_db: sample_log_db #set web_log database
+log_tb: sample_log_tb #set web_log table
+ls_db: tie_up_report
+ls_tb: tieup_list
+ls_tmp: tieup_list_tmp
+click_db: sample_click_db #set click_log database
+click_tb: sample_click_tb #set click_log table
+click_col: click_url #set click column
+rd_db: sample_rd_db #set read_through database
+rd_tb: sample_rd_tb #set read_through table
+rd_col: scroll_depth_threshold #set read_through column
+dev_mst_db: bi_report
+dev_mst_tb: jp_dev_mst
+master_segment: '1012' #set master_segment number
+check_host: www.treasuredata.co.jp
+click_check: true #true or false / click cnt exists true
+rd_check: true #true or false / read_depth cnt exists true

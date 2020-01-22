@@ -1,0 +1,40 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: tie_up_report
+
++check_list_tmp:
+  td>: 
+  query: SELECT COUNT(*) AS list_cnt FROM ${ls_tmp}
+  store_last_results: true
+
++check_list_temp_table:
+  if>: ${td.last_results.list_cnt > 0}
+  _do:
+    +drop_list_tmp:
+      td_ddl>:
+      drop_tables: ["${ls_tb}"]
+    +rename_list_tmp:
+      td_ddl>:
+      rename_tables: [{from: "${ls_tmp}", to: "${ls_tb}"}]
+
++create_list_tmp:
+  td_ddl>:
+  create_tables: ["${ls_tmp}"]
+
++next_wf_01:
+  require>: tieup_processing_01
+
++next_wf_02:
+  require>: tieup_processing_02
+
++next_wf_03:
+  require>: tieup_processing_03
+
++next_wf_fin:
+  require>: tieup_processing_fin

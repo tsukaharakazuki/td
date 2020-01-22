@@ -1,0 +1,46 @@
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: tie_up_report
+
++for_each_users:
+  td_for_each>: query/tieup_list.sql
+  _do:
+
+#UA/IP集計
+    +uaip:
+      td>: query/uaip.sql
+      create_table: uaip_${td.each.db_client_name}_${td.each.db_label}
+
+    +os:
+      td>: query/os.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+      
+    +vendor:
+      td>: query/vendor.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}      
+
+    +browser:
+      td>: query/browser.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +category:
+      td>: query/category.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +country:
+      td>: query/country.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +city:
+      td>: query/city.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +pf:
+      td>: query/pf.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+
+
+
+

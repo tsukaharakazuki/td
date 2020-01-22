@@ -1,0 +1,125 @@
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: tie_up_report
+
++for_each_users:
+  td_for_each>: query/tieup_list.sql
+  _do:
+
+    +create_all_table:
+      td_ddl>:
+      empty_tables: ["tieup_${td.each.db_client_name}_${td.each.db_label}"]
+
+#PV/UU集計
+    +pvuu_hour:
+      td>: query/hour_pvuu.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+#クリックカウントあり
+    +create_click_tmp:
+      if>: ${click_check}
+      _do:
+        td_ddl>:
+        empty_tables: ["click_tmp_${td.each.db_client_name}_${td.each.db_label}"]
+
+    +pvuu_total_tmp:
+      if>: ${click_check}
+      _do:
+         td>: query/pvuu_click_total_tmp.sql
+         create_table: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +pvuu_total_tmp_pc:
+      if>: ${click_check}
+      _do:
+         td>: query/pvuu_total_pc.sql
+         insert_into: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +pvuu_total_tmp_sp:
+      if>: ${click_check}
+      _do:
+         td>: query/pvuu_total_sp.sql
+         insert_into: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +search_query_pvuu:
+      if>: ${click_check}
+      _do:
+        td>: query/get_max_pvuu.sql
+        store_last_results: true
+    
+    +aggregate_pvuu:
+      if>: ${click_check}
+      _do:
+        td>:
+          data: |
+            ${td.last_results.sql_contents}
+        create_table: pvuu_total_tmp2_${td.each.db_client_name}_${td.each.db_label}
+
+    +click_cnt_1:
+      if>: ${click_check}
+      _do:
+         td>: query/click_1.sql
+         insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+        
+    +click_cnt_2:
+      if>: ${click_check}
+      _do:        
+         td>: query/click_2.sql
+         insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+         
+    +click_cnt_3:
+      if>: ${click_check}
+      _do:        
+         td>: query/click_3.sql
+         insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+        
+    +click_cnt_4:
+      if>: ${click_check}
+      _do:        
+         td>: query/click_4.sql
+         insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+        
+    +click_cnt_5:
+      if>: ${click_check}
+      _do:        
+         td>: query/click_5.sql
+         insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +click_total:
+      if>: ${click_check}
+      _do:
+        td>: query/click_total.sql
+        insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +search_query:
+      if>: ${click_check}
+      _do:
+        td>: query/get_max.sql
+        store_last_results: true
+    
+    +aggregate:
+      if>: ${click_check}
+      _do:
+        td>:
+          data: |
+            ${td.last_results.sql_contents}
+        create_table: click_tmp2_${td.each.db_client_name}_${td.each.db_label}
+
+    +pvuu_click_total:
+      if>: ${click_check}
+      _do:
+         td>: query/pvuu_click_total.sql
+         insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +click_kv:
+      if>: ${click_check}
+      _do:
+         td>: query/click_kv.sql
+         insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+#クリックカウントなし
+    +pvuu_total_nonclick:
+      if>: ${click_check}
+      _else_do:
+        td>: query/pvuu_total_nonclick.sql
+        insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
