@@ -34,8 +34,10 @@ SELECT
   AVG(uu) AS avg_uu ,
   AVG(pv) + SQRT(VARIANCE(pv)) as upper,
   AVG(pv) - SQRT(VARIANCE(pv)) as lower
-FROM t1
-GROUP BY 1
+FROM 
+  t1
+GROUP BY 
+  1
 ),
 
 
@@ -50,8 +52,10 @@ FROM
   rd_${td.each.db_client_name}_${td.each.db_label}
 WHERE
   regexp_like(td_path,'${td.each.article_id}')
-GROUP BY 1
-ORDER BY 1,2,3
+GROUP BY 
+  1
+ORDER BY 
+  1,2,3
 ),
 
 
@@ -60,8 +64,10 @@ u2 AS
 SELECT
   h,
   AVG(max_rd) AS avg_rd
-FROM u1
-GROUP BY 1
+FROM 
+  u1
+GROUP BY 
+  1
 )
 
 
@@ -73,6 +79,9 @@ SELECT
   a.lower AS avg_lower ,
   b.avg_rd ,
   'avg_hour' AS label
-FROM t2 AS a
-LEFT JOIN u2 AS b
-ON a.h = b.h
+FROM 
+  t2 AS a
+LEFT JOIN 
+  u2 AS b
+ON 
+  a.h = b.h
