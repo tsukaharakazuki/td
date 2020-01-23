@@ -6,7 +6,9 @@ SELECT
    cdp_customer_id
   ,td_affinity_categorie
 FROM
-  cdp_audience_${master_segment}.customers CROSS JOIN UNNEST(td_affinity_categories) AS t(td_affinity_categorie)
+  cdp_audience_${master_segment}.customers 
+CROSS JOIN 
+   UNNEST(td_affinity_categories) AS t(td_affinity_categorie)
 WHERE
   td_client_id IN
   (
