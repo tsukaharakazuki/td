@@ -37,8 +37,10 @@ SELECT
   ,'' AS dum
 FROM
   t0
-GROUP BY 2
-ORDER BY 1 DESC
+GROUP BY 
+   2
+ORDER BY 
+   1 DESC
 )
 
 SELECT
