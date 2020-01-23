@@ -86,9 +86,3 @@ _export:
       _else_do:
          td>: query/avg_hour_nonrd.sql
          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}      
-
-    +drop_table_rd:
-      if>: ${rd_check}
-      _do:
-        td_ddl>:
-        drop_tables: ["rd_${td.each.db_client_name}_${td.each.db_label}"]
