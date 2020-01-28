@@ -116,29 +116,33 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
   
 今回はGoogleが提供するダッシュボードツール`データポータル`を使って可視化をしています。`TreasureReporting`での可視化も可能です。
   
-可視化するデータは`datatank`に格納しています。
+可視化するデータは`Googleスプレッドシート`に格納しています。
   
-※datatankはTDが提供するPostgreSQL環境です。（Googleシートなどでも運用可能ですが、日時更新でリレーションが欠損するといった運用上の注意点が存在ます。）
-
-[サンプルダッシュボード](https://datastudio.google.com/open/1Ee2RAukcUaFf4lzp43ieJamave6YUauJ)
+[サンプルダッシュボード](https://datastudio.google.com/open/1OPjVTE12iBTv5Q8EAQ0Fi3eN1Rvqk_rU)
   
 ## データソースの接続とデータ型の変更
 
-1. PostgreSQLを選択
-![データソース選択](https://github.com/tsukaharakazuki/image/blob/master/dataportal_1.png?raw=true "データソース")
+1. 作成をクリック
+![作成をクリック](https://github.com/tsukaharakazuki/image/blob/master/datasauce_gs_01.png?raw=true "作成をクリック")
   
-2. Datatankとの接続設定
-![接続設定](https://github.com/tsukaharakazuki/image/blob/master/dataportal_2.png?raw=true "データソース")
+2. データソースをクリック
+![データソースをクリック](https://github.com/tsukaharakazuki/image/blob/master/datasauce_gs_02.png?raw=true "データソースをクリック")
 
-3. データ型の変更(hour_date)
-![hour_date](https://github.com/tsukaharakazuki/image/blob/master/dataportal_3.png?raw=true "hour_date")
+3. Googleスプレッドシートを選択
+![Googleスプレッドシート](https://github.com/tsukaharakazuki/image/blob/master/datasauce_gs_03.png?raw=true "Googleスプレッドシート")
 
-4. データ型の変更(uaip_div_name_en)
-![uaip_div_name_en](https://github.com/tsukaharakazuki/image/blob/master/dataportal_4.png?raw=true "uaip_div_name_en")
+4. 接続情報
+![接続情報](https://github.com/tsukaharakazuki/image/blob/master/datasauce_gs_04.png?raw=true "接続情報")
 
-5. データ型の変更(テキスト->数値)
-![テキスト->数値](https://github.com/tsukaharakazuki/image/blob/master/dataportal_5.png?raw=true "テキスト->数値")
+5. データ型の変更(時(hh)->数値)
+![時(hh)->数値](https://github.com/tsukaharakazuki/image/blob/master/datasauce_gs_05.png?raw=true "時(hh)->数値")
 　
+6. レポートのサンプルからコピーしたいデータの設定
+![コピー](https://github.com/tsukaharakazuki/image/blob/master/datasauce_gs_06.png?raw=true "コピー")
+  
+ダッシュボードはこちらからご確認ください。
+[サンプルダッシュボードに移動](https://datastudio.google.com/open/1OPjVTE12iBTv5Q8EAQ0Fi3eN1Rvqk_rU)
+  
 ## グラフ設定
 
 1. 概要シート(このシートでは、PV・UU、UAなど大まかなアクセスの概要を表示します。)
