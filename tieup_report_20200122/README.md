@@ -143,55 +143,33 @@ ls_page_title	-> ダッシュボード内で表示する該当タイアップ記
 ダッシュボードはこちらからご確認ください。
 [サンプルダッシュボードに移動](https://datastudio.google.com/open/1OPjVTE12iBTv5Q8EAQ0Fi3eN1Rvqk_rU)
   
-## グラフ設定
-
-1. 概要シート(このシートでは、PV・UU、UAなど大まかなアクセスの概要を表示します。)
+## グラフ概要
   
-   1. 基礎情報：クライアント/タイトル/URL
-    ![画像1](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_1.png?raw=true "画像1")
-    
-   2. NULLを除去する必要があるので、以下の設定でフィルタ設定してください。
-    ![画像2](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_2.png?raw=true "画像2")
-   
-   3. PV/UU/平均読了時間
-    ![画像３](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_3.png?raw=true "画像３")   
-   
-   4. 時間毎のPV/UU推移
-    ![画像4](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_4.png?raw=true "画像4")  
-   
-   5. アクセス地域
-    ![画像5](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_5.png?raw=true "画像5")  
-   
-   6. カテゴリ/ブラウザ/OS
-    ![画像6](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_6.png?raw=true "画像6")     
-
-2. 流入元・遷移先・興味関心シート
+1. 表紙(リストから表紙情報を取得し表示しています)
   
-   1. 流入元・遷移先・キーワード
-    ![画像7](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_7.png?raw=true "画像7") 
-    
-   2. 関心カテゴリ
-    ![画像8](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_8.png?raw=true "画像8")    
+![表紙](https://github.com/tsukaharakazuki/image/blob/master/report_image_01.png?raw=true "表紙")
   
-3. 読了率シート
+2. 概要シート(PV・UU、UAなど大まかなアクセスの概要を表示します。)
   
-   1. 読了率
-    ![画像9](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_9.png?raw=true "画像9")   
+![概要](https://github.com/tsukaharakazuki/image/blob/master/report_image_02.png?raw=true "概要")
   
-4. 閲覧者記事分析
+3. 流入元・遷移先・キーワード・カテゴリ(アクセスログから流入元・遷移先を集計。CDPの機能で分解したキーワードとカテゴリのランキングも掲載)
   
-   1. 該当記事閲覧者のメディア内記事閲覧カウント
-    ![画像10](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_10.png?raw=true "画像10")  
+![流入元・遷移先・キーワード・カテゴリ](https://github.com/tsukaharakazuki/image/blob/master/report_image_03.png?raw=true "流入元・遷移先・キーワード・カテゴリ")
   
-5. 時間帯毎平均閲覧・読了シート（このシートは2つのグラフを重ねて表現しています）
+4. 読了(読了計測をしている場合、読了集計を表示)
   
-   1. 平均PV（棒グラフ）
-    ![画像11](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_11.png?raw=true "画像11")  
+![読了](https://github.com/tsukaharakazuki/image/blob/master/report_image_04.png?raw=true "読了")
   
-   2. 平均読了率（折れ線グラフ）
-    ![画像12](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_12.png?raw=true "画像12")  
+5. ユーザー行動(タイアップ閲覧者のメディア内行動を集計)
   
-6. クリック集計シート
+![ユーザー行動](https://github.com/tsukaharakazuki/image/blob/master/report_image_05.png?raw=true "ユーザー行動")
   
-   1. クリック集計
-    ![画像13](https://github.com/tsukaharakazuki/image/blob/master/dataportal_graph_13.png?raw=true "画像13")  
+6. 時間毎平均・読了(1日を24時間扱いで、時間毎の平均アクセスを集計)
+  
+![時間毎平均・読了](https://github.com/tsukaharakazuki/image/blob/master/report_image_06.png?raw=true "時間毎平均・読了")
+  
+7. クリック・曜日アクセス・PC/SP(クリック計測をしている場合、指定したクリックURL毎のカウント、曜日毎のアクセスを集計)
+  
+![クリック・曜日アクセス・PC/SP](https://github.com/tsukaharakazuki/image/blob/master/report_image_07.png?raw=true "クリック・曜日アクセス・PC/SP")
+  
