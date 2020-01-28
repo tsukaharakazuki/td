@@ -39,8 +39,3 @@ _export:
     +pf:
       td>: query/pf.sql
       insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
-
-
-
-
-
