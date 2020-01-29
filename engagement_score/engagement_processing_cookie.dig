@@ -3,17 +3,17 @@ _export:
   td:
     database: engagement_score
 
-+drop_tmp_tables:
-  if>: ${multi_media_check}
-  _do:
-    td_ddl>:
-    drop_tables:
-      - "old_engagement_score_${key_id}"
-      - "old_engagement_score_by_media_${key_id}"
-  _else_do:
-    td_ddl>:
-    drop_tables:
-      - "old_engagement_score_${key_id}"
+#+drop_tmp_tables:
+#  if>: ${multi_media_check}
+#  _do:
+#    td_ddl>:
+#    drop_tables:
+#      - "old_engagement_score_${key_id}"
+#      - "old_engagement_score_by_media_${key_id}"
+#  _else_do:
+#    td_ddl>:
+#    drop_tables:
+#      - "old_engagement_score_${key_id}"
 
 +calc_engagement_score:
   td>: query/calc_score.sql
