@@ -1,0 +1,37 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  !include : 'config/cookie.yml'
+  td:
+    database: engagement_score
+
+#初回実行create_tables
++create_tables:
+  if>: ${multi_media_check}
+  _do:
+    td_ddl>:
+    create_tables:
+      - "engagement_score_${key_id}"
+      - "engagement_score_by_media_${key_id}"
+      - "old_engagement_score_${key_id}"
+      - "old_engagement_score_by_media_${key_id}"
+  _else_do:
+    td_ddl>:
+    create_tables:
+      - "engagement_score_${key_id}"
+      - "old_engagement_score_${key_id}"
+
++next_wf_cookie:
+  require>: engagement_processing_cookie
+
++next_wf_userid:
+  if>: ${user_id_check}
+  _do:
+    require>: engagement_processing_user_id
+
+#結果をスプレッドシートに送信する場合
+#+next_wf_fin:
+#  require>: engagement_processing_fin

@@ -1,0 +1,28 @@
+_export:
+  !include : 'config/user_id.yml'
+  td:
+    database: engagement_score
+
+#google_sheetsにデータを送信
+
++to_google_sheets_base:
+    td>: 
+    query: SELECT * FROM population_engagement_score_${cookie}
+    result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
+    result_settings:
+    spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
+    spreadsheet_title: engagement_score
+    sheet_title: "${cookie}"
+    mode: truncate
+
++to_google_sheets_user:
+  if>: ${user_id_check}
+  _do:
+    td>: 
+    query: SELECT * FROM population_engagement_score_${key_id}
+    result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
+    result_settings:
+    spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
+    spreadsheet_title: engagement_score
+    sheet_title: "${key_id}"
+    mode: truncate

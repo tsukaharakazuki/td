@@ -1,0 +1,45 @@
+_export:
+  !include : 'config/cookie.yml'
+  td:
+    database: engagement_score
+
++calc_engagement_score:
+  td>: query/calc_score.sql
+  create_table: tmp_engagement_score_${key_id}
+
++calc_engagement_score_per_brand:
+  if>: ${multi_media_check}
+  _do:
+     td>: query/calc_score_per_brand.sql
+     create_table: tmp_engagement_score_by_media_${key_id}
+
++swap_tables:
+  if>: ${multi_media_check}
+  _do:
+    td_ddl>:
+    rename_tables:
+      - {from: "engagement_score_${key_id}", to: "old_engagement_score_${key_id}"}
+      - {from: "tmp_engagement_score_${key_id}", to: "engagement_score_${key_id}"}
+      - {from: "engagement_score_by_media_${key_id}", to: "old_engagement_score_by_media_${key_id}"}
+      - {from: "tmp_engagement_score_by_media_${key_id}", to: "engagement_score_by_media_${key_id}}
+  _else_do:
+    td_ddl>:
+    rename_tables:
+      - {from: "engagement_score_${key_id}", to: "old_engagement_score_${key_id}"}
+      - {from: "tmp_engagement_score_${key_id}", to: "engagement_score_${key_id}"}
+
++population_engagement_score:
+  td>: query/population_engagement_score.sql
+  create_table: population_engagement_score_${key_id}
+
++degree_engagement_score:
+  td>: query/degree_engagement_score.sql
+  create_table: degree_engagement_score_${key_id}
+
++seg_engagement_score:
+  td>: query/seg_engagement_score.sql
+  create_table: seg_engagement_score_${key_id}
+
++first_third_map:
+  td>: query/first_third_map.sql
+  create_table: ${key_id}_third_map

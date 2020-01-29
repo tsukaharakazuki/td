@@ -1,0 +1,15 @@
+---
+base_db: sample_db
+base_tb: sample_db
+log_db: engagement_score #固定
+log_tb: user_log #固定
+key_id: user_id
+cookie: td_client_id
+check_host: sample.jp
+user_id_check: false
+seg_score_accidental_low: 1
+seg_score_low_middle: 1.5
+seg_score_middle_loyal: 2.3
+multi_media_check: false #true or false / read_depth cnt exists true
+multi_media_col_mane: media
+multi_media_content: split_part(td_path, '/', 2) #どこでパースするかはメディアごとに異なります。またメディアIDカラムがある場合メディアIDカラムをセット
