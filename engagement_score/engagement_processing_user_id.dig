@@ -19,6 +19,18 @@ _export:
       - "engagement_score_${key_id}"
       - "old_engagement_score_${key_id}"
 
+#+drop_tmp_tables:
+#  if>: ${multi_media_check}
+#  _do:
+#    td_ddl>:
+#    drop_tables:
+#      - "old_engagement_score_${key_id}"
+#      - "old_engagement_score_by_media_${key_id}"
+#  _else_do:
+#    td_ddl>:
+#    drop_tables:
+#      - "old_engagement_score_${key_id}"
+
 +userid_first_map:
   td>: query/userid_first_map.sql
   create_table: ${key_id}_${cookie}_map
