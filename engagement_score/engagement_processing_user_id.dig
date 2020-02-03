@@ -64,9 +64,29 @@ _export:
       - {from: "engagement_score_${key_id}", to: "old_engagement_score_${key_id}"}
       - {from: "tmp_engagement_score_${key_id}", to: "engagement_score_${key_id}"}
 
++create_population_engagement_score_table:
+  td_ddl>:
+  create_tables: ["population_engagement_score"]
+
 +population_engagement_score:
   td>: query/population_engagement_score.sql
-  create_table: population_engagement_score_${key_id}
+  insert_into: population_engagement_score
+
++create_frequency_table:
+  td_ddl>:
+  create_tables: ["population_frequency"]
+
++population_frequency:
+  td>: query/population_frequency.sql
+  insert_into: population_frequency
+
++create_recency_table:
+  td_ddl>:
+  create_tables: ["population_recency"]
+
++population_recency:
+  td>: query/population_recency.sql
+  insert_into: population_recency
 
 +degree_engagement_score:
   td>: query/degree_engagement_score.sql
