@@ -57,7 +57,7 @@ _export:
       - {from: "engagement_score_${key_id}", to: "old_engagement_score_${key_id}"}
       - {from: "tmp_engagement_score_${key_id}", to: "engagement_score_${key_id}"}
       - {from: "engagement_score_by_media_${key_id}", to: "old_engagement_score_by_media_${key_id}"}
-      - {from: "tmp_engagement_score_by_media_${key_id}", to: "engagement_score_by_media_${key_id}}
+      - {from: "tmp_engagement_score_by_media_${key_id}", to: "engagement_score_by_media_${key_id}"}
   _else_do:
     td_ddl>:
     rename_tables:
