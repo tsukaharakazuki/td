@@ -5,24 +5,32 @@ _export:
 
 #google_sheetsにデータを送信
 
-+to_google_sheets_base:
++to_google_sheets_score:
     td>: 
-    query: SELECT * FROM population_engagement_score_${cookie}
+    query: SELECT * FROM population_engagement_score
     result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
     result_settings:
-    spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
-    spreadsheet_title: engagement_score
-    sheet_title: "${cookie}"
-    mode: truncate
+      spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
+      spreadsheet_title: engagement_score
+      sheet_title: "score"
+      mode: truncate
 
-+to_google_sheets_user:
-  if>: ${user_id_check}
-  _do:
++to_google_sheets_frequency:
     td>: 
-    query: SELECT * FROM population_engagement_score_${key_id}
+    query: SELECT * FROM population_engagement_score
     result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
     result_settings:
-    spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
-    spreadsheet_title: engagement_score
-    sheet_title: "${key_id}"
-    mode: truncate
+      spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
+      spreadsheet_title: engagement_score
+      sheet_title: "frequency"
+      mode: truncate
+
++to_google_sheets_recency:
+    td>: 
+    query: SELECT * FROM population_engagement_score
+    result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
+    result_settings:
+      spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
+      spreadsheet_title: engagement_score
+      sheet_title: "recency"
+      mode: truncate
