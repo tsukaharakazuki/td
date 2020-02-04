@@ -24,6 +24,13 @@ _export:
       - "engagement_score_${key_id}"
       - "old_engagement_score_${key_id}"
 
++create_gs_table:
+  td_ddl>:
+  empty_tables: 
+    - "population_engagement_score"
+    - "population_frequency"
+    - "population_recency"
+
 +next_wf_cookie:
   require>: engagement_processing_cookie
 
