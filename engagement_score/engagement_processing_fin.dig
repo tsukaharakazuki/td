@@ -17,7 +17,7 @@ _export:
 
 +to_google_sheets_frequency:
   td>: 
-  query: SELECT * FROM population_engagement_score
+  query: SELECT * FROM population_frequency
   result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
   result_settings:
     spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
@@ -27,7 +27,7 @@ _export:
 
 +to_google_sheets_recency:
   td>: 
-  query: SELECT * FROM population_engagement_score
+  query: SELECT * FROM population_recency
   result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
   result_settings:
     spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
