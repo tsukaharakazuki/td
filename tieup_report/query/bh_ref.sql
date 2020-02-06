@@ -134,13 +134,19 @@ SELECT
   ,session_id
   ,td_client_id
   ,td_referrer_name
-FROM t2
+FROM 
+  t2
 )
 
 SELECT
    td_referrer_name AS bh_ref_name
   ,COUNT(td_client_id) AS bh_ref_cnt
+  ,COUNT(td_client_id) AS ref_pv 
+  ,COUNT(DISTINCT td_client_id) AS ref_uu 
   ,'bh_ref' AS label
-FROM t3
-WHERE older = 1
-GROUP BY 1
+FROM 
+  t3
+WHERE 
+  older = 1
+GROUP BY 
+  1
