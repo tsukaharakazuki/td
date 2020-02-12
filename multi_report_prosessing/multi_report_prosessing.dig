@@ -1,0 +1,35 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: multi_report_prosessing
+
++create_base:
+  td_ddl>:
+  empty_tables: ["agg_process"]
+
++tmp_log:
+  for_each>:
+    network: ${network}
+  _do:
+    +baselog:
+      td>: query/baselog.sql
+      create_table: baselog_${network.name}
+
+    +agg_process:
+      td>: query/agg_process.sql
+      insert_into: agg_process   
+
+    +drop_tables:
+      td_ddl>:
+      drop_tables:
+        - "baselog_${network.name}"
+
++store_log:
+  td>: query/store_log.sql
+  insert_into: store_log
+
