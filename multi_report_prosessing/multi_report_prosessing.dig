@@ -10,7 +10,8 @@ _export:
 
 +create_base:
   td_ddl>:
-  empty_tables: ["agg_process"]
+  empty_tables: 
+    - "agg_process"
 
 +tmp_log:
   for_each>:
