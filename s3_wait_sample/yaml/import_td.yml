@@ -1,0 +1,16 @@
+in:
+  type: s3
+  access_key_id: xxxxxxxxxxxxxxxxxx
+  secret_access_key: xxxxxxxxxxxxxxx+xxxxxxxxxxxxxxxxxxx
+  bucket: td-sample
+  path_prefix: td_
+  path_match_pattern: ${target_dt}
+  decoders:
+  - {type: gzip}
+  parser: {type: json, charset: UTF-8, newline: LF}
+out: {}
+exec: {}
+filters:
+- from_value: {mode: upload_time}
+  to_column: {name: time}
+  type: add_time

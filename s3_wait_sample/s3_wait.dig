@@ -1,0 +1,28 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+# daily>: 15:00:00
+
+_export:
+  td:
+    database: in_x_locations #結果を出力するDB
+  target_dt: ${moment(session_time).add(-1, 'days').format("YYYYMMDD")}
+
++s3_wait:
+  s3_wait>: td-sample/td_${target_dt}.gz
+
++create_table:
+  td_ddl>:
+  create_tables: ["in_s3_${target_dt}"]
+
++import:
+  td_load>: yaml/import_td.yml
+  table: in_s3_${target_dt}
+
++insert_data:
+  td>: query/insert_data.sql
+  insert_into: store_log
+
++drop_table:
+  td_ddl>:
+  drop_tables: ["in_s3_${target_dt}"]
