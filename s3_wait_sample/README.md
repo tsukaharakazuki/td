@@ -1,13 +1,13 @@
 # はじめに
 このWorkflowは、s3_waitオペレーターを使って、s3からデータを定期取り込みするWorkflowです。
-詳細は以下のリンクをご確認ください。
+詳細は以下のリンクをご確認ください。  
 https://docs.digdag.io/operators/s3_wait.html
 
 # tips
-1. ファイル名に日付を入れる。
+1. ファイル名に日付を入れる。  
 `${moment(session_time).add(-1, 'days').format("YYYYMMDD")}  `
 今日`2020/02/02` -> 前日日付の`20200201`が代入される。
-1. Secrets設定
+1. Secrets設定  
 https://docs.digdag.io/command_reference.html#secrets
 
 ```
