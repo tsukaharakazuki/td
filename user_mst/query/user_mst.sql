@@ -40,8 +40,8 @@ SELECT
     WHEN (age >= 30 and age < 40) THEN '30代'
     WHEN (age >= 40 and age < 50) THEN '40代'
     WHEN (age >= 50 and age < 60) THEN '50代'
-    WHEN (age >= 60 and age < 66) THEN '60代前半'
-    WHEN (age > 66) THEN '65歳以上'
+    WHEN (age >= 60 and age < 65) THEN '60代前半'
+    WHEN (age >= 65) THEN '65歳以上'
     ELSE NULL
   END age_group ,
   CASE
