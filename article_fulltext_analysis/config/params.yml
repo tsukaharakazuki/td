@@ -1,0 +1,7 @@
+---
+base_db: td_sandbox
+base_tb: article_full_text
+id_col: id
+title_col: title
+text_col: text
+url_col: url

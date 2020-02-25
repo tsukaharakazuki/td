@@ -1,0 +1,17 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: td_sandbox
+
++agg_full_text:
+  td>: query/agg_full_text.sql
+  create_table: agg_full_text
+
++article_id_mst:
+  td>: query/article_id_mst.sql
+  create_table: article_id_mst
