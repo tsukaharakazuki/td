@@ -17,7 +17,7 @@ SELECT
 FROM
   ${log_db}.${log_tb}
 WHERE
-  td_host IN ('${check_host}') AND
+  td_host IN ('${td.each.check_host}') AND
   TD_TIME_RANGE(time,
     '${td.each.start_date}',
     '${td.each.end_date}',
