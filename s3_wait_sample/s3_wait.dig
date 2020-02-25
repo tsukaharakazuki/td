@@ -5,7 +5,7 @@ timezone: "Asia/Tokyo"
 
 _export:
   td:
-    database: in_x_locations #結果を出力するDB
+    database: in_s3_data #結果を出力するDB
   target_dt: ${moment(session_time).add(-1, 'days').format("YYYYMMDD")}
 
 +s3_wait:
