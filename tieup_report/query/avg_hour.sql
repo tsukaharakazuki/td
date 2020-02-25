@@ -10,7 +10,7 @@ SELECT
 FROM
   ${log_db}.${log_tb}
 WHERE
-  td_host IN ('${check_host}') AND
+  td_host IN ('${td.each.check_host}') AND
   regexp_like(td_path,'${td.each.article_id}') AND
   TD_TIME_RANGE(time,
     '${td.each.start_date}',
