@@ -1,5 +1,6 @@
 WITH
 
+
 t1 AS
 (
 SELECT
@@ -23,7 +24,7 @@ WHERE
 
 SELECT 
   base_article , 
-  map_agg(recommend , sizelabel) follow_article
+  json_format(cast(map_agg(recommend , sizelabel) as json)) as follow_article
 FROM 
   t1
 GROUP BY 
