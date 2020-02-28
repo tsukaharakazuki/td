@@ -83,3 +83,25 @@ _export:
 +seg_engagement_score:
   td>: query/seg_engagement_score.sql
   create_table: seg_engagement_score_${key_id}
+
+#+prep_snapshot_table:
+#  td>: query/snapshot_prep.sql
+
++snapshot:
+  for_each>:
+      indicator: [engagement_score, volume, frequency, recency]
+  _do:
+      +snapshot_all:
+          td>: query/snapshot_all.sql
+          insert_into: snapshot_engagement_score_${key_id}
+
++snapshot_multi_media:
+  if>: ${multi_media_check}
+  _do:
+    for_each>:
+        indicator: [engagement_score, volume, frequency, recency]
+    _do:
+        +snapshot_multi:
+            td>: query/snapshot_multi.sql
+            insert_into: snapshot_engagement_score_${key_id}
+
