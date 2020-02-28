@@ -18,11 +18,13 @@ _export:
       - "engagement_score_by_media_${key_id}"
       - "old_engagement_score_${key_id}"
       - "old_engagement_score_by_media_${key_id}"
+      - "snapshot_engagement_score_${key_id}"
   _else_do:
     td_ddl>:
     create_tables:
       - "engagement_score_${key_id}"
       - "old_engagement_score_${key_id}"
+      - "snapshot_engagement_score_${key_id}"
 
 +create_gs_table:
   td_ddl>:
