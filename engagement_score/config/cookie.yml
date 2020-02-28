@@ -10,3 +10,4 @@ user_id_check: false
 multi_media_check: false #true or false / read_depth cnt exists true
 multi_media_col_mane: media
 multi_media_content: split_part(td_path, '/', 2) #どこでパースするかはメディアごとに異なります。またメディアIDカラムがある場合メディアIDカラムをセット
+calc_period: -1
