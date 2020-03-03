@@ -34,12 +34,12 @@ _export:
     - "population_recency"
 
 +next_wf_cookie:
-  require>: engagement_processing_cookie
+  require>: engagement_processing_01_cookie
 
 +next_wf_userid:
   if>: ${user_id_check}
   _do:
-    require>: engagement_processing_user_id
+    require>: engagement_processing_02_user_id
 
 #結果をスプレッドシートに送信する場合
 #+next_wf_fin:
