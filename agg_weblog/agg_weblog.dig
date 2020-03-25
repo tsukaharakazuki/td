@@ -1,0 +1,29 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 1 * * * *
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: master_segments
+
++daily_processing:
+  if>: ${firsttime_flag}
+  _do:
+    +empty_base:
+      td_ddl>:
+      empty_tables: 
+        - "agg_weblog"
+
+    +agg_weblog:
+      td>: query/agg_weblog.sql
+      insert_into: agg_weblog
+      engine: hive # Only Hive works
+      engine_version: experimental
+
+  _else_do:
+    +agg_weblog_daily:
+      td>: query/agg_weblog_hourly.sql
+      insert_into: agg_weblog
+

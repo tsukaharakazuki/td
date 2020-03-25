@@ -1,0 +1,10 @@
+---
+firsttime_flag: true #true or false / read_depth cnt exists true
+log_db: YOUR_WEB_LOG_DB #set web_log database
+log_tb: YOUR_WEB_LOG_TB #set web_log table
+user_id: user_id #set user_id column
+dev_mst_db: master_segments
+dev_mst_tb: jp_dev_mst
+master_segment: xxxxx
+check_host: n/a
+check_host_flag: --
