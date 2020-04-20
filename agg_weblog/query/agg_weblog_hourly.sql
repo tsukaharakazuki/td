@@ -22,7 +22,7 @@ SELECT
   td_user_agent ,
   td_browser ,
   td_screen ,
-  td_viewport ,
+  td_viewport 
 FROM
   ${log_db}.${log_tb}
 WHERE
