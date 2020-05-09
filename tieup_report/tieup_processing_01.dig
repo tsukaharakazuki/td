@@ -1,0 +1,75 @@
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: tie_up_report
+
++for_each_users:
+  td_for_each>: config/tieup_list.sql
+  _do:
+
+    +create_all_table:
+      td_ddl>:
+      empty_tables: ["tieup_${td.each.db_client_name}_${td.each.db_label}"]
+
+    +info:
+      td>: queries/p1/info.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +create_base_log:
+      td>: queries/p1/base_log.sql
+      create_table: base_${td.each.db_client_name}_${td.each.db_label}
+
+#PV/UU集計
+    +avg_browsing_time:
+      td>: queries/p1/avg_browsing_time.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +pvuu_hour:
+      td>: queries/p1/hourly_pvuu.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+#クリックカウントあり
+    +create_click_tmp:
+      if>: ${click_check}
+      _do:
+        td_ddl>:
+        empty_tables: ["click_tmp_${td.each.db_client_name}_${td.each.db_label}"]
+
+    +total_pvuu_base:
+      if>: ${click_check}
+      _do:
+         td>: queries/p1/total_pvuu_tmp.sql
+         create_table: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +total_pvuu_pc:
+      if>: ${click_check}
+      _do:
+         td>: queries/p1/total_pvuu_pc.sql
+         insert_into: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +total_pvuu_sp:
+      if>: ${click_check}
+      _do:
+         td>: queries/p1/total_pvuu_sp.sql
+         insert_into: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
+
+    +search_query_pvuu:
+      if>: ${click_check}
+      _do:
+        td>: queries/p1/get_max_pvuu.sql
+        store_last_results: true
+
+    +aggregate_pvuu:
+      if>: ${click_check}
+      _do:
+        td>:
+          data: |
+            ${td.last_results.sql_contents}
+        create_table: pvuu_total_result_${td.each.db_client_name}_${td.each.db_label}
+
+#クリックカウントなし
+    +total_pvuu_nonclick:
+      if>: ${click_check}
+      _else_do:
+        td>: queries/p1/total_pvuu_nonclick.sql
+        insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
