@@ -39,16 +39,16 @@ _export:
             - "click_tmp_${td.each.db_client_name}_${td.each.db_label}"
 
         +total_pvuu_base:
-           td>: queries/p1/total_pvuu_tmp.sql
-           create_table: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
+          td>: queries/p1/total_pvuu_tmp.sql
+          create_table: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
 
         +total_pvuu_pc:
-           td>: queries/p1/total_pvuu_pc.sql
-           insert_into: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
+          td>: queries/p1/total_pvuu_pc.sql
+          insert_into: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
 
         +total_pvuu_sp:
-           td>: queries/p1/total_pvuu_sp.sql
-           insert_into: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
+          td>: queries/p1/total_pvuu_sp.sql
+          insert_into: pvuu_total_tmp_${td.each.db_client_name}_${td.each.db_label}
 
         +search_query_pvuu:
           td>: queries/p1/get_max_pvuu.sql
