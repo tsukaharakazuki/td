@@ -12,24 +12,24 @@ _export:
       _do:
       
         +click_cnt_1:
-           td>: queries/p2/click_1.sql
-           insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+          td>: queries/p2/click_1.sql
+          insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
 
         +click_cnt_2:
-           td>: queries/p2/click_2.sql
-           insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+          td>: queries/p2/click_2.sql
+          insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
 
         +click_cnt_3:
-           td>: queries/p2/click_3.sql
-           insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+          td>: queries/p2/click_3.sql
+          insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
 
         +click_cnt_4:
-           td>: queries/p2/click_4.sql
-           insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+          td>: queries/p2/click_4.sql
+          insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
 
         +click_cnt_5:
-           td>: queries/p2/click_5.sql
-           insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
+          td>: queries/p2/click_5.sql
+          insert_into: click_tmp_${td.each.db_client_name}_${td.each.db_label}
 
         +click_cnt_total:
           td>: queries/p2/click_total.sql
@@ -46,9 +46,9 @@ _export:
           create_table: click_result_${td.each.db_client_name}_${td.each.db_label}
 
         +total_pvuu_click:
-           td>: queries/p2/total_pvuu_click.sql
-           insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+          td>: queries/p2/total_pvuu_click.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
 
         +click_kv:
-           td>: queries/p2/click_kv.sql
-           insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+          td>: queries/p2/click_kv.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
