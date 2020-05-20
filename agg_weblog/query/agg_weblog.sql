@@ -38,6 +38,7 @@ WHERE
 
 SELECT
   time ,
+  td_client_id ,
   td_global_id ,
 --  td_ssc_id ,
 --  event_type ,
