@@ -27,6 +27,7 @@ _export:
   - designation: duration_range
   - designation: fm_category
   - designation: prefecture
+  - designation: age_group
   
 +user_mst:
   td>: query/user_mst.sql
@@ -43,10 +44,6 @@ _export:
   _do:
      td>: query/counts.sql
      insert_into: agg_user_mst
-
-+agg_age_group:
-  td>: query/agg_age_group.sql
-  insert_into: agg_user_mst
 
 #datatankにデータを送信
 #+td-result-output-datatanks:
