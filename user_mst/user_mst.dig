@@ -4,6 +4,7 @@ timezone: "Asia/Tokyo"
 #  daily>: 03:00:00
 
 _export:
+!include : 'config/params.yml'
   td:
     database: user_mst
   user_mst_db: user_data
