@@ -7,28 +7,6 @@ _export:
 !include : 'config/params.yml'
   td:
     database: user_mst
-  user_mst_db: user_data
-  user_mst_tb: base_user_data
-  id: id
-  email: email
-  birthday: birthday
-  sex: sex
-  regist_day: regist_day
-  prefecture: prefecture
-  address_1: address_1
-  address_2: address_2
-  address_3: address_3
-  first_name: first_name
-  last_name: last_name
-  phone: phone
-  zip_code: zip_code
-  counts:
-  - designation: sex
-  - designation: age
-  - designation: duration_range
-  - designation: fm_category
-  - designation: prefecture
-  - designation: age_group
   
 +user_mst:
   td>: query/user_mst.sql
