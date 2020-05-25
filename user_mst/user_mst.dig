@@ -21,8 +21,13 @@ _export:
   last_name: last_name
   phone: phone
   zip_code: zip_code
+  counts:
+  - designation: sex
+  - designation: age
+  - designation: duration_range
+  - designation: fm_category
+  - designation: prefecture
   
-
 +user_mst:
   td>: query/user_mst.sql
   create_table: user_mst
@@ -31,32 +36,16 @@ _export:
   td_ddl>:
   empty_tables: ["agg_user_mst"]
 
-+agg_sex:
-  td>: query/agg_sex.sql
-  insert_into: agg_user_mst
-
-+agg_age:
-  td>: query/agg_age.sql
-  insert_into: agg_user_mst
++loop_counts:
+  for_each>:
+    counts: ${counts}
+  _parallel: false
+  _do:
+     td>: query/counts.sql
+     insert_into: agg_user_mst
 
 +agg_age_group:
   td>: query/agg_age_group.sql
-  insert_into: agg_user_mst
-
-+agg_fm_category:
-  td>: query/agg_fm_category.sql
-  insert_into: agg_user_mst
-
-+agg_duration_days:
-  td>: query/agg_duration_days.sql
-  insert_into: agg_user_mst
-
-+agg_duration_range:
-  td>: query/agg_duration_range.sql
-  insert_into: agg_user_mst
-
-+agg_prefecture:
-  td>: query/agg_prefecture.sql
   insert_into: agg_user_mst
 
 #datatankにデータを送信
