@@ -14,7 +14,12 @@ _export:
 
 +create_all_table:
   td_ddl>:
-  empty_tables: ["agg_user_mst"]
+  empty_tables: 
+    - "agg_user_mst"
+    
++total_cnt:
+  td>: query/user_total_cnt.sql
+  insert_into: agg_user_mst
 
 +loop_counts:
   for_each>:
