@@ -33,9 +33,9 @@ SELECT
   age ,
   gender ,
   CASE
-    WHEN (age < 16) THEN '中学生以下'
-    WHEN (age >= 16 and age < 19) THEN '高校生'
-    WHEN (age >= 19 and age < 23) THEN '大学生'
+    WHEN (age < 16) THEN '15歳以下'
+    WHEN (age >= 16 and age < 19) THEN '16歳-18歳'
+    WHEN (age >= 19 and age < 23) THEN '19歳-22歳'
     WHEN (age >= 23 and age < 30) THEN '20代'
     WHEN (age >= 30 and age < 40) THEN '30代'
     WHEN (age >= 40 and age < 50) THEN '40代'
