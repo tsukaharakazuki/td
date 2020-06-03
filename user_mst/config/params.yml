@@ -4,7 +4,7 @@ user_mst_tb: base_user_data
 id: id
 email: email
 birthday: birthday
-sex: sex
+gender: sex
 regist_day: regist_day
 prefecture: prefecture
 address_1: address_1
