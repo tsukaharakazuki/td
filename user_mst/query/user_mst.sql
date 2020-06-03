@@ -7,7 +7,7 @@ SELECT
   ${email} ,
   DATE_FORMAT(DATE_PARSE(${birthday}, '%Y-%m-%d %H:%i:%s.000'),'%Y-%m-%d') AS birthday ,
   DATE_DIFF('YEAR', CAST(DATE_FORMAT(DATE_PARSE(${birthday}, '%Y-%m-%d %H:%i:%s.000'),'%Y-%m-%d') as DATE), CAST(TD_TIME_FORMAT(TD_SCHEDULED_TIME(), 'yyyy-MM-dd') as DATE)) as age ,
-  sex ,
+  ${gender} AS gender ,
   DATE_FORMAT(DATE_PARSE(${regist_day}, '%Y-%m-%d %H:%i:%s.%f'),'%Y-%m-%d') AS regist_day ,
   DATE_DIFF('DAY', CAST(DATE_FORMAT(DATE_PARSE(${regist_day}, '%Y-%m-%d %H:%i:%s.%f'),'%Y-%m-%d') as DATE), CAST(TD_TIME_FORMAT(TD_SCHEDULED_TIME(), 'yyyy-MM-dd') as DATE)) AS duration_days ,
   ${last_name}||' '||${first_name} AS name ,
@@ -31,7 +31,7 @@ SELECT
   email ,
   birthday ,
   age ,
-  sex ,
+  gender ,
   CASE
     WHEN (age < 16) THEN '中学生以下'
     WHEN (age >= 16 and age < 19) THEN '高校生'
@@ -85,10 +85,10 @@ SELECT
   email ,
   birthday ,
   age ,
-  sex ,
+  gender ,
   age_group ,
   age_category ,
-  sex||age_category AS fm_category ,
+  gender||age_category AS fm_category ,
   regist_day ,
   duration_days ,
   duration_range ,
