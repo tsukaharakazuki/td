@@ -10,7 +10,10 @@
 `rm ~/.td/td.conf`
   
 2. API KEYをセッティング
-`td apikey:set YOUR_API_KEY`
+`td apikey:set YOUR_API_KEY`  
+
+※Tokyoリージョンの場合
+`td -e https://api.treasuredata.co.jp account -f`  
 
 # WorkflowのDLやUploadの際のフォルダ変更（チェンジディレクトリ）
   
