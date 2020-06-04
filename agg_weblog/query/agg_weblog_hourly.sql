@@ -48,7 +48,7 @@ SELECT
   utm_campaign ,
   utm_medium ,
   utm_source ,
-  utm_term ,
+  utm_content ,
   td_referrer ,
   td_ref_host ,
   CASE
