@@ -1,7 +1,7 @@
 SELECT
   article_id ,
-  start_date ,
-  end_date ,
+  REGEXP_REPLACE(start_date, '(?<=^.{10}).*','') AS start_date ,
+  REGEXP_REPLACE(end_date, '(?<=^.{10}).*','') AS end_date ,
   check_host_flag ,
   check_host ,
   c_1 ,
