@@ -42,7 +42,7 @@
 3. WFでの呼び出しかた
 `${secret:td.apikey}`
   
-# Workflow Project Key確認方法
+# Workflow Project ID確認方法
   
 1. TDのリージョン変更（us:.com,tokyo:.co.jp）&API Keyの入力後コマンド実行。
   
