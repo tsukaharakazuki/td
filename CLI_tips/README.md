@@ -41,7 +41,13 @@
   
 3. WFでの呼び出しかた
 `${secret:td.apikey}`
-
+  
+# Workflow Project Key確認方法
+  
+1. TDのリージョン変更（us:.com,tokyo:.co.jp）&API Keyの入力後コマンド実行。
+  
+   `% curl 'https://api-workflow.treasuredata.com/api/projects/' -H "Authorization: TD1 [API Key]" -H"Accept: application/json" | jq .`
+  
 # CLIでTDのデータベース確認
   
 `td db:list`
