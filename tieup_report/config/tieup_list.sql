@@ -12,18 +12,78 @@ SELECT
   translate(
     REPLACE(
       REPLACE(
-        REPLACE(db_client_name,'-','_') 
-      ,' ','')
-    ,'　','') ,
+        REPLACE(
+          REPLACE(
+            REPLACE(
+              REPLACE(
+                REPLACE(
+                  REPLACE(
+                    REPLACE(
+                      REPLACE(
+                        REPLACE(
+                          REPLACE(
+                            REPLACE(
+                              REPLACE(
+                                REPLACE(
+                                  REPLACE(
+                                    REPLACE(
+                                      REPLACE(db_client_name,'-','_') 
+                                    ,' ','')
+                                  ,'　','') 
+                                ,'&','and')
+                              ,'%','')
+                            ,'?','')
+                          ,'@','at')
+                        ,'(','')
+                      ,')','')
+                    ,'+','plus')
+                  ,'/','')
+                ,'<','')
+              ,'>','')
+            ,'*','')
+          ,'=','')
+        ,'¥','')
+      ,'!','')
+    ,'#',''),
   'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
   'abcdefghijklmnopqrstuvwxyz'
   ) AS db_client_name ,
   translate(
     REPLACE(
       REPLACE(
-        REPLACE(db_label,'-','_') 
-      ,' ','')
-    ,'　','') ,
+        REPLACE(
+          REPLACE(
+            REPLACE(
+              REPLACE(
+                REPLACE(
+                  REPLACE(
+                    REPLACE(
+                      REPLACE(
+                        REPLACE(
+                          REPLACE(
+                            REPLACE(
+                              REPLACE(
+                                REPLACE(
+                                  REPLACE(
+                                    REPLACE(
+                                      REPLACE(db_label,'-','_') 
+                                    ,' ','')
+                                  ,'　','') 
+                                ,'&','and')
+                              ,'%','')
+                            ,'?','')
+                          ,'@','at')
+                        ,'(','')
+                      ,')','')
+                    ,'+','plus')
+                  ,'/','')
+                ,'<','')
+              ,'>','')
+            ,'*','')
+          ,'=','')
+        ,'¥','')
+      ,'!','')
+    ,'#',''),
   'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
   'abcdefghijklmnopqrstuvwxyz'
   ) AS db_label ,
