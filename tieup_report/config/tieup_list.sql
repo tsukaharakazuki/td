@@ -9,8 +9,24 @@ SELECT
   c_3 ,
   c_4 ,
   c_5 ,
-  db_client_name ,
-  db_label ,
+  translate(
+    REPLACE(
+      REPLACE(
+        REPLACE(db_client_name,'-','_') 
+      ,' ','')
+    ,'　','') ,
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  'abcdefghijklmnopqrstuvwxyz'
+  ) AS db_client_name ,
+  translate(
+    REPLACE(
+      REPLACE(
+        REPLACE(db_label,'-','_') 
+      ,' ','')
+    ,'　','') ,
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  'abcdefghijklmnopqrstuvwxyz'
+  ) AS db_label ,
   ls_page_url ,
   ls_client_name_jp ,
   ls_page_title ,
