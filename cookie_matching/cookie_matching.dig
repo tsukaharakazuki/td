@@ -1,0 +1,64 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 14:00:00
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: cookie_matiching
+
++each_clients:
+  for_each>:
+    client: ${client}
+  _parallel: false
+  _do:
+
+    +cookie_match: 
+      td>: query/cookie_match.sql
+      create_table: cookie_match_${client.client_name}
+
+    +user_match: 
+      td>: query/user_match.sql
+      create_table: user_match_${client.client_name}
+
+    +create_count_table:
+      td_ddl>:
+      empty_tables: 
+        - "tmp_match_count_${client.client_name}"
+        - "user_count_${client.client_name}"
+
+    +counts:
+      _parallel: true
+      
+      +count_owner_all: 
+        td>: query/count_owner_all.sql
+        insert_into: tmp_match_count_${client.client_name}
+  
+      +count_owner_user_cookie: 
+        td>: query/count_owner_user_cookie.sql
+        insert_into: tmp_match_count_${client.client_name}
+  
+      +count_client_cookie: 
+        td>: query/count_client_cookie.sql
+        insert_into: tmp_match_count_${client.client_name}
+  
+      +count_match_cookie: 
+        td>: query/count_match_cookie.sql
+        insert_into: tmp_match_count_${client.client_name}
+  
+      +count_match_user_cookie: 
+        td>: query/count_match_user_cookie.sql
+        insert_into: tmp_match_count_${client.client_name}
+
+    +dst_match_count: 
+      td>: query/dst_match_count.sql
+      create_table: match_count_${client.client_name}
+
+    +user_counts:
+      for_each>:
+        user_cnt: ${user_cnt}
+      _parallel: false
+      _do:
+         td>: query/user_counts.sql
+         insert_into: user_count_${client.client_name}

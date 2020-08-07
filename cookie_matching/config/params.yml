@@ -1,0 +1,17 @@
+---
+name_flag: owner_name
+cookie_db: sample
+cookie_tb: id_mst
+user_id: user_id
+user_db: user_database
+user_tb: user_table
+user_cnt:
+- designation: sex
+- designation: age
+- designation: age_group
+#以下を編集
+client:
+- client_name: client_name #アルファベット小文字、_アンダーバーのみ
+  matiching_id: td_global_id #match_key
+  client_cookie_db: client_database #受け取ったDatabase
+  client_cookie_tb: client_table #受け取ったTable
