@@ -59,5 +59,3 @@ FROM
     ) n_all
   JOIN df 
   ON (tf.word = df.word)
-ORDER BY
-  tfidf desc
