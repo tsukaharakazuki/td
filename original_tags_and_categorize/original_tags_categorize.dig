@@ -113,3 +113,24 @@ _export:
   create_table: dst_original_category
   engine: hive # Only Hive works
   engine_version: stable
+
+##マスターセグメント用
+#+agg_weblog_tmp:
+#  td>: queries/agg_weblog_tmp.sql
+#  create_table: agg_weblog_tmp
+#  
+#+agg_weblog:
+#  td>: queries/agg_weblog.sql
+#  create_table: agg_weblog_90d
+#
+#+id_mst:
+#  td>: queries/agg_weblog_id_mst.sql
+#  create_table: id_mst
+#
+##MasterSegmentの実行
+#+kick_audience_workflow:
+#  http>: "https://api-cdp.treasuredata.com/audiences/${categorize_master_segment}/run"
+#  method: POST
+#  headers:
+#    - authorization: "TD1 ${secret:td.apikey}"
+#  retry: true
