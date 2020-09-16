@@ -1,0 +1,115 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: td_sandbox
+
++install_cdp_articles_behabior:
+  td>: queries/install_cdp_behabior.sql
+  create_table: articles_behabior
+
++proc_origin_dict:
+  if>: ${origin_dict}
+  _do:
+
+    +for_each_dict:
+      for_each>:
+        dict: ${dict}
+      _do:
+
+        +dict_base:
+          td>: queries/dict_01.sql
+          create_table: dict_base
+          engine: hive
+          engine_version: stable
+
+        +dict_to_s3:
+          td>:
+          query: select name, tag, kana, wordclass from dict_base
+          result_connection: ${s3_dict.connection}
+          result_settings:
+            bucket: ${s3_dict.bucket}
+            path: /${s3_dict.path}/${dict.name}.csv.gz
+            compression: gz
+            #delimiter: ','
+            header: false
+            newline: \r\n
+
+        +tf_idf:
+          td>: queries/dict_tf_idf.sql
+          create_table: tf_idf
+          engine: hive
+          engine_version: stable
+
+        +add_tag:
+          td>: queries/dict_02.sql
+          create_table: tags
+          engine: hive
+          engine_version: stable
+
+        +install_cdp_behabior:
+          td>: queries/dict_03.sql
+          insert_into: articles_behabior
+
+#カテゴライズ処理
+
++create_base:
+  td_ddl>:
+  empty_tables: 
+    - "tmp_original_category"
+
++agg_all_keyword:
+  td>: queries/agg_all_keyword.sql
+  create_table: agg_all_keyword
+
++proc_tmp_categorize_pf:
+  td>: queries/proc_tmp_categorize_pf.sql
+  insert_into: tmp_original_category
+
++proc_tmp_categorize_area_class:
+  td>: queries/proc_tmp_categorize_area_class.sql
+  insert_into: tmp_original_category
+
++input_workflow_category_list:
+  if>: ${input_workflow_category_list}
+  _do:
+
+    +proc_input_workflow_category_list:
+      for_each>:
+        input_category: ${input_category}
+      _do:
+        td>: queries/proc_tmp_categorize_input_workflow_category_list.sql
+        insert_into: tmp_original_category
+
++install_category_list:
+  if>: ${install_category_list}
+  _do:
+
+    +proc_install_category_list:
+      for_each>:
+        install_category: ${install_category}
+      _do:
+        td>: queries/proc_tmp_categorize_install_category_list.sql
+        insert_into: tmp_original_category
+
++tmp_cdp_category_candidates:
+  td>: queries/tmp_cdp_category_candidates.sql
+  create_table: tmp_cdp_category_candidates
+  engine: hive # Only Hive works
+  engine_version: stable
+
++main_cdp_category_candidates:
+  td>: queries/main_cdp_category_candidates.sql
+  create_table: main_cdp_category_candidates
+  engine: hive # Only Hive works
+  engine_version: stable
+
++dst_original_category:
+  td>: queries/dst_original_category.sql
+  create_table: dst_original_category
+  engine: hive # Only Hive works
+  engine_version: stable
