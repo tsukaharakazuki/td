@@ -1,0 +1,92 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 1 * * * * #カスタムクーロン
+#  daily>: 03:00:00 #日時バッジ
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: template #ベースの参照・出力先Database
+
++presto:
+  td>: queris/presto.sql
+  insert_into: presto
+
++hive:
+  td>: queris/hive.sql
+  insert_into: hive
+  engine: hive # Only Hive works
+  engine_version: experimental #Tez
+
++if:
+  if>: ${if_flag}
+  _do:
+    +if_01:
+      td_ddl>:
+      empty_tables: 
+        - "if_table"
+
+  _else_do:
+    +notif_01:
+      td>: queris/notif_01.sql
+      insert_into: notif_table
+
++for_each_01:
+  for_each>:
+    indicator: 
+      - "aaa"
+      - "bbb"
+      - "ccc"
+  _do:
+    +for_each_011:
+      td>: queris/for_each_011.sql
+      insert_into: for_each_011
+
++for_each_02:
+  for_each>:
+    for_each_02: ${for_each_02}
+  _do:
+    +for_each_021:
+      td>: queris/for_each_02.sql
+      create_table: for_each_02
+
++kick_other_wf:
+  require>: other_workflow_dig_name
+  #project_id: xxxx #異なるprojectの場合セット
+
+#Kick run MasterSegment
++kick_audience_workflow:
+  http>: "https://api-cdp.treasuredata.com/audiences/${master_segment}/run"
+  method: POST
+  headers:
+    - authorization: "TD1 ${secret:td.apikey}"
+  retry: true
+
++to_google_sheets:
+  td>: 
+  query: SELECT * FROM to_google_sheets
+  result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
+  result_settings:
+    spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
+    spreadsheet_title: "ファイル名"
+    sheet_title: "シート1"
+    mode: truncate
+
++for_each_google_sheets:
+  for_each>:
+    to_gs: ${to_gs}
+  _do:
+    +to_google_sheets_for_each:
+      td>: 
+      query: |
+        SELECT 
+          * 
+        FROM 
+          to_google_sheets
+      result_connection: ${to_gs.connecter}
+      result_settings:
+        spreadsheet_folder: ${to_gs.folder}
+        spreadsheet_title: "ファイル名"
+        sheet_title: "シート1"
+        mode: truncate
