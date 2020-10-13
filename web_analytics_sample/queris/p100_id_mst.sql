@@ -1,6 +1,6 @@
 SELECT
   ${primary_cookie}
 FROM
-  base
+  l2_dashboard.base
 GROUP BY
   1
