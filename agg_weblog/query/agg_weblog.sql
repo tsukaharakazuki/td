@@ -71,10 +71,6 @@ ${check_td_ssc_id}  td_ssc_id ,
   td_referrer ,
   td_ref_host ,
   CASE
-    WHEN td_ref_host = 'www.sekaibunka.com' THEN '世界文化社'
-    WHEN td_ref_host = 'www.kateigaho.com' THEN '家庭画報'
-    WHEN td_ref_host = 'www.moto.co.jp' THEN 'MOTOHARU SANO OFFISIAL'
-    WHEN td_ref_host = 'tsuyoponroom.blog86.fc2.com' THEN 'クサナギツヨシ☆追跡中'
     WHEN td_ref_host LIKE '%google%' THEN 'Google'
     WHEN td_ref_host = 'ampproject.org' THEN 'Google'
     WHEN td_ref_host LIKE '%google.android%' THEN 'Android'
