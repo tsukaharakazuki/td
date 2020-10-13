@@ -1,10 +1,12 @@
 ---
 firsttime_flag: true #true or false / read_depth cnt exists true
+check_js_extension: -- #extensionを使用している場合は空白
+check_td_ssc_id: -- #td_ssc_idをONにする場合は空白
+base_term: 360 #日数→全体のログを抽出する過去期間設定
+session_term: 600 #秒数→セッショナイズする間隔設定
 log_db: YOUR_WEB_LOG_DB #set web_log database
 log_tb: YOUR_WEB_LOG_TB #set web_log table
 user_id: user_id #set user_id column
-dev_mst_db: master_segments
-dev_mst_tb: jp_dev_mst
 master_segment: xxxxx
 check_host: n/a
 check_host_flag: --
