@@ -5,6 +5,7 @@ yesterday AS
 (
   SELECT
     td_ref_name ,
+    td_ref_name_sub ,
     COUNT(*) AS ref_cnt ,
     COUNT(DISTINCT ${primary_cookie}) AS uu ,
     TD_TIME_FORMAT(
@@ -20,7 +21,7 @@ yesterday AS
     TD_INTERVAL(time, '-1d', 'JST')
     AND session_num = 1
   GROUP BY
-    1
+    1,2
 )
 
 
@@ -28,6 +29,7 @@ yesterday AS
 (
   SELECT
     td_ref_name ,
+    td_ref_name_sub ,
     COUNT(*) AS ref_cnt ,
     COUNT(DISTINCT ${primary_cookie}) AS uu ,
     TD_TIME_FORMAT(
@@ -43,7 +45,7 @@ yesterday AS
     TD_INTERVAL(time, '-1w', 'JST')
     AND session_num = 1
   GROUP BY
-    1
+    1,2
 )
 
 
@@ -51,6 +53,7 @@ yesterday AS
 (
   SELECT
     td_ref_name ,
+    td_ref_name_sub ,
     COUNT(*) AS ref_cnt ,
     COUNT(DISTINCT ${primary_cookie}) AS uu ,
     TD_TIME_FORMAT(
@@ -66,7 +69,7 @@ yesterday AS
     TD_INTERVAL(time, '1w', 'JST')
     AND session_num = 1
   GROUP BY
-    1
+    1,2
 )
 
 
@@ -74,6 +77,7 @@ yesterday AS
 (
   SELECT
     td_ref_name ,
+    td_ref_name_sub ,
     COUNT(*) AS ref_cnt ,
     COUNT(DISTINCT ${primary_cookie}) AS uu ,
     TD_TIME_FORMAT(
@@ -89,7 +93,7 @@ yesterday AS
     TD_INTERVAL(time, '-1M', 'JST')
     AND session_num = 1
   GROUP BY
-    1
+    1,2
 )
 
 
@@ -97,6 +101,7 @@ yesterday AS
 (
   SELECT
     td_ref_name ,
+    td_ref_name_sub ,
     COUNT(*) AS ref_cnt ,
     COUNT(DISTINCT ${primary_cookie}) AS uu ,
     TD_TIME_FORMAT(
@@ -112,12 +117,13 @@ yesterday AS
     TD_INTERVAL(time, '1M', 'JST')
     AND session_num = 1
   GROUP BY
-    1
+    1,2
 )
 
 
 SELECT
   td_ref_name ,
+  td_ref_name_sub ,
   ref_cnt ,
   uu ,
   tdi_time ,
@@ -129,6 +135,7 @@ UNION
 
 SELECT
   td_ref_name ,
+  td_ref_name_sub ,
   ref_cnt ,
   uu ,
   tdi_time ,
@@ -140,6 +147,7 @@ UNION
 
 SELECT
   td_ref_name ,
+  td_ref_name_sub ,
   ref_cnt ,
   uu ,
   tdi_time ,
@@ -151,6 +159,7 @@ UNION
 
 SELECT
   td_ref_name ,
+  td_ref_name_sub ,
   ref_cnt ,
   uu ,
   tdi_time ,
@@ -162,6 +171,7 @@ UNION
 
 SELECT
   td_ref_name ,
+  td_ref_name_sub ,
   ref_cnt ,
   uu ,
   tdi_time ,
