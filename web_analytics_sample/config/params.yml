@@ -1,0 +1,24 @@
+---
+check_js_extension: -- #extensionを使用している場合は空白
+master_segment: xxxxxx #参照するMasterSegment番号
+
+weblog_db: YOUR_DATABASE
+weblog_tb: YOUR_TABLE
+primary_cookie: td_client_id #or td_ssc_id
+check_td_ssc_id: -- #td_ssc_idをONにする場合は空白
+base_term: 360 #日数→全体のログを抽出する過去期間設定
+session_term: 600 #秒数→セッショナイズする間隔設定
+
+check_scroll_process: true #true or false
+scroll_db: YOUR_DATABASE
+scroll_tb: YOUR_TABLE
+scroll_col: scroll_depth_threshold
+scroll_cut_off: 2000
+
+check_click_process: true #true or false
+click_db: YOUR_DATABASE
+click_tb: YOUR_TABLE
+click_url_col: click_url
+click_scroll_check: #スクロールの集計をしない場合は--を記入
+
+check_cdp_process: true #true or false

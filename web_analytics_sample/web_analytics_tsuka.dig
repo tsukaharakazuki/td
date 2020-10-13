@@ -1,0 +1,239 @@
+timezone: "Asia/Tokyo"
+
+schedule:
+  daily>: 03:00:00 #日時バッジ
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: tsuka_demo #ベースの参照・出力先Database
+    
++create_base_table:
+  td_ddl>:
+  empty_tables: 
+    - "pvuu"
+    - "referrer"
+    - 'article_rank'
+    - "uaip"
+    - "id_mst"
+
++create_base:
+  td>: queris/p000_create_pvuu_base.sql
+  create_table: base
+  engine: hive # Only Hive works
+  engine_version: experimental #Tez
+
++pvuu:
+  td>: queris/p010_pvuu.sql
+  insert_into: pvuu
+
++pvuu_min_14d:
+  td>: queris/p011_pvuu_min_14d.sql
+  create_table: pvuu_min_14d
+
++pvuu_min_2days_ago:
+  td>: queris/p012_pvuu_min_2d_ago.sql
+  create_table: pvuu_min_2d_ago
+
++pvuu_daily:
+  td>: queris/p013_pvuu_daily.sql
+  create_table: pvuu_daily
+
++referrer:
+  td>: queris/p020_referrer.sql
+  insert_into: referrer
+
++article_rank:
+  td>: queris/p030_article_rank.sql
+  insert_into: article_rank
+
++article_rank_min_top20:
+  td>: queris/p031_article_rank_min_top20.sql
+  insert_into: article_rank_min_top20
+
++uaip:
+  td>: queris/p040_uaip.sql
+  insert_into: uaip
+
++master_segment_id_mst:
+  td>: queris/p100_id_mst.sql
+  insert_into: id_mst
+
++scroll_process:
+  if>: ${check_scroll_process}
+  _do:
+    +create_scroll_table:
+      td_ddl>:
+      empty_tables: 
+        - "scroll"
+
+    +create_scroll_base:
+      td>: queris/p200_create_scroll_base.sql
+      create_table: base_scroll
+      engine: hive # Only Hive works
+      engine_version: experimental #Tez
+
+    +tmp_scroll:
+      td>: queris/p210_tmp_scroll.sql
+      create_table: tmp_scroll
+
+    +dst_scroll:
+      td>: queris/p211_dst_scroll.sql
+      insert_into: scroll
+
+    +drop_scroll_table:
+      td_ddl>:
+      drop_tables: 
+        - "tmp_scroll"
+        - "article_rank"
+
+    +rename_scroll_table:
+      td_ddl>:
+      rename_tables: 
+        - {from: "scroll", to: "article_rank"}
+
++click_process:
+  if>: ${check_click_process}
+  _do:
+    +create_click_table:
+      td_ddl>:
+      empty_tables: 
+        - "click"
+
+    +create_click_base:
+      td>: queris/p300_create_click_base.sql
+      create_table: base_click
+      engine: hive # Only Hive works
+      engine_version: experimental #Tez
+
+    +tmp_click:
+      td>: queris/p310_tmp_click.sql
+      create_table: tmp_click
+      
+    +dst_click:
+      td>: queris/p311_dst_click.sql
+      insert_into: click
+
+    +drop_click_table:
+      td_ddl>:
+      drop_tables: 
+        - "tmp_click"
+        - "article_rank"
+
+    +rename_click_table:
+      td_ddl>:
+      rename_tables: 
+        - {from: "click", to: "article_rank"}
+
+    +click_url_cnt:
+      td>: queris/p320_click_url_cnt.sql
+      create_table: click_url
+
++cdp_process:
+  if>: ${check_cdp_process}
+  _do:
+    +create_cdp_table:
+      td_ddl>:
+      empty_tables: 
+        - "keyword"
+        - "category"
+
+    +create_keyword_category_base:
+      td>: queris/p400_create_keyword_category_base.sql
+      create_table: base_keyword_category
+      engine: hive # Only Hive works
+      engine_version: experimental #Tez        
+
+    +dst_keyword:
+      td>: queris/p410_dst_keyword.sql
+      insert_into: keyword
+
+    +dst_category:
+      td>: queris/p411_dst_category.sql
+      insert_into: category
+
+##Kick run MasterSegment
++kick_audience_workflow:
+  http>: "https://api-cdp.treasuredata.com/audiences/${master_segment}/run"
+  method: POST
+  headers:
+    - authorization: "TD1 ${secret:td.apikey}"
+  retry: true
+    
+####
+#+presto:
+#  td>: queris/presto.sql
+#  insert_into: presto
+#
+#+hive:
+#  td>: queris/hive.sql
+#  insert_into: hive
+#  engine: hive # Only Hive works
+#  engine_version: experimental #Tez
+#
+#+if:
+#  if>: ${if_flag}
+#  _do:
+#    +if_01:
+#      td_ddl>:
+#      empty_tables: 
+#        - "if_table"
+#
+#  _else_do:
+#    +notif_01:
+#      td>: queris/notif_01.sql
+#      insert_into: notif_table
+#
+#+for_each_01:
+#  for_each>:
+#    indicator: 
+#      - "aaa"
+#      - "bbb"
+#      - "ccc"
+#  _do:
+#    +for_each_011:
+#      td>: queris/for_each_011.sql
+#      insert_into: for_each_011
+#
+#+for_each_02:
+#  for_each>:
+#    for_each_02: ${for_each_02}
+#  _do:
+#    +for_each_021:
+#      td>: queris/for_each_02.sql
+#      create_table: for_each_02
+#
+#+kick_other_wf:
+#  require>: other_workflow_dig_name
+#  #project_id: xxxx #異なるprojectの場合セット
+#
+
+
+#
+#+to_google_sheets:
+#  td>: 
+#  query: SELECT * FROM to_google_sheets
+#  result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
+#  result_settings:
+#    spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
+#    spreadsheet_title: "ファイル名"
+#    sheet_title: "シート1"
+#    mode: truncate
+#
+#+for_each_google_sheets:
+#  for_each>:
+#    to_gs: ${to_gs}
+#  _do:
+#    +to_google_sheets_for_each:
+#      td>: 
+#      query: |
+#        SELECT 
+#          * 
+#        FROM 
+#          to_google_sheets
+#      result_connection: ${to_gs.connecter}
+#      result_settings:
+#        spreadsheet_folder: ${to_gs.folder}
+#        spreadsheet_title: "ファイル名"
+#        sheet_title: "シート1"
+#        mode: truncate
