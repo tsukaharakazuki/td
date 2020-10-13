@@ -36,16 +36,14 @@ t1 AS
     TD_IP_TO_CITY_NAME(td_ip) AS city 
   FROM
     (
-    SELECT
-      *
-    FROM
-      ${log_db}.${log_tb}
-    WHERE
-      TD_INTERVAL(time, '-${base_term}d/now', 'JST')
-    DISTRIBUTE BY 
-      ${primary_cookie}
-    SORT BY 
-      ${primary_cookie},time
+      SELECT
+        *
+      FROM
+        ${log_db}.${log_tb}
+      DISTRIBUTE BY 
+        ${primary_cookie}
+      SORT BY 
+        ${primary_cookie},time
     ) t
   WHERE
     TD_PARSE_AGENT(td_user_agent) ['category'] <> 'crawler' AND
