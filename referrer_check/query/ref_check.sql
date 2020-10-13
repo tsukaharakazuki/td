@@ -182,7 +182,7 @@ t2 AS
       WHEN td_ref_host = '' THEN 'Non Referer' 
       WHEN NULL THEN 'Non Referer' 
       ELSE 'Others' 
-    END AS td_referrer_name 
+    END AS td_ref_name 
   FROM 
     t1
 )
@@ -190,12 +190,12 @@ t2 AS
 
 SELECT
   td_ref_host , 
-  td_referrer_name ,
+  td_ref_name ,
   COUNT(*) AS cnt
 FROM 
   t2
 WHERE 
-  td_referrer_name ='Others'
+  td_ref_name ='Others'
 GROUP BY 
   1,2
 ORDER BY 
