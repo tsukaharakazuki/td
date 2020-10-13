@@ -2,44 +2,55 @@ WITH
 
 t1 AS
 (
-SELECT
-  time ,
-  td_client_id ,
-  td_global_id ,
- ${check_td_ssc_id}  td_ssc_id ,
-  url_extract_parameter(td_url, 'utm_campaign') AS utm_campaign ,
-  url_extract_parameter(td_url, 'utm_medium') AS utm_medium ,
-  url_extract_parameter(td_url, 'utm_source') AS utm_source ,
-  url_extract_parameter(td_url, 'utm_content') AS utm_content ,
-  td_referrer ,
-  url_extract_host(td_referrer) AS td_ref_host ,
-  td_url ,
-  td_host ,
-  td_path ,
-  td_title ,
-  td_description ,
-  td_ip ,
-  td_os ,
-  td_user_agent ,
-  td_browser ,
-  td_screen ,
-  td_viewport 
-FROM
-  ${log_db}.${log_tb}
-WHERE
-  TD_INTERVAL(time, '-1h', 'JST') AND
-  ${check_host_flag}td_host IN ('${check_host}') AND
-  TD_PARSE_AGENT(td_user_agent) ['category'] <> 'crawler' AND
-  td_client_id != '00000000-0000-4000-8000-000000000000' AND
-  NOT regexp_like(td_browser, '^(?:Googlebot(?:-.*)?|BingPreview|bingbot|YandexBot|PingdomBot)$') AND
-  td_host != 'gtm-msr.appspot.com' AND
-  td_client_id is not NULL AND
-  td_client_id <> 'undefined'
+  SELECT
+    time ,
+    TD_SESSIONIZE_WINDOW(time, ${session_term}) OVER (PARTITION BY ${primary_cookie} ORDER BY time) AS session_id ,
+    td_client_id ,
+    td_global_id ,
+   ${check_td_ssc_id}  td_ssc_id ,
+    url_extract_parameter(td_url, 'utm_campaign') AS utm_campaign ,
+    url_extract_parameter(td_url, 'utm_medium') AS utm_medium ,
+    url_extract_parameter(td_url, 'utm_source') AS utm_source ,
+    url_extract_parameter(td_url, 'utm_content') AS utm_content ,
+    td_referrer ,
+    url_extract_host(td_referrer) AS td_ref_host ,
+    td_url ,
+    td_host ,
+    td_path ,
+    td_title ,
+    td_description ,
+    td_ip ,
+    td_os ,
+    td_user_agent ,
+    td_browser ,
+    td_screen ,
+    td_viewport , 
+    element_at(TD_PARSE_AGENT(td_user_agent), 'os') AS os ,
+    element_at(TD_PARSE_AGENT(td_user_agent), 'vendor') AS vendor ,
+    element_at(TD_PARSE_AGENT(td_user_agent), 'os_version') AS os_version ,
+    element_at(TD_PARSE_AGENT(td_user_agent), 'name') AS browser ,
+    element_at(TD_PARSE_AGENT(td_user_agent), 'category') AS category ,
+    TD_IP_TO_COUNTRY_NAME(td_ip) AS country ,
+    TD_IP_TO_LEAST_SPECIFIC_SUBDIVISION_NAME(td_ip) AS prefectures ,
+    TD_IP_TO_CITY_NAME(td_ip) AS city                    
+  FROM
+    ${log_db}.${log_tb}
+  WHERE
+    TD_INTERVAL(time, '-1h', 'JST') AND
+    TD_PARSE_AGENT(td_user_agent) ['category'] <> 'crawler' AND
+    td_client_id != '00000000-0000-4000-8000-000000000000' AND
+    NOT regexp_like(td_browser, '^(?:Googlebot(?:-.*)?|BingPreview|bingbot|YandexBot|PingdomBot)$') AND
+    td_host != 'gtm-msr.appspot.com' AND
+    td_client_id is not NULL AND
+    td_client_id <> 'undefined'
+    ${check_js_extension} AND action='view' AND category='page' 
 )
 
 
 SELECT
   time ,
+  session_id ,
+  row_number() over (partition by session_id order by time ASC) AS session_num ,
   td_client_id ,
   td_global_id ,
  ${check_td_ssc_id}  td_ssc_id ,
@@ -213,6 +224,64 @@ SELECT
   td_user_agent ,
   td_browser ,
   td_screen ,
-  td_viewport 
+  td_viewport ,
+  os ,
+  vendor ,
+  os_version ,
+  browser ,
+  category ,
+  country ,
+  prefectures ,
+  CASE
+    WHEN prefectures = 'Aichi' THEN 'Aichi'
+    WHEN prefectures = 'Akita' THEN 'Akita'
+    WHEN prefectures = 'Aomori' THEN 'Aomori'
+    WHEN prefectures = 'Ehime' THEN 'Ehime'
+    WHEN prefectures = 'Gifu' THEN 'Gifu'
+    WHEN prefectures = 'Gunma' THEN 'Gunma'
+    WHEN prefectures = 'Hiroshima' THEN 'Hiroshima'
+    WHEN prefectures = 'Hokkaido' THEN 'Hokkaido'
+    WHEN prefectures = 'Fukui' THEN 'Fukui'
+    WHEN prefectures = 'Fukuoka' THEN 'Fukuoka'
+    WHEN prefectures = 'Fukushima-ken' THEN 'Fukushima'
+    WHEN prefectures = 'Hyōgo' THEN 'Hyogo'
+    WHEN prefectures = 'Ibaraki' THEN 'Ibaraki'
+    WHEN prefectures = 'Ishikawa' THEN 'Ishikawa'
+    WHEN prefectures = 'Iwate' THEN 'Iwate'
+    WHEN prefectures = 'Kagawa' THEN 'Kagawa'
+    WHEN prefectures = 'Kagoshima' THEN 'Kagoshima'
+    WHEN prefectures = 'Kanagawa' THEN 'Kanagawa'
+    WHEN prefectures = 'Kochi' THEN 'Kochi'
+    WHEN prefectures = 'Kumamoto' THEN 'Kumamoto'
+    WHEN prefectures = 'Kyoto' THEN 'Kyoto'
+    WHEN prefectures = 'Mie' THEN 'Mie'
+    WHEN prefectures = 'Miyagi' THEN 'Miyagi'
+    WHEN prefectures = 'Miyazaki' THEN 'Miyazaki'
+    WHEN prefectures = 'Nagano' THEN 'Nagano'
+    WHEN prefectures = 'Nagasaki' THEN 'Nagasaki'
+    WHEN prefectures = 'Nara' THEN 'Nara'
+    WHEN prefectures = 'Niigata' THEN 'Niigata'
+    WHEN prefectures = 'Oita' THEN 'Oita'
+    WHEN prefectures = 'Okayama' THEN 'Okayama'
+    WHEN prefectures = 'Okinawa' THEN 'Okinawa'
+    WHEN prefectures = 'Ōsaka' THEN 'Osaka'
+    WHEN prefectures = 'Saga' THEN 'Saga'
+    WHEN prefectures = 'Saitama' THEN 'Saitama'
+    WHEN prefectures = 'Shiga' THEN 'Shiga'
+    WHEN prefectures = 'Shimane' THEN 'Shimane'
+    WHEN prefectures = 'Shizuoka' THEN 'Shizuoka'
+    WHEN prefectures = 'Chiba' THEN 'Chiba'
+    WHEN prefectures = 'Tochigi' THEN 'Tochigi'
+    WHEN prefectures = 'Tokushima' THEN 'Tokushima'
+    WHEN prefectures = 'Tokyo' THEN 'Tokyo'
+    WHEN prefectures = 'Tottori' THEN 'Tottori'
+    WHEN prefectures = 'Toyama' THEN 'Toyama'
+    WHEN prefectures = 'Wakayama' THEN 'Wakayama'
+    WHEN prefectures = 'Yamagata' THEN 'Yamagata'
+    WHEN prefectures = 'Yamaguchi' THEN 'Yamaguchi'
+    WHEN prefectures = 'Yamanashi' THEN 'Yamanashi'
+    ELSE prefectures
+  END map_prefectures ,
+  city 
 FROM
   t1
