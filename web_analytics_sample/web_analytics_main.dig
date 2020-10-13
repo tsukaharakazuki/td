@@ -11,14 +11,14 @@ _export:
 +create_base_table:
   td_ddl>:
   empty_tables: 
-    - "pvuu"
-    - "pvuu_min_14d"
-    - "pvuu_min_2d_ago"
-    - "pvuu_daily"
-    - "referrer"
-    - 'article_rank'
-    - "uaip"
-    - "article_rank_min_top20"
+    - "pvuu" #昨日・今週・先週・今月・先月のPV/UU/SESSION
+    - "pvuu_min_14d" #過去14日分の分間PV/UU/SESSION
+    - "pvuu_min_2d_ago" #2日前の分間PV/UU/SESSION
+    - "pvuu_daily" #過去1年分の1日ごとPV/UU/SESSION
+    - "referrer" #昨日・今週・先週・今月・先月のPV/UU/SESSION
+    - 'article_rank' #昨日・今週・先週・今月・先月の各記事ごとのランキング
+    - "uaip" #昨日・今週・先週・今月・先月のユーザエージェント・IP情報
+    - "article_rank_min_top20" #昨日のランキング記事における過去28日間の分間推移
 
 +create_base:
   td>: queris/p000_create_pvuu_base.sql
@@ -64,7 +64,7 @@ _export:
     +create_scroll_table:
       td_ddl>:
       empty_tables: 
-        - "scroll"
+        - "scroll" #記事ごとのスクロール情報（article_rankにマージされる）
 
     +create_scroll_base:
       td>: queris/p200_create_scroll_base.sql
@@ -97,8 +97,8 @@ _export:
     +create_click_table:
       td_ddl>:
       empty_tables: 
-        - "click"
-        - "click_url"
+        - "click" #記事ごとのクリック情報（article_rankにマージされる）
+        - "click_url" #記事ごとのクリック情報詳細
 
     +create_click_base:
       td>: queris/p300_create_click_base.sql
@@ -135,8 +135,8 @@ _export:
     +create_cdp_table:
       td_ddl>:
       empty_tables: 
-        - "keyword"
-        - "category"
+        - "keyword"　#昨日・今週・先週・今月・先月のCDPで生成されるユーザーが保有するキーワード集計
+        - "category"　#昨日・今週・先週・今月・先月のCDPで生成されるユーザーが保有するカテゴリ集計
 
     +create_keyword_category_base:
       td>: queris/p400_create_keyword_category_base.sql
