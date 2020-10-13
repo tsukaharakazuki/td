@@ -1,5 +1,6 @@
 WITH
 
+
 t1 AS
 (
   SELECT
