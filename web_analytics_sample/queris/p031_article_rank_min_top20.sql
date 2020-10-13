@@ -1,5 +1,5 @@
 SELECT
-  TD_TIME_FORMAT(time, 'yyyy-MM-dd HH:m0:00', 'JST') AS tdi_time ,
+  TD_TIME_FORMAT(time, 'yyyy-MM-dd HH:mm:00', 'JST') AS tdi_time ,
   td_path ,
   td_title ,
   COUNT(*) AS pv ,
