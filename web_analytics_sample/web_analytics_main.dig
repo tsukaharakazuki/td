@@ -6,7 +6,7 @@ timezone: "Asia/Tokyo"
 _export:
   !include : 'config/params.yml'
   td:
-    database: tsuka_demo #ベースの参照・出力先Database
+    database: l2_dashboard #ベースの参照・出力先Database
     
 +create_base_table:
   td_ddl>:
@@ -15,7 +15,6 @@ _export:
     - "referrer"
     - 'article_rank'
     - "uaip"
-    - "id_mst"
 
 +create_base:
   td>: queris/p000_create_pvuu_base.sql
@@ -54,10 +53,6 @@ _export:
 +uaip:
   td>: queris/p040_uaip.sql
   insert_into: uaip
-
-+master_segment_id_mst:
-  td>: queris/p100_id_mst.sql
-  insert_into: id_mst
 
 +scroll_process:
   if>: ${check_scroll_process}
@@ -152,16 +147,6 @@ _export:
       td>: queris/p411_dst_category.sql
       insert_into: category
 
-##Kick run MasterSegment
-#+kick_audience_workflow:
-#  http>: "https://api-cdp.treasuredata.com/audiences/${master_segment}/run"
-#  method: POST
-#  headers:
-#    - authorization: "TD1 ${secret:td.apikey}"
-#  retry: true
-
-
-#
 #+to_google_sheets:
 #  td>: 
 #  query: SELECT * FROM to_google_sheets
