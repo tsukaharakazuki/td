@@ -135,8 +135,8 @@ _export:
     +create_cdp_table:
       td_ddl>:
       empty_tables: 
-        - "keyword"　#昨日・今週・先週・今月・先月のCDPで生成されるユーザーが保有するキーワード集計
-        - "category"　#昨日・今週・先週・今月・先月のCDPで生成されるユーザーが保有するカテゴリ集計
+        - "keyword" #昨日・今週・先週・今月・先月のCDPで生成されるユーザーが保有するキーワード集計
+        - "category" #昨日・今週・先週・今月・先月のCDPで生成されるユーザーが保有するカテゴリ集計
 
     +create_keyword_category_base:
       td>: queris/p400_create_keyword_category_base.sql
