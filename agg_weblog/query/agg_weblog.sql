@@ -182,7 +182,7 @@ ${check_td_ssc_id}  td_ssc_id ,
     WHEN td_ref_host = 'admin-official.line.me' THEN 'LINE'
     WHEN td_ref_host = 'lineblog.me' THEN 'LINEブログ'
     WHEN td_ref_host = '' THEN 'Non Referer' 
-    WHEN NULL THEN 'Non Referer' 
+    WHEN td_ref_host is NULL THEN 'Non Referer' 
     ELSE 'Others' 
   END AS td_ref_name ,
   CASE
