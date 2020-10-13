@@ -1,7 +1,7 @@
 timezone: "Asia/Tokyo"
 
-schedule:
-  daily>: 03:00:00 #日時バッジ
+#schedule:
+#  daily>: 03:00:00 #日時バッジ
 
 _export:
   !include : 'config/params.yml'
@@ -153,60 +153,12 @@ _export:
       insert_into: category
 
 ##Kick run MasterSegment
-+kick_audience_workflow:
-  http>: "https://api-cdp.treasuredata.com/audiences/${master_segment}/run"
-  method: POST
-  headers:
-    - authorization: "TD1 ${secret:td.apikey}"
-  retry: true
-    
-####
-#+presto:
-#  td>: queris/presto.sql
-#  insert_into: presto
-#
-#+hive:
-#  td>: queris/hive.sql
-#  insert_into: hive
-#  engine: hive # Only Hive works
-#  engine_version: experimental #Tez
-#
-#+if:
-#  if>: ${if_flag}
-#  _do:
-#    +if_01:
-#      td_ddl>:
-#      empty_tables: 
-#        - "if_table"
-#
-#  _else_do:
-#    +notif_01:
-#      td>: queris/notif_01.sql
-#      insert_into: notif_table
-#
-#+for_each_01:
-#  for_each>:
-#    indicator: 
-#      - "aaa"
-#      - "bbb"
-#      - "ccc"
-#  _do:
-#    +for_each_011:
-#      td>: queris/for_each_011.sql
-#      insert_into: for_each_011
-#
-#+for_each_02:
-#  for_each>:
-#    for_each_02: ${for_each_02}
-#  _do:
-#    +for_each_021:
-#      td>: queris/for_each_02.sql
-#      create_table: for_each_02
-#
-#+kick_other_wf:
-#  require>: other_workflow_dig_name
-#  #project_id: xxxx #異なるprojectの場合セット
-#
+#+kick_audience_workflow:
+#  http>: "https://api-cdp.treasuredata.com/audiences/${master_segment}/run"
+#  method: POST
+#  headers:
+#    - authorization: "TD1 ${secret:td.apikey}"
+#  retry: true
 
 
 #
