@@ -11,7 +11,7 @@ t1 AS
     url_extract_parameter(td_url, 'utm_campaign') AS utm_campaign ,
     url_extract_parameter(td_url, 'utm_medium') AS utm_medium ,
     url_extract_parameter(td_url, 'utm_source') AS utm_source ,
-    url_extract_parameter(td_url, 'utm_content') AS utm_content ,
+    url_extract_parameter(td_url, 'utm_term') AS utm_term , ,
     td_referrer ,
     url_extract_host(td_referrer) AS td_ref_host ,
     td_url ,
@@ -57,7 +57,7 @@ SELECT
   utm_campaign ,
   utm_medium ,
   utm_source ,
-  utm_content ,
+  utm_term ,
   td_referrer ,
   td_ref_host ,
   CASE
