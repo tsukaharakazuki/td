@@ -12,9 +12,13 @@ _export:
   td_ddl>:
   empty_tables: 
     - "pvuu"
+    - "pvuu_min_14d"
+    - "pvuu_min_2d_ago"
+    - "pvuu_daily"
     - "referrer"
     - 'article_rank'
     - "uaip"
+    - "article_rank_min_top20"
 
 +create_base:
   td>: queris/p000_create_pvuu_base.sql
@@ -28,15 +32,15 @@ _export:
 
 +pvuu_min_14d:
   td>: queris/p011_pvuu_min_14d.sql
-  create_table: pvuu_min_14d
+  insert_into: pvuu_min_14d
 
 +pvuu_min_2days_ago:
   td>: queris/p012_pvuu_min_2d_ago.sql
-  create_table: pvuu_min_2d_ago
+  insert_into: pvuu_min_2d_ago
 
 +pvuu_daily:
   td>: queris/p013_pvuu_daily.sql
-  create_table: pvuu_daily
+  insert_into: pvuu_daily
 
 +referrer:
   td>: queris/p020_referrer.sql
@@ -94,6 +98,7 @@ _export:
       td_ddl>:
       empty_tables: 
         - "click"
+        - "click_url"
 
     +create_click_base:
       td>: queris/p300_create_click_base.sql
@@ -122,7 +127,7 @@ _export:
 
     +click_url_cnt:
       td>: queris/p320_click_url_cnt.sql
-      create_table: click_url
+      insert_into: click_url
 
 +cdp_process:
   if>: ${check_cdp_process}
