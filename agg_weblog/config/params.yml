@@ -8,5 +8,3 @@ log_db: YOUR_WEB_LOG_DB #set web_log database
 log_tb: YOUR_WEB_LOG_TB #set web_log table
 user_id: user_id #set user_id column
 master_segment: xxxxx
-check_host: n/a
-check_host_flag: --
