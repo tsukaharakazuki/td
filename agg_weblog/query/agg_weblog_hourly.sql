@@ -200,6 +200,7 @@ SELECT
     WHEN td_ref_host = 'auctions.yahoo.co.jp' THEN 'ヤフオク'
     WHEN td_ref_host LIKE '%.search.yahoo.com' THEN 'Search'
     WHEN td_ref_host = 'l.messenger.com' THEN 'Messenger'
+    WHEN td_ref_host = 'news.line.me' THEN 'News'
     WHEN td_ref_host = 'mail.ocn.jp' THEN 'Mail'
     WHEN td_ref_host = 'dsp.logly.co.jp' THEN 'DSP'
     WHEN td_ref_host = 'news-radiko-jp.cdn.ampproject.org' THEN 'News'
