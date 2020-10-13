@@ -1,8 +1,8 @@
 ---
 firsttime_flag: true #true or false / read_depth cnt exists true
 check_js_extension: -- #extensionを使用している場合は空白
+primary_cookie: td_client_id #or td_ssc_id
 check_td_ssc_id: -- #td_ssc_idをONにする場合は空白
-base_term: 360 #日数→全体のログを抽出する過去期間設定
 session_term: 600 #秒数→セッショナイズする間隔設定
 log_db: YOUR_WEB_LOG_DB #set web_log database
 log_tb: YOUR_WEB_LOG_TB #set web_log table
