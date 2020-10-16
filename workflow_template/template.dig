@@ -41,7 +41,7 @@ _export:
   _do:
     +for_each_011:
       td>: queris/for_each_011.sql
-      insert_into: for_each_011
+      insert_into: ${indicator}
 
 +for_each_02:
   for_each>:
