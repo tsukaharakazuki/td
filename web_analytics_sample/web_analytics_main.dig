@@ -12,7 +12,7 @@ _export:
   td_ddl>:
   empty_tables: 
     - "pvuu" #昨日/今週/先週/今月/先月のPV/UU/SESSION
-    - "pvuu_min_14d" #過去14日分の分間PV/UU/SESSION
+    - "pvuu_timeline" #昨日/今週/先週/今月/先月のの分間or日間PV/UU/SESSION
     - "pvuu_min_2d_ago" #2日前の分間PV/UU/SESSION
     - "pvuu_daily" #過去1年分の1日ごとPV/UU/SESSION
     - "referrer" #昨日/今週/先週/今月/先月のリファラ集計
@@ -30,9 +30,9 @@ _export:
   td>: queris/p010_pvuu.sql
   insert_into: pvuu
 
-+pvuu_min_14d:
-  td>: queris/p011_pvuu_min_14d.sql
-  insert_into: pvuu_min_14d
++pvuu_timeline:
+  td>: queris/p011_pvuu_timeline.sql
+  insert_into: pvuu_timeline
 
 +pvuu_min_2days_ago:
   td>: queris/p012_pvuu_min_2d_ago.sql
