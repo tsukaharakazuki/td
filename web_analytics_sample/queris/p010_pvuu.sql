@@ -4,6 +4,7 @@ WITH
 yesterday AS
 (
   SELECT
+    td_host ,
     COUNT(*) AS pv ,
     COUNT(DISTINCT ${primary_cookie}) AS uu ,
     COUNT(DISTINCT session_id) AS session ,
@@ -18,12 +19,15 @@ yesterday AS
     base
   WHERE
     TD_INTERVAL(time, '-1d', 'JST')
+  GROUP BY
+    1
 )
 
 
 , last_week AS
 (
   SELECT
+    td_host ,
     COUNT(*) AS pv ,
     COUNT(DISTINCT ${primary_cookie}) AS uu ,
     COUNT(DISTINCT session_id) AS session ,
@@ -38,12 +42,15 @@ yesterday AS
     base
   WHERE
     TD_INTERVAL(time, '-1w', 'JST')
+  GROUP BY
+    1
 )
 
 
 , this_week AS
 (
   SELECT
+    td_host ,
     COUNT(*) AS pv ,
     COUNT(DISTINCT ${primary_cookie}) AS uu ,
     COUNT(DISTINCT session_id) AS session ,
@@ -58,12 +65,15 @@ yesterday AS
     base
   WHERE
     TD_INTERVAL(time, '1w', 'JST')
+  GROUP BY
+    1
 )
 
 
 , last_month AS
 (
   SELECT
+    td_host ,
     COUNT(*) AS pv ,
     COUNT(DISTINCT ${primary_cookie}) AS uu ,
     COUNT(DISTINCT session_id) AS session ,
@@ -78,12 +88,15 @@ yesterday AS
     base
   WHERE
     TD_INTERVAL(time, '-1M', 'JST')
+  GROUP BY
+    1
 )
 
 
 , this_month AS
 (
   SELECT
+    td_host ,
     COUNT(*) AS pv ,
     COUNT(DISTINCT ${primary_cookie}) AS uu ,
     COUNT(DISTINCT session_id) AS session ,
@@ -98,10 +111,13 @@ yesterday AS
     base
   WHERE
     TD_INTERVAL(time, '1M', 'JST')
+  GROUP BY
+    1
 )
 
 
 SELECT
+  td_host ,
   pv ,
   uu ,
   session,
@@ -113,6 +129,7 @@ FROM
 UNION
 
 SELECT
+  td_host ,
   pv ,
   uu ,
   session,
@@ -124,6 +141,7 @@ FROM
 UNION
 
 SELECT
+  td_host ,
   pv ,
   uu ,
   session,
@@ -135,6 +153,7 @@ FROM
 UNION
 
 SELECT
+  td_host ,
   pv ,
   uu ,
   session,
@@ -146,6 +165,7 @@ FROM
 UNION
 
 SELECT
+  td_host ,
   pv ,
   uu ,
   session,
