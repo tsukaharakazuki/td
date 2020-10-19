@@ -49,7 +49,7 @@ _export:
   _do:
     +for_each_021:
       td>: queris/for_each_02.sql
-      create_table: for_each_02
+      create_table: ${for_each_02.hoge}
 
 +kick_other_wf:
   require>: other_workflow_dig_name
