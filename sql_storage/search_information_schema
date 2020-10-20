@@ -5,3 +5,5 @@ FROM
 WHERE
   table_schema = 'DATABASE_NAME'
   AND table_name = 'TABLE_NAME'
+ORDER BY
+  column_name
