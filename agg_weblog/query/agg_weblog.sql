@@ -72,6 +72,7 @@ ${check_td_ssc_id}  td_ssc_id ,
   td_ref_host ,
   CASE
     WHEN td_ref_host LIKE '%google%' THEN 'Google'
+    WHEN td_ref_host LIKE '%doubleclick%' THEN 'Google'
     WHEN td_ref_host = 'ampproject.org' THEN 'Google'
     WHEN td_ref_host LIKE '%google.android%' THEN 'Android'
     WHEN td_ref_host LIKE '%youtube%' THEN 'YouTube'
