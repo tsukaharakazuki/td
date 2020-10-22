@@ -1,33 +1,25 @@
-WITH 
+WITH
 
 
-category_normalizer AS 
+t1 AS 
 (
   SELECT
-    article_id,
-    sum(s_score) AS l1_normalizer,
-    max(s_score) AS max_s_score
+    word ,
+    CASE
+      WHEN REGEXP_LIKE(word, '${input_category.keywords}') THEN '${input_category.flag}'
+      ELSE NULL
+    END tmp_category 
   FROM
-    tmp_cdp_category_candidates
-  WHERE
-    parent_category IS NULL
-  GROUP BY
-    article_id
+    agg_all_keyword
 )
 
--- DIGDAG_INSERT_LINE
 
 SELECT
-  --cast(conv(substr(t1.cdp_customer_id,1,2),16,10) as bigint)*3600 div 32 AS time,
-  t1.article_id,
-  t1.category,
-  t1.parent_category,
-  t1.s_score / t2.l1_normalizer AS category_score
-FROM
-  tmp_cdp_category_candidates t1
-JOIN
-  category_normalizer t2
-  ON t1.article_id = t2.article_id
-WHERE
-  t1.parent_category IS NULL
-  AND (t1.s_score / t2.l1_normalizer) >= (t2.max_s_score / t2.l1_normalizer * 0.8) -- prob >= threshold
+  word ,
+  tmp_category AS category ,
+  CAST(NULL AS VARCHAR) AS parent_category ,
+  ${input_category.score_weight} AS score
+FROM 
+  t1
+WHERE 
+  tmp_category is not NULL
