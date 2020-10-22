@@ -33,15 +33,16 @@ SELECT
   age ,
   gender ,
   CASE
-    WHEN (age < 16) THEN '15歳以下'
-    WHEN (age >= 16 and age < 19) THEN '16歳-18歳'
-    WHEN (age >= 19 and age < 23) THEN '19歳-22歳'
-    WHEN (age >= 23 and age < 30) THEN '20代'
-    WHEN (age >= 30 and age < 40) THEN '30代'
-    WHEN (age >= 40 and age < 50) THEN '40代'
-    WHEN (age >= 50 and age < 60) THEN '50代'
-    WHEN (age >= 60 and age < 65) THEN '60代前半'
-    WHEN (age >= 65) THEN '65歳以上'
+    WHEN (age < 12) THEN '0-12'
+    WHEN (age >= 12 and age < 16) THEN '12-15'
+    WHEN (age >= 16 and age < 19) THEN '16-18'
+    WHEN (age >= 19 and age < 23) THEN '19-22'
+    WHEN (age >= 23 and age < 30) THEN '23-29'
+    WHEN (age >= 30 and age < 40) THEN '30-39'
+    WHEN (age >= 40 and age < 50) THEN '40-49'
+    WHEN (age >= 50 and age < 60) THEN '50-59'
+    WHEN (age >= 60 and age < 65) THEN '60-64'
+    WHEN (age >= 65) THEN '65->'
     ELSE NULL
   END age_group ,
   CASE
@@ -87,6 +88,18 @@ SELECT
   age ,
   gender ,
   age_group ,
+  CASE
+    WHEN age_group = '0-12' THEN '01'
+    WHEN age_group = '12-15' THEN '02'
+    WHEN age_group = '16-18' THEN '03'
+    WHEN age_group = '19-22' THEN '04'
+    WHEN age_group = '23-29' THEN '05'
+    WHEN age_group = '30-39' THEN '06'
+    WHEN age_group = '40-49' THEN '07'
+    WHEN age_group = '50-59' THEN '08'
+    WHEN age_group = '60-64' THEN '09'
+    WHEN age_group = '65->' THEN '10'
+  END ga_flag ,
   age_category ,
   gender||age_category AS fm_category ,
   regist_day ,
