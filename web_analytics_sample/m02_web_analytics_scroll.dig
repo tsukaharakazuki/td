@@ -1,0 +1,39 @@
+timezone: "Asia/Tokyo"
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: l2_dashboard #ベースの参照・出力先Database
+
++scroll_process:
+  if>: ${check_scroll_process}
+  _do:
+    +create_scroll_table:
+      td_ddl>:
+      empty_tables: 
+        - "scroll" #記事ごとのスクロール情報（article_rankにマージされる）
+
+    +create_scroll_base:
+      td>: queris/p200_create_scroll_base.sql
+      create_table: base_scroll
+      engine: hive # Only Hive works
+      engine_version: experimental #Tez
+
+    +tmp_scroll:
+      td>: queris/p210_tmp_scroll.sql
+      create_table: tmp_scroll
+
+    +dst_scroll:
+      td>: queris/p211_dst_scroll.sql
+      insert_into: scroll
+
+    +drop_scroll_table:
+      td_ddl>:
+      drop_tables: 
+        - "tmp_scroll"
+        - "article_rank"
+
+    +rename_scroll_table:
+      td_ddl>:
+      rename_tables: 
+        - {from: "scroll", to: "article_rank"}

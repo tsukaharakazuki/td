@@ -1,0 +1,57 @@
+timezone: "Asia/Tokyo"
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: l2_dashboard #ベースの参照・出力先Database
+
++cdp_process:
+  if>: ${check_cdp_process}
+  _do:
+    +create_cdp_table:
+      td_ddl>:
+      empty_tables: 
+        - "keyword" #昨日/今週/先週/今月/先月のCDPで生成されるユーザーが保有するキーワード集計
+        - "category" #昨日/今週/先週/今月/先月のCDPで生成されるユーザーが保有するカテゴリ集計
+
+    +create_keyword_category_base:
+      td>: queris/p400_create_keyword_category_base.sql
+      create_table: base_keyword_category
+      engine: hive # Only Hive works
+      engine_version: experimental #Tez        
+
+    +dst_keyword:
+      td>: queris/p410_dst_keyword.sql
+      insert_into: keyword
+
+    +dst_category:
+      td>: queris/p411_dst_category.sql
+      insert_into: category
+
+#+to_google_sheets:
+#  td>: 
+#  query: SELECT * FROM to_google_sheets
+#  result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
+#  result_settings:
+#    spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
+#    spreadsheet_title: "ファイル名"
+#    sheet_title: "シート1"
+#    mode: truncate
+#
+#+for_each_google_sheets:
+#  for_each>:
+#    to_gs: ${to_gs}
+#  _do:
+#    +to_google_sheets_for_each:
+#      td>: 
+#      query: |
+#        SELECT 
+#          * 
+#        FROM 
+#          to_google_sheets
+#      result_connection: ${to_gs.connecter}
+#      result_settings:
+#        spreadsheet_folder: ${to_gs.folder}
+#        spreadsheet_title: "ファイル名"
+#        sheet_title: "シート1"
+#        mode: truncate

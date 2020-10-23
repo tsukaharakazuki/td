@@ -1,0 +1,44 @@
+timezone: "Asia/Tokyo"
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: l2_dashboard #ベースの参照・出力先Database
+
++click_process:
+  if>: ${check_click_process}
+  _do:
+    +create_click_table:
+      td_ddl>:
+      empty_tables: 
+        - "click" #記事ごとのクリック情報（article_rankにマージされる）
+        - "click_url" #記事ごとのクリック情報詳細
+
+    +create_click_base:
+      td>: queris/p300_create_click_base.sql
+      create_table: base_click
+      engine: hive # Only Hive works
+      engine_version: experimental #Tez
+
+    +tmp_click:
+      td>: queris/p310_tmp_click.sql
+      create_table: tmp_click
+      
+    +dst_click:
+      td>: queris/p311_dst_click.sql
+      insert_into: click
+
+    +drop_click_table:
+      td_ddl>:
+      drop_tables: 
+        - "tmp_click"
+        - "article_rank"
+
+    +rename_click_table:
+      td_ddl>:
+      rename_tables: 
+        - {from: "click", to: "article_rank"}
+
+    +click_url_cnt:
+      td>: queris/p320_click_url_cnt.sql
+      insert_into: click_url

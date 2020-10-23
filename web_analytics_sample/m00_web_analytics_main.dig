@@ -1,0 +1,21 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00 #日時バッジ
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: l2_dashboard #ベースの参照・出力先Database
+    
++next_wf_01:
+  require>: m01_web_analytics_basic
+
++next_wf_02:
+  require>: m02_web_analytics_scroll
+
++next_wf_03:
+  require>: m03_web_analytics_click
+
++next_wf_04:
+  require>: m04_web_analytics_cdp

@@ -1,0 +1,56 @@
+timezone: "Asia/Tokyo"
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: l2_dashboard #ベースの参照・出力先Database
+    
++create_base_table:
+  td_ddl>:
+  empty_tables: 
+    - "pvuu" #昨日/今週/先週/今月/先月のPV/UU/SESSION
+    - "pvuu_timeline" #昨日/今週/先週/今月/先月のの分間or日間PV/UU/SESSION
+    - "pvuu_min_2d_ago" #2日前の分間PV/UU/SESSION
+    - "pvuu_daily" #過去1年分の1日ごとPV/UU/SESSION
+    - "referrer" #昨日/今週/先週/今月/先月のリファラ集計
+    - 'article_rank' #昨日/今週/先週/今月/先月の各記事ごとのランキング
+    - "uaip" #昨日/今週/先週/今月/先月のユーザエージェント・IP情報
+    - "article_rank_min_top20" #昨日のランキング記事における過去28日間の分間推移
+
++create_base:
+  td>: queris/p000_create_pvuu_base.sql
+  create_table: base
+  engine: hive # Only Hive works
+  engine_version: experimental #Tez
+
++pvuu:
+  td>: queris/p010_pvuu.sql
+  insert_into: pvuu
+
++pvuu_timeline:
+  td>: queris/p011_pvuu_timeline.sql
+  insert_into: pvuu_timeline
+
++pvuu_min_2days_ago:
+  td>: queris/p012_pvuu_min_2d_ago.sql
+  insert_into: pvuu_min_2d_ago
+
++pvuu_daily:
+  td>: queris/p013_pvuu_daily.sql
+  insert_into: pvuu_daily
+
++referrer:
+  td>: queris/p020_referrer.sql
+  insert_into: referrer
+
++article_rank:
+  td>: queris/p030_article_rank.sql
+  insert_into: article_rank
+
++article_rank_min_top20:
+  td>: queris/p031_article_rank_min_top20.sql
+  insert_into: article_rank_min_top20
+
++uaip:
+  td>: queris/p040_uaip.sql
+  insert_into: uaip
