@@ -75,6 +75,7 @@ ${check_td_ssc_id}  td_ssc_id ,
   td_ref_host ,
   CASE
     WHEN td_ref_host LIKE '%google%' THEN 'Google'
+    WHEN td_ref_host LIKE '%doubleclick%' THEN 'Google'
     WHEN td_ref_host = 'ampproject.org' THEN 'Google'
     WHEN td_ref_host LIKE '%google.android%' THEN 'Android'
     WHEN td_ref_host LIKE '%youtube%' THEN 'YouTube'
@@ -201,6 +202,15 @@ ${check_td_ssc_id}  td_ssc_id ,
     WHEN td_ref_host = 'translate.googleusercontent.com' THEN 'Translate'
     WHEN td_ref_host = 'mail.google.com' THEN 'GMail'
     WHEN td_ref_host = 'ampproject.org' THEN 'Amp'
+    WHEN td_ref_host = 'googleads.g.doubleclick.net' THEN 'GoogleAds'
+    WHEN td_ref_host = 'tpc.googlesyndication.com' THEN 'GoogleAds'
+    WHEN td_ref_host = 'doubleclick.net' THEN 'GoogleAds'
+    WHEN td_ref_host = 'www.googleadservices.com' THEN 'GoogleAds'
+    WHEN td_ref_host = 'secureframe.doubleclick.net' THEN 'GoogleAds'
+    WHEN td_ref_host = 'ads.google.com' THEN 'GoogleAds'
+    WHEN td_ref_host = 'partner.googleadservices.com' THEN 'GoogleAds'
+    WHEN td_ref_host LIKE '%safeframe.googlesyndication.com' THEN 'GoogleAds'
+    WHEN td_ref_host LIKE '%adspreview.googleusercontent.com' THEN 'GoogleAds'
     WHEN td_ref_host = 'search.yahoo.co.jp' THEN 'Search'
     WHEN td_ref_host = 'r.search.yahoo.com' THEN 'Search'
     WHEN td_ref_host = 'search.yahoo.com' THEN 'Search'
