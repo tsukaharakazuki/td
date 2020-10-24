@@ -8,6 +8,7 @@ FROM
   (
     SELECT
       TD_TIME_PARSE(TD_TIME_FORMAT(time, 'yyyy-MM-dd', 'JST'), 'JST') AS time ,
+      td_host ,
       ${primary_cookie} 
     FROM
       base
