@@ -43,7 +43,7 @@ sort_data AS
         ${check_js_extension} AND action='read' AND category='content' AND read_elapsed_ms >= ${scroll_cut_off}
     ) t
   GROUP BY
-    1,2,3,4,5
+    1,2,3,4,5,6
 )
 
 -- DIGDAG_INSERT_LINE
