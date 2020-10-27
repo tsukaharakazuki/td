@@ -10,11 +10,11 @@ _export:
     database: template #ベースの参照・出力先Database
 
 +presto:
-  td>: queris/presto.sql
+  td>: queries/presto.sql
   insert_into: presto
 
 +hive:
-  td>: queris/hive.sql
+  td>: queries/hive.sql
   insert_into: hive
   engine: hive # Only Hive works
   engine_version: experimental #Tez
@@ -29,7 +29,7 @@ _export:
 
   _else_do:
     +notif_01:
-      td>: queris/notif_01.sql
+      td>: queries/notif_01.sql
       insert_into: notif_table
 
 +for_each_01:
@@ -40,7 +40,7 @@ _export:
       - "ccc"
   _do:
     +for_each_011:
-      td>: queris/for_each_011.sql
+      td>: queries/for_each_011.sql
       insert_into: ${indicator}
 
 +for_each_02:
@@ -48,7 +48,7 @@ _export:
     for_each_02: ${for_each_02}
   _do:
     +for_each_021:
-      td>: queris/for_each_02.sql
+      td>: queries/for_each_02.sql
       create_table: ${for_each_02.hoge}
 
 +kick_other_wf:
