@@ -51,6 +51,14 @@ _export:
       td>: queries/for_each_02.sql
       create_table: ${for_each_02.hoge}
 
++loop:
+  loop>: ${loop_number}
+  _do:
+    +proc_loop:
+      td>: 
+      query: SELECT 'q'||'${i + 1}' AS q${i + 1}
+      insert_into: loop_column
+
 +kick_other_wf:
   require>: other_workflow_dig_name
   #project_id: xxxx #異なるprojectの場合セット
