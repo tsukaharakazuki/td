@@ -1,5 +1,5 @@
 ---
-enq_name: questionnairev_name #TDに書き出すデータに使われる
+enq_name: questionnaire_name #TDに書き出すデータに使われる
 enq_name_jp: アンケート2020 #ダッシュボード用の表示アンケート名
 enq_date: 2020-12-24 #ダッシュボード用アンケート実施日
 enq_db: agg_questionnaire
