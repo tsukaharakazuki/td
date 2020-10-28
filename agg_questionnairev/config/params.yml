@@ -1,0 +1,56 @@
+---
+enq_name: questionnairev_name #TDに書き出すデータに使われる
+enq_name_jp: アンケート2020 #ダッシュボード用の表示アンケート名
+enq_date: 2020-12-24 #ダッシュボード用アンケート実施日
+enq_db: agg_questionnaire
+enq_tb: uestionnaire_20201022 #CSVで取り込んだTABle名
+birthday: q1 #BirthDayカラム
+gender: q2 #性別カラム
+number_of_questions: 5 #CSVのカラム数（qXXの最後）
+q1: 生年月日 #CSVで変換した対象の質問項目
+q2: 性別
+q3: 職業
+q4: 職業_その他
+q5: 年収
+#サンプルでは5問までで設定していますが、対象数に合わせて以下も設定
+#q6: OTHER
+#q7: OTHER
+#q8: OTHER
+#q9: OTHER
+#q10: OTHER
+#q11: OTHER
+#q12: OTHER
+#q13: OTHER
+#q14: OTHER
+#q15: OTHER
+#q16: OTHER
+#q17: OTHER
+#q18: OTHER
+#q19: OTHER
+#q20: OTHER
+#q21: OTHER
+#q22: OTHER
+#q23: OTHER
+#q24: OTHER
+#q25: OTHER
+#q26: OTHER
+#q27: OTHER
+#q28: OTHER
+#q29: OTHER
+#q30: OTHER
+#q31: OTHER
+#q32: OTHER
+#q33: OTHER
+#q34: OTHER
+#q35: OTHER
+#q36: OTHER
+#q37: OTHER
+#q38: OTHER
+#q39: OTHER
+#q40: OTHER
+
+sheet_config:
+- result_connection: YOUR_GOOGLE_SHEET_CONNECTOR
+  spreadsheet_folder: YOUR_FOLDER_ID
+#- result_connection: YOUR_GOOGLE_SHEET_CONNECTOR
+#  spreadsheet_folder: YOUR_FOLDER_ID
