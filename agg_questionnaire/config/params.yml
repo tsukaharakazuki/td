@@ -1,9 +1,9 @@
 ---
-enq_name: questionnairev_name #TDに書き出すデータに使われる
+enq_name: questionnaire_name #TDに書き出すデータに使われる
 enq_name_jp: アンケート2020 #ダッシュボード用の表示アンケート名
 enq_date: 2020-12-24 #ダッシュボード用アンケート実施日
 enq_db: agg_questionnaire
-enq_tb: uestionnaire_20201022 #CSVで取り込んだTABle名
+enq_tb: questionnaire_20201022 #CSVで取り込んだTABle名
 birthday: q1 #BirthDayカラム
 gender: q2 #性別カラム
 number_of_questions: 5 #CSVのカラム数（qXXの最後）
@@ -52,5 +52,5 @@ q5: 年収
 sheet_config:
 - result_connection: YOUR_GOOGLE_SHEET_CONNECTOR
   spreadsheet_folder: YOUR_FOLDER_ID
-#- result_connection: YOUR_GOOGLE_SHEET_CONNECTOR
-#  spreadsheet_folder: YOUR_FOLDER_ID
+#- result_connection: YOUR_GOOGLE_SHEET_CONNECTOR2
+#  spreadsheet_folder: YOUR_FOLDER_ID2
