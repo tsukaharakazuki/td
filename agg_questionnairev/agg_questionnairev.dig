@@ -50,7 +50,7 @@ _export:
     sheet_config: ${sheet_config}
   _do:
 
-    +to_purchase_timeline:
+    +to_enq_data:
       td>: 
       query: SELECT * FROM dst_${enq_name}
       result_connection: ${sheet_config.result_connection}
