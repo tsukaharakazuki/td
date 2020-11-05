@@ -10,15 +10,21 @@ _export:
   _do:
 
 #google_sheetsにデータを送信
-    +to_google_sheets:
-      td>: 
-      query: SELECT * FROM tieup_${td.each.db_client_name}_${td.each.db_label}
-      result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
-      result_settings:
-        spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
-        spreadsheet_title: ${td.each.media_name}_tieup_${td.each.db_client_name}_${td.each.db_label}
-        sheet_title: "シート1"
-        mode: truncate
+    +for_each_google_sheets:
+      for_each>:
+        to_gs: ${to_gs}
+      _do:
+      
+        +to_google_sheets:
+          td>: 
+          query: SELECT * FROM tieup_${td.each.db_client_name}_${td.each.db_label}
+          result_connection: ${to_gs.connecter}
+          result_settings:
+            spreadsheet_folder: ${to_gs.folder}
+            spreadsheet_title: ${td.each.media_name}_tieup_${td.each.db_client_name}_${td.each.db_label}
+            sheet_title: "シート1"
+            mode: truncate
+
 
 #テーブル整理
     +drop_tables_base:
