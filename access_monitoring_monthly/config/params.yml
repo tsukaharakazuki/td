@@ -9,5 +9,5 @@ ggi_db: google_sync
 ggi_tb: gid
 gid_join_key: td_client_id
 to_gs:
-- connecter: gs_td_tsukahara
-  folder: 1KthI_S-2FDQ74W_Tc6uaQCavkw46WaXY
+- connecter: YOUR_CONNECTER
+  folder: YOUR_FOLDER_KEY
