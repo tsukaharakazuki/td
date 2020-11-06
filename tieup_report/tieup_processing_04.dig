@@ -1,0 +1,75 @@
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: tie_up_report
+
++for_each_users:
+  td_for_each>: config/tieup_list.sql
+  engine: hive
+  engine_version: stable
+  _do:
+
+#タイアップ閲覧者のメディア内行動
+    +bh:
+      td>: queries/p4/p4001_bh.sql
+      create_table: bh_${td.each.db_client_name}_${td.each.db_label}
+
+    +article:
+      td>: queries/p4/p4002_bh_article.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +ref:
+      td>: queries/p4/p4003_bh_ref.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +next:
+      td>: queries/p4/p4004_bh_next.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+#タイアップ閲覧者がもつカテゴリ/キーワード
+    +affinity_categorie:
+      td>: queries/p4/p4011_cdp_af.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+    +keyword:
+      td>: queries/p4/p4012_cdp_ky.sql
+      insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+#読了率計測
+    +proc_read_depth:
+      if>: ${rd_check}
+      _do:
+      
+        +read_depth_base:
+          td>: queries/p4/p4021_rd_base.sql
+          create_table: rd_${td.each.db_client_name}_${td.each.db_label}
+
+        +read_depth:
+          td>: queries/p4/p4022_rd.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+        +read_depth_pc:
+          td>: queries/p4/p4023_rd_pc.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+        +read_depth_sp:
+          td>: queries/p4/p4024_rd_sp.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+        +rd_avg_browsing_time_pc:
+          td>: queries/p4/p4025_rd_abt_pc.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+        +rd_avg_browsing_time_sp:
+          td>: queries/p4/p4026_rd_abt_sp.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+        +avg_hour_rd:
+          td>: queries/p4/p4027_avg_hour.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+         
+      _else_do:
+      
+        +avg_hour_nonrd:
+          td>: queries/p4/p4030_avg_hour_nonrd.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}

@@ -1,0 +1,32 @@
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: tie_up_report
+
++for_each_users:
+  td_for_each>: config/tieup_list.sql
+  engine: hive
+  engine_version: stable
+  _do:
+
+#UA/IP集計
+    +uaip:
+      td>: queries/p3/p3001_uaip.sql
+      create_table: uaip_${td.each.db_client_name}_${td.each.db_label}
+
+    +uaip_cnt:
+      for_each>:
+        indicator: 
+          - "os"
+          - "vendor"
+          - "browser"
+          - "category"
+          - "country"
+          - "city"
+          - "pf"
+      _do:
+
+        +proc_uaip_cnt:
+          td>: queries/p3/p3002uaip_cnt.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
