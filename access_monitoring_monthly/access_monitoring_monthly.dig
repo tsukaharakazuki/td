@@ -1,0 +1,59 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: l2_access_monitoring
+
++if:
+  if>: ${proc_google_gig}
+  _do:
+    +create_base_data:
+      td>: queries/p011_create_base_data.sql
+      create_table: base
+      #engine: hive # Only Hive works
+      #engine_version: experimental
+
+  _else_do:
+    +create_base_data_goggle_gid:
+      td>: queries/p012_create_base_data_google_gid.sql
+      create_table: base
+      #engine: hive # Only Hive works
+      #engine_version: experimental
+
++base_cnt:
+  td>: queries/p020_base_cnt.sql
+  create_table: base_cnt
+
++create_diff_table:
+  td_ddl>:
+  empty_tables: 
+    - "diff_cnt"
+
++kick_01:
+  require>: access_monitoring_monthly_01
+
++create_dist_all:
+  td>: queries/p999_dist_all.sql
+  create_table: dist_all
+
++for_each_google_sheets:
+  for_each>:
+    to_gs: ${to_gs}
+  _do:
+    +to_google_sheets_dist_all:
+      td>: 
+      query: |
+        SELECT 
+          * 
+        FROM 
+          dist_all
+      result_connection: ${to_gs.connecter}
+      result_settings:
+        spreadsheet_folder: ${to_gs.folder}
+        spreadsheet_title: "cookie推移"
+        sheet_title: "シート1"
+        mode: truncate

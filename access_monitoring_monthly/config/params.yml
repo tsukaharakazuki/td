@@ -1,0 +1,13 @@
+---
+base_log_db: td_sample
+base_log_tb: agg_weblog
+target_start: 2018-06-01
+check_td_ssc_id: --
+proc_google_gig: false
+check_google_gid: --
+ggi_db: google_sync
+ggi_tb: gid
+gid_join_key: td_client_id
+to_gs:
+- connecter: gs_td_tsukahara
+  folder: 1KthI_S-2FDQ74W_Tc6uaQCavkw46WaXY

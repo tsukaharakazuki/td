@@ -1,0 +1,32 @@
+timezone: "Asia/Tokyo"
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: l2_access_monitoring
+
++for_each_diff:
+  for_each>:
+    indicator: 
+      - "td_client_id"
+      - "td_global_id"
+      #- "td_ssc_id"
+      #- "google_gid"
+
+  _do:
+
+    +days_cnt:
+      td>: queries/p000_days_cnt.sql
+      store_last_results: true
+  
+    +loop:
+      loop>: ${td.last_results.diff_days}
+      _do:
+
+        +diff_day_befor:
+          td>: queries/p031_diff_day_befor.sql
+          create_table: tmp_diff_${indicator}
+    
+        +diff_cnt:
+          td>: queries/p032_diff_cnt.sql
+          insert_into: diff_cnt
