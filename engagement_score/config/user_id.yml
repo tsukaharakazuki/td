@@ -14,3 +14,16 @@ multi_media_check: false #true or false / read_depth cnt exists true
 multi_media_col_mane: media
 multi_media_content: split_part(td_path, '/', 2) #どこでパースするかはメディアごとに異なります。またメディアIDカラムがある場合メディアIDカラムをセット
 calc_period: -1
+to_gs:
+- connecter: YOUR_CONNECTOR_NAME
+  folder: YOUR_FOLDER_KEY
+  data_table: population_engagement_score
+  sheet_title: score
+- connecter: YOUR_CONNECTOR_NAME
+  folder: YOUR_FOLDER_KEY
+  data_table: population_frequency
+  sheet_title: frequency
+- connecter: YOUR_CONNECTOR_NAME
+  folder: YOUR_FOLDER_KEY
+  data_table: population_recency
+  sheet_title: recency
