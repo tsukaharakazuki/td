@@ -5,32 +5,17 @@ _export:
 
 #google_sheetsにデータを送信
 
-+to_google_sheets_score:
-  td>: 
-  query: SELECT * FROM population_engagement_score
-  result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
-  result_settings:
-    spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
-    spreadsheet_title: engagement_score
-    sheet_title: "score"
-    mode: truncate
++for_each_google_sheets:
+  for_each>:
+    to_gs: ${to_gs}
+  _do:
 
-+to_google_sheets_frequency:
-  td>: 
-  query: SELECT * FROM population_frequency
-  result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
-  result_settings:
-    spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
-    spreadsheet_title: engagement_score
-    sheet_title: "frequency"
-    mode: truncate
-
-+to_google_sheets_recency:
-  td>: 
-  query: SELECT * FROM population_recency
-  result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
-  result_settings:
-    spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
-    spreadsheet_title: engagement_score
-    sheet_title: "recency"
-    mode: truncate
+    +to_google_sheets:
+      td>: 
+      query: SELECT * FROM ${to_gs.data_table}
+      result_connection: ${to_gs.connecter}
+      result_settings:
+        spreadsheet_folder: ${to_gs.folder}
+        spreadsheet_title: engagement_score
+        sheet_title: "${to_gs.sheet_title}"
+        mode: truncate
