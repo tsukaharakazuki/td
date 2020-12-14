@@ -5,8 +5,6 @@ _export:
 
 +for_each_users:
   td_for_each>: config/tieup_list.sql
-  engine: hive
-  engine_version: stable
   _do:
 
 #UA/IP集計
