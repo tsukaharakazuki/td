@@ -40,6 +40,7 @@ _export:
       _else_do:
         td_ddl>:
         drop_tables:
+        - "base_${td.each.db_client_name}_${td.each.db_label}"
         - "uaip_${td.each.db_client_name}_${td.each.db_label}"
         - "bh_${td.each.db_client_name}_${td.each.db_label}"
 
