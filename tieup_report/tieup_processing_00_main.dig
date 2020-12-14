@@ -27,6 +27,12 @@ _export:
   td_ddl>:
   create_tables: ["${ls_tmp}"]
 
++install_tieup_list:
+  td>: config/install_tieup_list.sql
+  create_table: install_tieup_list
+  engine: hive
+  engine_version: stable
+  
 +next_wf_01:
   require>: tieup_processing_01
 
