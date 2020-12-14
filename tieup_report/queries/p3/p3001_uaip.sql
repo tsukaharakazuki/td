@@ -17,8 +17,7 @@ WHERE
   TD_TIME_RANGE(time,
     '${td.each.start_date}',
     '${td.each.end_date}',
-    'JST') 
-WHERE
+    'JST') AND
   session_num = 1
 GROUP BY
   1,2,3,4,5,6,7,8,9
