@@ -8,7 +8,7 @@ t1 AS
     TD_SESSIONIZE_WINDOW(time, ${session_term}) OVER (PARTITION BY ${primary_cookie} ORDER BY time) AS session_id ,
     td_client_id ,
     td_global_id ,
-   ${check_td_ssc_id}  td_ssc_id ,
+    ${check_td_ssc_id}  td_ssc_id ,
     url_extract_parameter(td_url, 'utm_campaign') AS utm_campaign ,
     url_extract_parameter(td_url, 'utm_medium') AS utm_medium ,
     url_extract_parameter(td_url, 'utm_source') AS utm_source ,
@@ -54,7 +54,7 @@ SELECT
   row_number() over (partition by session_id order by time ASC) AS session_num ,
   td_client_id ,
   td_global_id ,
- ${check_td_ssc_id}  td_ssc_id ,
+  ${check_td_ssc_id}  td_ssc_id ,
   utm_campaign ,
   utm_medium ,
   utm_source ,
@@ -174,7 +174,7 @@ SELECT
     WHEN td_ref_host = 'admin-official.line.me' THEN 'LINE'
     WHEN td_ref_host = 'lineblog.me' THEN 'LINEブログ'
     WHEN td_ref_host = '' THEN 'Non Referer' 
-    WHEN NULL THEN 'Non Referer' 
+    WHEN td_ref_host is NULL THEN 'Non Referer' 
     ELSE 'Others' 
   END AS td_ref_name ,
   CASE
