@@ -65,3 +65,11 @@ _export:
         +total_pvuu_nonclick:
           td>: queries/p1/p1009_total_pvuu_nonclick.sql
           insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+          
+        +total_pvuu_pc_nonclick:
+          td>: queries/p1/p1010_total_pvuu_pc_nonclick.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
+
+        +total_pvuu_sp_nonclick:
+          td>: queries/p1/p1011_total_pvuu_sp_nonclick.sql
+          insert_into: tieup_${td.each.db_client_name}_${td.each.db_label}
