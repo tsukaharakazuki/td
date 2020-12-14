@@ -17,3 +17,7 @@ rd_tb: sample_rd_tb #set read_through table
 rd_col: scroll_depth_threshold #set read_through column
 master_segment: 1012 #set master_segment number
 session_lange: 1800
+
+to_gs:
+- connecter: YOUR_CONNECTER
+  folder: YOUR_FOLDER_KEY
