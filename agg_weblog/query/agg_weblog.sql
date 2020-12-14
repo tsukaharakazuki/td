@@ -8,7 +8,7 @@ t1 AS
     TD_SESSIONIZE(time, ${session_term}, ${primary_cookie}) as session_id ,
     td_client_id ,
     td_global_id ,
-   ${check_td_ssc_id}  td_ssc_id ,
+    ${check_td_ssc_id}  td_ssc_id ,
     parse_url(td_url,'QUERY','utm_campaign') as utm_campaign ,
     parse_url(td_url,'QUERY','utm_medium') as utm_medium ,
     parse_url(td_url,'QUERY','utm_source') as utm_source ,
@@ -63,7 +63,7 @@ SELECT
   row_number() over (partition by session_id order by time ASC) AS session_num ,
   td_client_id ,
   td_global_id ,
-${check_td_ssc_id}  td_ssc_id ,
+  ${check_td_ssc_id}  td_ssc_id ,
   utm_campaign ,
   utm_medium ,
   utm_source ,
@@ -147,7 +147,6 @@ ${check_td_ssc_id}  td_ssc_id ,
     WHEN td_ref_host = 'm.one.impact-ad.jp' THEN 'MarketOne'
     WHEN td_ref_host = 'p-birthday' THEN 'Petit Birthday'
     WHEN td_ref_host = 'ast.client.jp' THEN 'DIVINATION★LINK'
-    WHEN td_ref_host = 'toutiao.com' THEN '今日头条'
     WHEN td_ref_host LIKE '%magazine-data.com' THEN 'ファッション雑誌ガイド'
     WHEN td_ref_host = 'patentsalon' THEN 'パテントサロン'
     WHEN td_ref_host LIKE '%macromill.com' THEN 'macromill' 
@@ -182,6 +181,11 @@ ${check_td_ssc_id}  td_ssc_id ,
     WHEN td_ref_host = 'www.1101.com' THEN 'ほぼ日刊イトイ新聞'
     WHEN td_ref_host = 'admin-official.line.me' THEN 'LINE'
     WHEN td_ref_host = 'lineblog.me' THEN 'LINEブログ'
+    WHEN td_ref_host = 'com.Slack' THEN 'slack'
+    WHEN td_ref_host LIKE '%toutiao.com' THEN '今日头条'
+    WHEN td_ref_host LIKE 'woman-excite-co-jp%' THEN 'ウーマンエキサイト'
+    WHEN td_ref_host = 'lin.ee' THEN 'LINE'
+    WHEN td_ref_host = 'ima.goo.ne.jp' THEN 'goo いまトピ'
     WHEN td_ref_host = '' THEN 'Non Referer' 
     WHEN td_ref_host is NULL THEN 'Non Referer' 
     ELSE 'Others' 
