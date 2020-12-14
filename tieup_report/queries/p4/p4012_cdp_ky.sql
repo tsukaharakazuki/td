@@ -37,7 +37,7 @@ t0 AS
     t0
   GROUP BY
     1
-),
+)
 
 
 , t2 AS
