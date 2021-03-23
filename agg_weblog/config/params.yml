@@ -8,5 +8,5 @@ media:
   log_tb: YOUR_WEB_LOG_TB #set web_log table
   primary_cookie: td_client_id #or td_ssc_id
   check_td_ssc_id:  -- #td_ssc_idをONにする場合は空白
-  check_user_id:  #sekaibunka_idをONにする場合は空白
+  check_user_id:  #user_idをONにする場合は空白
   user_id: user_id #set user_id column
