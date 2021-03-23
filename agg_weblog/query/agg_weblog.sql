@@ -1,14 +1,15 @@
 WITH
 
 
-t1 AS
-(
+t1 AS (
   SELECT
     time ,
-    TD_SESSIONIZE(time, ${session_term}, ${primary_cookie}) as session_id ,
+    TD_SESSIONIZE(time, ${session_term}, ${media.primary_cookie}) as session_id ,
+    IF(${media.primary_cookie} is not NULL, ${media.primary_cookie}, td_client_id) AS cookie ,
     td_client_id ,
     td_global_id ,
-    ${check_td_ssc_id}  td_ssc_id ,
+    ${media.check_td_ssc_id}  td_ssc_id ,
+    ${media.check_user_id}  ${user_id} AS user_id ,
     parse_url(td_url,'QUERY','utm_campaign') as utm_campaign ,
     parse_url(td_url,'QUERY','utm_medium') as utm_medium ,
     parse_url(td_url,'QUERY','utm_source') as utm_source ,
@@ -39,11 +40,11 @@ t1 AS
       SELECT
         *
       FROM
-        ${log_db}.${log_tb}
+        ${media.log_db}.${media.log_tb}
       DISTRIBUTE BY 
-        ${primary_cookie}
+        ${media.primary_cookie}
       SORT BY 
-        ${primary_cookie},time
+        ${media.primary_cookie},time
     ) t
   WHERE
     TD_PARSE_AGENT(td_user_agent) ['category'] <> 'crawler' AND
@@ -61,9 +62,11 @@ SELECT
   time ,
   session_id ,
   row_number() over (partition by session_id order by time ASC) AS session_num ,
+  cookie ,
   td_client_id ,
   td_global_id ,
   ${check_td_ssc_id}  td_ssc_id ,
+  ${media.check_user_id}  ${user_id} AS user_id ,
   utm_campaign ,
   utm_medium ,
   utm_source ,
