@@ -5,10 +5,12 @@ t1 AS
 (
   SELECT
     time ,
-    TD_SESSIONIZE_WINDOW(time, ${session_term}) OVER (PARTITION BY ${primary_cookie} ORDER BY time) AS session_id ,
+    TD_SESSIONIZE_WINDOW(time, ${session_term}) OVER (PARTITION BY ${media.primary_cookie} ORDER BY time) AS session_id ,
+    IF(${media.primary_cookie} is not NULL, ${media.primary_cookie}, td_client_id) AS cookie ,
     td_client_id ,
     td_global_id ,
-    ${check_td_ssc_id}  td_ssc_id ,
+    ${media.check_td_ssc_id}  td_ssc_id ,
+    ${media.check_user_id}  ${user_id} AS user_id ,
     url_extract_parameter(td_url, 'utm_campaign') AS utm_campaign ,
     url_extract_parameter(td_url, 'utm_medium') AS utm_medium ,
     url_extract_parameter(td_url, 'utm_source') AS utm_source ,
@@ -35,7 +37,7 @@ t1 AS
     TD_IP_TO_LEAST_SPECIFIC_SUBDIVISION_NAME(td_ip) AS prefectures ,
     TD_IP_TO_CITY_NAME(td_ip) AS city                    
   FROM
-    ${log_db}.${log_tb}
+    ${media.log_db}.${media.log_tb}
   WHERE
     TD_INTERVAL(time, '-1h', 'JST') AND
     TD_PARSE_AGENT(td_user_agent) ['category'] <> 'crawler' AND
@@ -52,9 +54,11 @@ SELECT
   time ,
   session_id ,
   row_number() over (partition by session_id order by time ASC) AS session_num ,
+  cookie ,
   td_client_id ,
   td_global_id ,
-  ${check_td_ssc_id}  td_ssc_id ,
+  ${media.check_td_ssc_id}  td_ssc_id ,
+  ${media.check_user_id}  ${media.user_id} AS user_id ,
   utm_campaign ,
   utm_medium ,
   utm_source ,
