@@ -1,0 +1,53 @@
+timezone: Asia/Tokyo
+
+schedule:
+  daily>: 03:00:00
+
+_export:
+  date: ${session_date}
+  td:
+    database: l2_ml_data
+    endpoint: api.treasuredata.com
+    uid: user_id
+    key_cookie: cookie
+    access_log_db: l1_web_access_log
+    access_log_tb: agg_weblog_all
+    user_mst_db: l1_login_user_data
+    user_mst_tb: mst_user
+    gender_col: sex
+    age_col: age
+    male_flag: 男性
+    female_flag: 女性
+    age_range: 10
+  ml:
+    n_days: 14 # ログの使用期間
+    n_features: 1000 # 説明変数の数
+    test_size: 0.2
+    n_split: 30
+
++proc_user_mst:
+  td>: web/proc_user_mst.sql
+  create_table: proc_user_mst
+
++create_ftr_base:
+  td>: web/create_ftr_base.sql
+  create_table: create_ftr_base  
+  engine: hive
+  engine_version: experimental
+
++create_data:
+  _parallel: true
+
+  +features:
+    td>: web/create_features.sql
+    create_table: features
+    engine: hive
+    engine_version: experimental
+
+  +target:
+    td>: web/create_target.sql
+    create_table: target
+    engine: presto
+
++call_ml_template:
+  call>: common/ml_template.dig
