@@ -52,6 +52,7 @@ t1 AS
 
 SELECT
   time ,
+  '${media.media_name}' AS media_name ,
   session_id ,
   row_number() over (partition by session_id order by time ASC) AS session_num ,
   cookie ,
@@ -226,6 +227,7 @@ SELECT
     ELSE NULL
   END AS td_ref_name_sub ,
   td_url ,
+  td_host||td_path AS article_key ,
   td_host ,
   td_path ,
   td_title ,
