@@ -19,7 +19,6 @@ t1 AS (
     td_url ,
     parse_url(td_url ,'HOST') AS td_host ,
     parse_url(td_url ,'PATH') AS td_path ,
-    SPLIT(parse_url(td_url ,'PATH'), '/')[1] AS genre ,
     td_title ,
     td_description ,
     td_ip ,
