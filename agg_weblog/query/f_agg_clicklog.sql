@@ -1,8 +1,7 @@
 WITH
 
 
-t1 AS
-(
+t1 AS (
   SELECT
     time ,
     TD_SESSIONIZE(time, ${session_term}, ${media.primary_cookie}) as session_id ,
@@ -307,7 +306,7 @@ SELECT
     WHEN prefectures = 'Yamanashi' THEN 'Yamanashi'
     ELSE prefectures
   END map_prefectures ,
-  city 
+  city ,
   click_url
 FROM
   t1
