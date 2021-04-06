@@ -60,12 +60,13 @@ t1 AS (
 
 SELECT
   time ,
+  '${media.media_name}' AS media_name ,
   session_id ,
   row_number() over (partition by session_id order by time ASC) AS session_num ,
   cookie ,
   td_client_id ,
   td_global_id ,
-  ${check_td_ssc_id}  td_ssc_id ,
+  ${media.check_td_ssc_id}  td_ssc_id ,
   ${media.check_user_id}  user_id ,
   utm_campaign ,
   utm_medium ,
@@ -234,6 +235,7 @@ SELECT
     ELSE NULL
   END AS td_ref_name_sub ,
   td_url ,
+  CONCAT(td_host, td_path) AS article_key ,
   td_host ,
   td_path ,
   td_title ,
