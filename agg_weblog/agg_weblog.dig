@@ -8,6 +8,16 @@ _export:
   td:
     database: l1_agg_weblog
 
++empty_tables:
+  if>: ${firsttime_flag}
+  _do:
+
+    +empty_base:
+      td_ddl>:
+      empty_tables: 
+        - "agg_weblog_all"
+        - "agg_clicklog_all"
+        - "agg_readlog_all"
 
 +media_process:
   for_each>:
@@ -17,19 +27,45 @@ _export:
     +daily_processing:
       if>: ${firsttime_flag}
       _do:
-        +empty_base:
-          td_ddl>:
-          empty_tables: 
-            - "agg_weblog_${media.media_name}"
-
-        +agg_weblog:
-          td>: query/agg_weblog.sql
-          insert_into: agg_weblog_${media.media_name}
+        +f_weblog_processing:
+          td>: query/f_agg_weblog.sql
+          insert_into: agg_weblog_all
           engine: hive # Only Hive works
           engine_version: experimental
 
-      _else_do:
-        +agg_weblog_daily:
-          td>: query/agg_weblog_hourly.sql
-          insert_into: agg_weblog_${media.media_name}
+        +f_click_processing:
+          if>: ${media.check_click}
+          _do:
+            +f_agg_clicklog:
+              td>: query/f_agg_clicklog.sql
+              insert_into: agg_clicklog_all
+              engine: hive # Only Hive works
+              engine_version: experimental
 
+        +f_read_processing:
+          if>: ${media.read_click}
+          _do:
+            +f_agg_readlog:
+              td>: query/f_agg_readlog.sql
+              insert_into: agg_readlog_all
+              engine: hive # Only Hive works
+              engine_version: experimental
+
+      _else_do:
+        +h_weblog_processing:
+          td>: query/h_agg_weblog.sql
+          insert_into: agg_weblog_all
+
+        +h_click_processing:
+          if>: ${media.check_click}
+          _do:
+            +f_agg_clicklog:
+              td>: query/h_agg_clicklog.sql
+              insert_into: agg_clicklog_all
+
+        +h_read_processing:
+          if>: ${media.read_click}
+          _do:
+            +f_agg_readlog:
+              td>: query/h_agg_readlog.sql
+              insert_into: agg_readlog_all
