@@ -1,8 +1,8 @@
 WITH t1 AS (
   SELECT
     time ,
-    TD_SESSIONIZE(time, ${session_term}, ${media.primary_cookie}) as session_id ,
-    IF(${media.primary_cookie} is not NULL, ${media.primary_cookie}, td_client_id) AS cookie ,
+    TD_SESSIONIZE(time, ${session_term}, cookie) as session_id ,
+    cookie ,
     td_client_id ,
     td_global_id ,
     ${media.check_td_ssc_id}  td_ssc_id ,
@@ -36,7 +36,8 @@ WITH t1 AS (
   FROM
     (
       SELECT
-        *
+        * ,
+        IF(${media.primary_cookie} is not NULL, ${media.primary_cookie}, td_client_id) AS cookie 
       FROM
         ${media.click_db}.${media.click_tb}
       DISTRIBUTE BY 
