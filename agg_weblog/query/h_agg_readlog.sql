@@ -1,8 +1,4 @@
-WITH
-
-
-t1 AS
-(
+WITH t1 AS (
   SELECT
     time ,
     TD_SESSIONIZE_WINDOW(time, ${session_term}) OVER (PARTITION BY ${media.primary_cookie} ORDER BY time) AS session_id ,
