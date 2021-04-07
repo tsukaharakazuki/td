@@ -1,7 +1,4 @@
-WITH
-
-
-t1 AS　(
+WITH t1 AS　(
   SELECT
     time ,
     TD_SESSIONIZE(time, ${session_term}, ${media.primary_cookie}) as session_id ,
