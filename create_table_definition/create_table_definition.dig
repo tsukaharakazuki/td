@@ -1,0 +1,65 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  td:
+    database: l2_table_difinition
+
++look_information_schema:
+  td>: queries/p0000_look_information_schema.sql
+  create_table: tmp_information_schema
+
++create_common_columns_info:
+  td_ddl>:
+  empty_tables: 
+    - "common_columns_info"
+    - "ot_columns_info"
+    - "cnt_record"
+
++proc_common_columns_info: #全てのDatabaseを横断して共通のカラム設定
+  td>: queries/p0001_columns_info.sql
+  insert_into: common_columns_info
+
++proc_join_common_columns:
+  td>: queries/p0002_join_columns_info.sql
+  create_table: data_common
+
++proc_other_table_columns_info: #テーブル別に異なるカラム設定
+  td>: queries/p0101_columns_other_table_info.sql
+  insert_into: ot_columns_info
+
++proc_join_other_table_columns:
+  td>: queries/p0102_join_ot_columns_info.sql
+  create_table: table_difinition
+
+#レコードのカウント処理はエラーが出やすので注意
++cnt_record:
+  td_for_each>: config/list_db_tbl.sql
+  _do:
+    +info:
+      td>: queries/p1000_cnt_record.sql
+      insert_into: cnt_record
+
++cnt_all:
+  td>: queries/p1001_cnt_all.sql
+  insert_into: cnt_record
+
++to_google_sheets:
+  td_for_each>: config/list_db_tbl.sql
+  _do:
+    +dist_table_info:
+      td>: queries/p9000_table_info.sql
+      result_connection: YOUR_GOOGLE_SHEETS_CONNECTER_NAME
+      result_settings:
+        spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY
+        spreadsheet_title: "TreasureData_テーブル定義書_${td.each.database_name}"
+        sheet_title: "${td.each.table_name}"
+        mode: truncate
+
++proc_drop_tables:
+  td_ddl>:
+  drop_tables: 
+    - "tmp_information_schema"
+    - "data_common"
