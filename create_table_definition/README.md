@@ -99,7 +99,7 @@ Googleスプレッドシートへの出力設定
   
 `spreadsheet_folder: YOUR_GOOGLE_DRIVE_FOLDER_KEY`  
 送信するデータを格納するフォルダを設定することを推奨します。スプレッドシートのURLの末尾にフォルダIDが存在するのでそのIDを記載してください。  
-https://drive.google.com/drive/folders/**1SFu-VlPzugAR0gru68SXMVAAAAAAAAAA**  
+`https://drive.google.com/drive/folders/`**1SFu-VlPzugAR0gru68SXMVAAAAAAAAAA**  
 **1SFu-VlPzugAR0gru68SXMVAAAAAAAAAA**この部分がフォルダIDになります。  
 
 # テーブルのレコードカウント  
