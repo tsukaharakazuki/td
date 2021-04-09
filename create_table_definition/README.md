@@ -1,7 +1,7 @@
 # はじめに  
 このWorkflowはTreadureData内に存在するDatabase,Tableを参照し、カラムの説明とサンプルデータを追記したテーブル定義データを作成し、Googleスプレッドシートにシート別で出力するまでの一連の流れをまとめたWorkflowです。
   
-#  Qery設定  
+#  Query設定  
 ## list_db_tbl.sql  
 ```
 SELECT 
