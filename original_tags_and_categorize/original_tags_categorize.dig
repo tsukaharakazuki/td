@@ -39,15 +39,15 @@ _export:
             header: false
             newline: \r\n
 
-        +tf_idf:
-          td>: queries/dict_tf_idf.sql
-          create_table: tf_idf
-          engine: hive
-          engine_version: stable
-
         +add_tag:
           td>: queries/dict_02.sql
           create_table: tags
+          engine: hive
+          engine_version: stable
+
+        +tf_idf:
+          td>: queries/dict_tf_idf.sql
+          create_table: tf_idf
           engine: hive
           engine_version: stable
 
