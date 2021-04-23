@@ -69,3 +69,9 @@ _export:
             +f_agg_readlog:
               td>: query/h_agg_readlog.sql
               insert_into: agg_readlog_all
+
++proc_engagement_score:
+  td>: query/engagement_score.sql
+  insert_into: engagement_score
+  engine: hive # Only Hive works
+  engine_version: experimental
