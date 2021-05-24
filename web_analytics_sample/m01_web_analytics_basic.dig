@@ -21,7 +21,7 @@ _export:
   td>: queris/p000_create_pvuu_base.sql
   create_table: base
   engine: hive # Only Hive works
-  engine_version: experimental #Tez
+  engine_version: stable #Tez
 
 +pvuu:
   td>: queris/p010_pvuu.sql
