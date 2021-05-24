@@ -17,7 +17,7 @@ _export:
       td>: queris/p200_create_scroll_base.sql
       create_table: base_scroll
       engine: hive # Only Hive works
-      engine_version: experimental #Tez
+      engine_version: stable #Tez
 
     +tmp_scroll:
       td>: queris/p210_tmp_scroll.sql
