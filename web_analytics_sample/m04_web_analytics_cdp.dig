@@ -18,7 +18,7 @@ _export:
       td>: queris/p400_create_keyword_category_base.sql
       create_table: base_keyword_category
       engine: hive # Only Hive works
-      engine_version: experimental #Tez        
+      engine_version: stable #Tez        
 
     +dst_keyword:
       td>: queris/p410_dst_keyword.sql
