@@ -18,7 +18,7 @@ _export:
       td>: queris/p300_create_click_base.sql
       create_table: base_click
       engine: hive # Only Hive works
-      engine_version: experimental #Tez
+      engine_version: stable #Tez
 
     +tmp_click:
       td>: queris/p310_tmp_click.sql
