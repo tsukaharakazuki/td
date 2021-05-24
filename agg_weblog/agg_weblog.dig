@@ -31,7 +31,7 @@ _export:
           td>: query/f_agg_weblog.sql
           insert_into: agg_weblog_all
           engine: hive # Only Hive works
-          engine_version: experimental
+          engine_version: stable
 
         +f_click_processing:
           if>: ${media.check_click}
@@ -40,7 +40,7 @@ _export:
               td>: query/f_agg_clicklog.sql
               insert_into: agg_clicklog_all
               engine: hive # Only Hive works
-              engine_version: experimental
+              engine_version: stable
 
         +f_read_processing:
           if>: ${media.read_click}
@@ -49,7 +49,7 @@ _export:
               td>: query/f_agg_readlog.sql
               insert_into: agg_readlog_all
               engine: hive # Only Hive works
-              engine_version: experimental
+              engine_version: stable
 
       _else_do:
         +h_weblog_processing:
@@ -74,4 +74,4 @@ _export:
   td>: query/engagement_score.sql
   insert_into: engagement_score
   engine: hive # Only Hive works
-  engine_version: experimental
+  engine_version: stable
