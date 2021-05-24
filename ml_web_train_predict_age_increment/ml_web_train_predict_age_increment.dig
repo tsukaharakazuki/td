@@ -33,7 +33,7 @@ _export:
   td>: web/create_ftr_base.sql
   create_table: create_ftr_base  
   engine: hive
-  engine_version: experimental
+  engine_version: stable
 
 +create_data:
   _parallel: true
@@ -42,7 +42,7 @@ _export:
     td>: web/create_features.sql
     create_table: features
     engine: hive
-    engine_version: experimental
+    engine_version: stable
 
   +target:
     td>: web/create_target.sql
