@@ -1,0 +1,52 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 08:00:00
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: td_sandbox #ベースの参照・出力先Database
+
++create_avg_3month_tables:
+  td_ddl>:
+  create_tables: 
+    - "avg_3month"
+
++for_each_brands:
+  for_each>:
+    brand: ${brand}
+  _do:
+    +avg_3month:
+      td>: queries/p0001_avg_3month.sql
+      insert_into: avg_3month
+
+    +for_each_slack:
+      td_for_each>: queries/p1000_log_store.sql
+      _do:
+        +send_slack:
+          if>: ${td.each.flag}
+          _do:
+            http>: https://hooks.slack.com/services/xxxxx/yyyyy/zzzzzzzzzzzzzz
+            method: POST
+            content:
+              username: "Log alert bot"
+              icon_emoji: ':fireball:'
+              channel: "#general"
+              fields:
+              - title: ブランド名
+                value: "${td.each.brand_name}"
+                short: false
+              - title: 計測日
+                value: "${td.each.check_date}"
+                short: false
+              - title: PV
+                value: "${td.each.pv_yesterday}"
+                short: true
+              - title: 3ヶ月平均PV
+                value: "${td.each.pv_avg}"
+                short: true
+              - title: session_time
+                value: "${session_time}"
+                short: false
+              content_format: json
