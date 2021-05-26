@@ -5,8 +5,8 @@ WITH t1 AS (
     IF(${media.primary_cookie} is not NULL, ${media.primary_cookie}, td_client_id) AS cookie ,
     td_client_id ,
     td_global_id ,
-    ${media.check_td_ssc_id}  td_ssc_id ,
-    ${media.check_user_id}  ${media.user_id} AS user_id ,
+    ${media.td_ssc_id} AS td_ssc_id ,
+    ${media.user_id} AS user_id ,
     url_extract_parameter(td_url, 'utm_campaign') AS utm_campaign ,
     url_extract_parameter(td_url, 'utm_medium') AS utm_medium ,
     url_extract_parameter(td_url, 'utm_source') AS utm_source ,
@@ -34,6 +34,7 @@ WITH t1 AS (
     TD_IP_TO_LEAST_SPECIFIC_SUBDIVISION_NAME(td_ip) AS prefectures ,
     TD_IP_TO_CITY_NAME(td_ip) AS city ,
     ${media.read_col} AS read
+    ${media.custom_param}
   FROM
     ${media.read_db}.${media.read_tb}
   WHERE
@@ -358,5 +359,6 @@ SELECT
   END map_prefectures ,
   city ,
   read
+  ${media.custom_param}
 FROM
   t1
