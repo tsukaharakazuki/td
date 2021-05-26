@@ -53,8 +53,12 @@
   
 # CLIでTDのデータベース確認
   
-`td db:list`
+`td db:list`. 
 
+# 該当JOBの確認とデータダウンロード
+  
+`td job:show xxxxxxxxxxx -f csv -o xxxxxxxxxxx.csv --column-header`
+  
 # スケジュールQueryの確認
   
 `td sched:list`
