@@ -6,10 +6,10 @@ media:
 - media_name: sample_1
   log_db: YOUR_WEB_LOG_DB #set web_log database
   log_tb: YOUR_WEB_LOG_TB #set web_log table
-  primary_cookie: td_client_id #or td_ssc_id
-  check_td_ssc_id:  -- #td_ssc_idをONにする場合は空白
-  check_user_id: -- #user_idをONにする場合は空白
+  primary_cookie: td_ssc_id #td_ssc_id or td_client_id
+  td_ssc_id: td_ssc_id #td_ssc_id未取得の場合 "'NULL'"
   user_id: user_id #set user_id column
+  custom_param: ",hoge,hogehoge,hogehogehoge" #追加カラムがない場合未記載
   check_click: true
   click_db: YOUR_CLICK_LOG_DB
   click_tb: YOUR_CLICK_LOG_TB
