@@ -1,0 +1,103 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 01:00:00
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: l2_unify_ids
+
++empty_base_tables:
+  if>: ${firsttime_flag}
+  _do:
+    +empty_base:
+      td_ddl>:
+      empty_tables: 
+        - "base_unify_ids"
+        - "tmp_unify_ids"
+        - "map_cookie"
+
++proc_tmp_unify:
+  if>: ${firsttime_flag}
+  _do:
+
+    +fitsttime_tmp_unify_ids:
+      td>: query/p0001_fitsttime_tmp_unify_ids.sql
+      insert_into: base_unify_ids
+      #engine: hive # Only Hive works
+      #engine_version: stable
+
+    +grouping_tmp_unify_ids:
+      td>: query/p0011_grouping_tmp_unify_ids.sql
+      insert_into: tmp_unify_ids
+      #engine: hive # Only Hive works
+      #engine_version: stable
+
+  _else_do:
+    +drop_tables_base_unify_ids:
+      td_ddl>:
+      drop_tables: 
+        - "base_unify_ids"
+
+    +swap_tables:
+      td_ddl>:
+      rename_tables: 
+        - {from: "tmp_unify_ids", to: "base_unify_ids"}
+
+    +daily_tmp_unify_ids:
+      td>: query/p0002_daily_tmp_unify_ids.sql
+      insert_into: base_unify_ids
+
+    +grouping_tmp_unify_ids:
+      td>: query/p0011_grouping_tmp_unify_ids.sql
+      create_table: tmp_unify_ids
+
++create_mst_key:
+  td>: query/p0100_create_mst_key.sql
+  create_table: mst_key
+
++split_host:
+  _export:
+  td_for_each>: config/host_list.sql
+  _do:
+    +swap_tables:
+      td_ddl>:
+      rename_tables: 
+        - {from: "mst_key", to: "tmp_mst_key"}
+
+    +proc_split_host:
+      td>: query/p0101_split_host.sql
+      create_table: split_${td.each.host_name}
+
+    +search_query_tmp_mst_key:
+      td>: query/p0102_search_query_tmp_mst_key.sql
+      store_last_results: true
+
+    +proc_tmp_mst_key:
+      td>:
+        data: |
+          ${td.last_results.sql_contents}
+      create_table: mst_key
+
+    +drop_tables:
+      td_ddl>:
+      drop_tables: 
+        - "split_${td.each.host_name}"
+
++proc_per_column:
+  _export:
+  td_for_each>: config/column_list.sql
+  _do:
+    +proc_columns:
+      td>: query/p0103_proc_columns.sql
+      insert_into: map_cookie
+
++proc_dist_map_cookie:
+  td>: query/p0111_dist_map_cookie.sql
+  create_table: dist_map_cookie
+
++create_mst_unify_id:
+  td>: query/p0200_mst_unify_id.sql
+  create_table: mst_unify_id
+

@@ -1,0 +1,2 @@
+# はじめに  
+このWorkflowは、Clickした元のドメインの1stPartyCookieと、流入元ドメインの1stPartyCookieを、同一IPアドレス・ユーザーエージェントの情報をもとにunify_idとして新規の統合IDを作成するフローです。
