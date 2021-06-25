@@ -8,7 +8,7 @@ media:
   log_tb: YOUR_WEB_LOG_TB #set web_log table
   primary_cookie: td_ssc_id #td_ssc_id or td_client_id
   td_ssc_id: td_ssc_id #td_ssc_id未取得の場合 "'n/a'"
-  user_id: user_id #set user_id column
+  user_id: user_id #set user_id column未取得の場合 "'n/a'"
   custom_param: ",hoge,hogehoge,hogehogehoge" #追加カラムがない場合未記載
   check_click: true
   click_db: YOUR_CLICK_LOG_DB
