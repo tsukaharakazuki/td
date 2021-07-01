@@ -45,7 +45,7 @@ WITH t1 AS (
     td_host != 'gtm-msr.appspot.com' AND
     td_client_id is not NULL AND
     td_client_id <> 'undefined'
-    ${check_js_extension} AND action='view' AND category='page' 
+    ${check_js_extension} AND action='read' AND category='content' 
 )
 
 
