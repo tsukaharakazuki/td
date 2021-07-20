@@ -1,7 +1,4 @@
-WITH 
-
-source AS 
-(
+WITH source AS (
   SELECT
     distinct ${article_id} AS article_id
     ,${cookie_type} AS cookie
@@ -12,9 +9,7 @@ source AS
     --AND ${article_check} IN (オリジナル記事', 'PR記事')
 ),
 
-
-size AS 
-(
+size AS (
   SELECT
     article_id
     ,count(*) AS size
@@ -26,9 +21,7 @@ size AS
     count(*) > ${base_pv_cnt}
 ),
 
-
-intersection AS 
-(
+intersection AS (
   SELECT
     l.article_id AS l
     ,r.article_id AS r
