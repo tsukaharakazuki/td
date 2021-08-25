@@ -1,0 +1,15 @@
+---
+firsttime: true #true or false 
+media:
+- media_name: media_01
+  log_db: l1_agg_weblog
+  log_tbl: agg_weblog_all
+  key_id: cookie
+  where_config: AND media_name = media_01
+  seg_score_accidental_low: 1
+  seg_score_low_middle: 1.5
+  seg_score_middle_loyal: 2.3
+
+multi_media_col_mane: media
+multi_media_content: split_part(td_path, '/', 2) #どこでパースするかはメディアごとに異なります。またメディアIDカラムがある場合メディアIDカラムをセット
+calc_period: -1

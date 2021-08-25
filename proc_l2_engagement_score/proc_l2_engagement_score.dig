@@ -1,0 +1,28 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: l2_engagement_score
+
++create_tables:
+  if>: ${firsttime}
+  _do:
+    td_ddl>:
+    empty_tables:
+      - "engagement_score"
+
++for_each_media:
+  for_each>:
+    media: ${media.media}
+  _do:
+    +calc_engagement_score:
+      td>: queries/p0001_calc_score.sql
+      create_table: engagement_score_${media.media_name}
+
+    +store_engagement_score:
+      td>: queries/p0002_store_score.sql
+      insert_into: engagement_score
