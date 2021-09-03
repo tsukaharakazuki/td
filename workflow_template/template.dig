@@ -8,6 +8,16 @@ _export:
   !include : 'config/params.yml'
   td:
     database: template #ベースの参照・出力先Database
+  emails: &emails
+    - send_error_01@gmail.com
+    - send_error_02@gmail.com
+
+_error:
+  +error_mail:
+    mail>:
+      data: エラーが発生しました
+    subject: 【テスト】エラーメールテスト
+    to: *emails
 
 +presto:
   td>: queries/presto.sql
