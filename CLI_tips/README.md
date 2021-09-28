@@ -76,3 +76,14 @@
 # Other
 現在いるディレクトリを表示
 `pwd`
+  
+# Jupyter Setup
+  
+1. Dockerのダウンロード. 
+  `https://hub.docker.com/editions/community/docker-ce-desktop-mac`
+  
+2. Jupyterのインストール. 
+  `docker run -it --name Jupyter -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v /Users/USERディレクトリ/Desctop/local/Jupyter:/home/jovyan jupyter/all-spark-notebook`
+  
+3. Jupyterが立ち上がったら実行. 
+  `pip install pandas pytd numpy matplotlib`
