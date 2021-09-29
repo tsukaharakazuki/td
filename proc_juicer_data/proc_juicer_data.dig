@@ -1,0 +1,87 @@
+timezone: "Asia/Tokyo"
+
+schedule:
+  monthly>: 16,05:00:00
+
+_export:
+  td:
+    database: l1_juicer
+  firsttime: true
+  juicer_db: juicer_db #set juicer database
+  target_month: ${moment(session_date).add(-2, 'month').format("YYYYMM")}
+
++proc_union:
+  if>: ${firsttime}
+  _do:
+    +union_juicer_user_data:
+      td>: query/union_juicer_user_data.sql
+      create_table: union_juicer_user_data
+
+    +union_juicer_category_large:
+      td>: query/union_juicer_category_large.sql
+      create_table: union_juicer_category_large
+      
+    +union_juicer_category_small:
+      td>: query/union_juicer_category_small.sql
+      create_table: union_juicer_category_small
+      
+    +union_juicer_interest_keyword:
+      td>: query/union_juicer_interest_keyword.sql
+      create_table: union_juicer_interest_keyword
+
+    +union_juicer_interest_keyword2:
+      td>: query/union_juicer_interest_keyword2.sql
+      create_table: union_juicer_interest_keyword2
+      
+    +union_juicer_adid:
+      td>: query/union_juicer_adid.sql
+      create_table: union_juicer_adid
+  
+  _else_do:
+    +monthly_juicer_user_data:
+      td>: query/monthly_juicer_user_data.sql
+      insert_into: union_juicer_user_data
+
+    +monthly_juicer_category_large:
+      td>: query/monthly_juicer_category_large.sql
+      insert_into: union_juicer_category_large
+      
+    +monthly_juicer_category_small:
+      td>: query/monthly_juicer_category_small.sql
+      insert_into: union_juicer_category_small
+      
+    +monthly_juicer_interest_keyword:
+      td>: query/monthly_juicer_interest_keyword.sql
+      insert_into: union_juicer_interest_keyword
+
+    +monthly_juicer_interest_keyword2:
+      td>: query/monthly_juicer_interest_keyword2.sql
+      insert_into: union_juicer_interest_keyword2
+      
+    +monthly_juicer_adid:
+      td>: query/monthly_juicer_adid.sql
+      insert_into: union_juicer_adid
+
++agg_juicer_user_data:
+  td>: query/agg_juicer_user_data.sql
+  create_table: agg_juicer_user_data
+
++agg_juicer_category_large:
+  td>: query/agg_juicer_category_large.sql
+  create_table: agg_juicer_category_large
+  
++agg_juicer_category_small:
+  td>: query/agg_juicer_category_small.sql
+  create_table: agg_juicer_category_small
+  
++agg_juicer_interest_keyword:
+  td>: query/agg_juicer_interest_keyword.sql
+  create_table: agg_juicer_interest_keyword
+
++agg_juicer_interest_keyword2:
+  td>: query/agg_juicer_interest_keyword2.sql
+  create_table: agg_juicer_interest_keyword2
+  
++agg_juicer_adid:
+  td>: query/agg_juicer_adid.sql
+  create_table: agg_juicer_adid
