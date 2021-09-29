@@ -6,12 +6,14 @@
   
 # 変数設定
   
-```_export:
+```
+_export:
   td:
     database: l1_juicer
   firsttime: true
   juicer_db: juicer_db #set juicer database
-  target_month: ${moment(session_date).add(-2, 'month').format("YYYYMM")}```
+  target_month: ${moment(session_date).add(-2, 'month').format("YYYYMM")}
+```
      
 database: `データが出力されるDatabase名`
 firsttime: `初回実行時：true 毎月実行時:false`
