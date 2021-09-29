@@ -16,6 +16,9 @@ _export:
 ```
      
 database: `データが出力されるDatabase名`
+  
 firsttime: `初回実行時：true 毎月実行時:false`
+  
 juicer_db: `Juicerから提供されるデータが入っているDatabase名` #set juicer database
+  
 target_month: `毎月変更されるTable名変数なので変更不要`
