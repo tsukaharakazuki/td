@@ -4,15 +4,15 @@ SELECT
   age_estimate ,
   sex_estimate ,
   CASE 
-    WHEN sex_estimate = '1' THEN 'M' 
-    WHEN sex_estimate = '2' THEN 'F' 
+    WHEN sex_estimate = 1 THEN 'M' 
+    WHEN sex_estimate = 2 THEN 'F' 
     ELSE NULL
   END AS flg_sex_estimate ,
   age_confirm ,
   sex_confirm ,
   CASE 
-    WHEN sex_confirm = '1' THEN 'M' 
-    WHEN sex_confirm = '2' THEN 'F' 
+    WHEN sex_confirm = 1 THEN 'M' 
+    WHEN sex_confirm = 2 THEN 'F' 
     ELSE NULL
   END AS flg_sex_confirm ,
   pref_id ,
