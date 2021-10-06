@@ -1,0 +1,55 @@
+timezone: Asia/Tokyo
+
+#schedule:
+#  daily>: 02:50:00
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: ml_data_v2
+    endpoint: api.treasuredata.com
+    access_log_db: td_sandbox
+    access_log_tb: agg_weblog_all
+    key_id: cookie
+    cdp_segments_db: l2_lookalike
+    cdp_segments_tbl: segments
+  ml:
+    n_days: 28 # ログの使用期間
+    n_features: 1000 # 説明変数の数
+    test_size: 0.2
+    n_split: 3
+  target_date: ${session_date}
+
++features:
+  +delete_if_exists:
+    if>: ${features_firsttime}
+    _else_do:
+      td>:
+      query: delete from features where time = ${session_unixtime}
+
+  +insert:
+    td>: sql/create_features.sql
+    create_table: features
+    engine: presto
+
++for_each_segments:
+  for_each>:
+    segments: ${segments}
+  _do:
+    +create_data:
+      _parallel: true
+      +target:
+        +delete_if_exists:
+          if>: ${segments.firsttime}
+          _else_do:
+            td>:
+            query: delete from target_${brand.segment_name} where time = ${session_unixtime}
+
+        +insert:
+          td>: sql/create_target.sql
+          create_table: target_${segments.segment_name}
+          engine: presto
+
+    +call_ml_template:
+      call>: cdp_train_predict_lookalike.dig
+      
