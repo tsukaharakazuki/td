@@ -14,11 +14,11 @@
   tbl: TABLE_NAME　→送信元になるデータテーブル名
   cols: time,td_ssc_id　→送信するカラム名をカンマ区切りで記載
   use_time_range: true　→TD_TIME_RANGEで分割できる場合true,できない場合false
-  non_time_range:　→こちらの以下の設定は
-  - table_snippet: send_data_20211008
-    start_date: 2020-10-01
-    end_date: 2021-10-08
-    tile_num: 10
+  non_time_range:　→以下の設定はTIME_RANGEで分割できない場合設定する項目です
+  - table_snippet: send_data_20211008　→中間テーブル用のTABLE_NAME用
+    start_date: 2020-10-01　→送信するデータの集計スタート日時
+    end_date: 2021-10-08　→送信するデータの集計エンド日時
+    tile_num: 10　→分割数
 ```
 　　
 # TILEで分割する場合の注意  
