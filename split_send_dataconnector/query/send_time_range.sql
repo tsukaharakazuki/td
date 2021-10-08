@@ -1,0 +1,9 @@
+SELECT
+  ${cols}
+FROM
+  ${db}.${tbl}
+WHERE 
+  TD_TIME_RANGE(time, 
+    '${indicator.start_date}', 
+    '${indicator.end_date}', 
+    'JST')

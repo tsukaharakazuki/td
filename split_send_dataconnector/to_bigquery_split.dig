@@ -1,0 +1,71 @@
+timezone: "Asia/Tokyo"
+
+_export:
+  td:
+    database: td_sandbox  
+  db: DATABASE_NAME
+  tbl: TABLE_NAME
+  cols: time,td_ssc_id
+  use_time_range: true
+  non_time_range:
+  - table_snippet: send_data_20211008
+    start_date: 2021-08-01
+    end_date: 2021-10-08
+    tile_num: 10
+
++if:
+  if>: ${use_time_range}
+  _do:
+    #1)timeで分割できるデータを分割して送信
+    +for_each_time_split:
+      for_each>:
+        indicator: 
+          - start_date: 2021-08-01
+            end_date: 2021-09-01
+          - start_date: 2021-09-01
+            end_date: 2021-10-09
+      _do:
+        +for_each_send_time_range:
+          td>: query/send_time_range.sql
+          database: td_sandbox
+          result_connection: CONNECTOR_NAME
+          result_settings: #Bigqueryサンプル
+            project: PROJECT＿NAME
+            dataset: DATABASE＿NAME
+            location: US
+            table: TABLE＿NAME
+            auto_create_table: true
+            mode: append
+            max_bad_records: 0
+            ignore_unknown_values: false
+            allow_quoted_newlines: true
+            schema_file: '[{"name":"time","type":"STRING"},{"name":"td_ssc_id","type":"STRING"}]'
+
+  _else_do:
+    #2)timeで分割できないデータをsplit処理して送信
+    +create_send_data:
+      td>: query/create_send_data.sql
+      create_table: send_data_${non_time_range.table_snippet}
+      engine: hive # Only Hive works
+      engine_version: stable
+
+    +loop:
+      loop>: ${non_time_range.tile_num}
+      _do:
+        +loop_send_data:
+          _export:
+            tile_num: ${i + 1}
+          td>: query/loop_send_data.sql
+          database: td_sandbox
+          result_connection: CONNECTOR_NAME
+          result_settings: #Bigqueryサンプル
+            project: PROJECT＿NAME
+            dataset: DATABASE＿NAME
+            location: US
+            table: TABLE＿NAME
+            auto_create_table: true
+            mode: append
+            max_bad_records: 0
+            ignore_unknown_values: false
+            allow_quoted_newlines: true
+            schema_file: '[{"name":"time","type":"STRING"},{"name":"td_ssc_id","type":"STRING"}]'
