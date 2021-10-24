@@ -1,0 +1,40 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 5 * * * *
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: td_sandbox
+
++create_send_id_list:
+  td>: queries/create_send_id_list.sql
+  create_table: send_id_list
+
++store_send_id_list:
+  td>: queries/store_send_id_list.sql
+  insert_into: store_send_id_list
+
++for_each_data:
+  for_each>:
+    send_list: ${send_list}
+  _do:
+    #送信するコネクタごとにSQLとresult_settingを変更
+    +sample_facebook_custom_audience:
+      td>: queries/send_data_connector.sql
+      result_connection: your_connections_name
+      result_settings:
+        ad_account_id: your_facebook_ad_account_id
+        output_name: name_of_custom_audience
+        description: description_of_custom_audience
+        pre_hashed: false
+        customer_file_source: USER_PROVIDED_ONLY
+        retryInitialWaitMsec: 60000
+        retryLimit: 5
+        oauthWarningFlag: null
+
++drop_and_create_cdp_segments_tbl:
+  td_ddl>:
+  empty_tables: 
+    - "${cdp_segments_db}.${cdp_segments_tbl}"

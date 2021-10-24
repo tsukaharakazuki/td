@@ -1,0 +1,11 @@
+---
+cdp_segments_db: td_sandbox
+cdp_segments_tbl: list_cdp_segments
+segment_name_col: segment_name
+base_id_col: ifas
+output_id_col: ifa
+send_list:
+- send_segments_name: "ALL"
+- send_segments_name: "SegA"
+- send_segments_name: "SegB"
+    
