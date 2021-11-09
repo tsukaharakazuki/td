@@ -8,8 +8,8 @@ media:
   log_tb: YOUR_WEB_LOG_TB #set web_log table
   primary_cookie: td_ssc_id #td_ssc_id or td_client_id
   sub_cookie: td_client_id
-  td_ssc_id: td_ssc_id #td_ssc_id未取得の場合 "'na'"
-  user_id: user_id #set user_id column未取得の場合 "'na'"
+  td_ssc_id: td_ssc_id #td_ssc_id未取得の場合 "''"
+  user_id: user_id #set user_id column未取得の場合 "''"
   custom_param: ",hoge,hogehoge,hogehogehoge" #追加カラムがない場合未記載
   check_click: true
   click_db: YOUR_CLICK_LOG_DB
@@ -17,8 +17,8 @@ media:
   click_col: click_url
   primary_cookie_click: td_ssc_id #td_ssc_id or td_client_id
   sub_cookie_click: td_client_id
-  td_ssc_id_click: td_ssc_id #td_ssc_id未取得の場合 "'na'"
-  user_id_click: "'na'" #set user_id column未取得の場合 "'na'"
+  td_ssc_id_click: td_ssc_id #td_ssc_id未取得の場合 "''"
+  user_id_click: "''" #set user_id column未取得の場合 "''"
   custom_param_click: ",click_text" #追加カラムがない場合未記載
   read_click: true
   read_db: YOUR_READ_LOG_DB
@@ -26,6 +26,6 @@ media:
   read_col: scroll_depth_threshold
   primary_cookie_read: td_ssc_id #td_ssc_id or td_client_id
   sub_cookie_read: td_client_id
-  td_ssc_id_read: td_ssc_id #td_ssc_id未取得の場合 "'na'"
-  user_id_read: "'na'" #set user_id column未取得の場合 "'na'"
+  td_ssc_id_read: td_ssc_id #td_ssc_id未取得の場合 "''"
+  user_id_read: "''" #set user_id column未取得の場合 "''"
   custom_param_read: ",text" #追加カラムがない場合未記載
