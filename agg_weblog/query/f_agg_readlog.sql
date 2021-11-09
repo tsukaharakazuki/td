@@ -370,6 +370,6 @@ SELECT
   END map_prefectures ,
   ip_city ,
   read
-  ${media.custom_param}
+  ${media.custom_param_read}
 FROM
   t1
