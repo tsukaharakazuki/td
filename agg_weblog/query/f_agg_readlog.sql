@@ -62,6 +62,7 @@ WITH t1 AS　(
 SELECT
   time ,
   '${media.media_name}' AS media_name ,
+  'read' AS td_data_type ,
   session_id ,
   row_number() over (partition by session_id order by time ASC) AS session_num ,
   cookie ,
