@@ -370,6 +370,6 @@ SELECT
   END map_prefectures ,
   ip_city ,
   click_url
-  ${media.custom_param}
+  ${media.custom_param_click}
 FROM
   t1
