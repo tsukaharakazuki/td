@@ -1,5 +1,5 @@
 ---
-firsttime_flag: true #true or false / read_depth cnt exists true
+firsttime_flag: true #true or false 
 check_js_extension: -- #extensionを使用している場合は空白
 session_term: 1800 #秒数→セッショナイズする間隔設定
 media:
