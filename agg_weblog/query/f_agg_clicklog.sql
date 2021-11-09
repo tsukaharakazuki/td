@@ -33,7 +33,7 @@ WITH t1 AS (
     TD_IP_TO_LEAST_SPECIFIC_SUBDIVISION_NAME(td_ip) AS ip_prefectures ,
     TD_IP_TO_CITY_NAME(td_ip) AS ip_city ,
     ${media.click_col} AS click_url
-    ${media.custom_param}
+    ${media.custom_param_click}
   FROM
     (
       SELECT
