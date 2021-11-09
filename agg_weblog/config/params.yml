@@ -17,6 +17,7 @@ media:
   click_col: click_url
   primary_cookie_click: td_ssc_id #td_ssc_id or td_client_id
   sub_cookie_click: td_client_id
+  td_ssc_id_click: td_ssc_id #td_ssc_id未取得の場合 "'na'"
   user_id_click: "'na'" #set user_id column未取得の場合 "'na'"
   custom_param_click: ",click_text" #追加カラムがない場合未記載
   read_click: true
@@ -25,5 +26,6 @@ media:
   read_col: scroll_depth_threshold
   primary_cookie_read: td_ssc_id #td_ssc_id or td_client_id
   sub_cookie_read: td_client_id
+  td_ssc_id_read: td_ssc_id #td_ssc_id未取得の場合 "'na'"
   user_id_read: "'na'" #set user_id column未取得の場合 "'na'"
   custom_param_read: ",text" #追加カラムがない場合未記載
