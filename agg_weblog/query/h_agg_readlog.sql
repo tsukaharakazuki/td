@@ -1,12 +1,12 @@
 WITH t1 AS (
   SELECT
     time ,
-    TD_SESSIONIZE_WINDOW(time, ${session_term}) OVER (PARTITION BY ${media.primary_cookie} ORDER BY time) AS session_id ,
-    IF(${media.primary_cookie} is not NULL, ${media.primary_cookie}, td_client_id) AS cookie ,
+    TD_SESSIONIZE_WINDOW(time, ${session_term}) OVER (PARTITION BY ${media.primary_cookie_read} ORDER BY time) AS session_id ,
+    IF(${media.primary_cookie_read} is not NULL, ${media.primary_cookie_read}, ${media.sub_cookie_read}) AS cookie ,
     td_client_id ,
     td_global_id ,
-    ${media.td_ssc_id} AS td_ssc_id ,
-    ${media.user_id} AS user_id ,
+    ${media.td_ssc_id_read} AS td_ssc_id ,
+    ${media.user_id_read} AS user_id ,
     url_extract_parameter(td_url, 'utm_campaign') AS utm_campaign ,
     url_extract_parameter(td_url, 'utm_medium') AS utm_medium ,
     url_extract_parameter(td_url, 'utm_source') AS utm_source ,
@@ -34,7 +34,7 @@ WITH t1 AS (
     TD_IP_TO_LEAST_SPECIFIC_SUBDIVISION_NAME(td_ip) AS prefectures ,
     TD_IP_TO_CITY_NAME(td_ip) AS city ,
     ${media.read_col} AS read
-    ${media.custom_param}
+    ${media.custom_param_read}
   FROM
     ${media.read_db}.${media.read_tb}
   WHERE
@@ -52,6 +52,7 @@ WITH t1 AS (
 SELECT
   time ,
   '${media.media_name}' AS media_name ,
+  'read' AS td_data_type ,
   session_id ,
   row_number() over (partition by session_id order by time ASC) AS session_num ,
   cookie ,
@@ -300,65 +301,65 @@ SELECT
   td_browser ,
   td_screen ,
   td_viewport ,
-  os ,
-  vendor ,
-  os_version ,
-  browser ,
-  category ,
-  country ,
-  prefectures ,
+  ua_os ,
+  ua_vendor ,
+  ua_os_version ,
+  ua_browser ,
+  ua_category ,
+  ip_country ,
+  ip_prefectures ,
   CASE
-    WHEN prefectures = 'Aichi' THEN 'Aichi'
-    WHEN prefectures = 'Akita' THEN 'Akita'
-    WHEN prefectures = 'Aomori' THEN 'Aomori'
-    WHEN prefectures = 'Ehime' THEN 'Ehime'
-    WHEN prefectures = 'Gifu' THEN 'Gifu'
-    WHEN prefectures = 'Gunma' THEN 'Gunma'
-    WHEN prefectures = 'Hiroshima' THEN 'Hiroshima'
-    WHEN prefectures = 'Hokkaido' THEN 'Hokkaido'
-    WHEN prefectures = 'Fukui' THEN 'Fukui'
-    WHEN prefectures = 'Fukuoka' THEN 'Fukuoka'
-    WHEN prefectures = 'Fukushima-ken' THEN 'Fukushima'
-    WHEN prefectures = 'Hyōgo' THEN 'Hyogo'
-    WHEN prefectures = 'Ibaraki' THEN 'Ibaraki'
-    WHEN prefectures = 'Ishikawa' THEN 'Ishikawa'
-    WHEN prefectures = 'Iwate' THEN 'Iwate'
-    WHEN prefectures = 'Kagawa' THEN 'Kagawa'
-    WHEN prefectures = 'Kagoshima' THEN 'Kagoshima'
-    WHEN prefectures = 'Kanagawa' THEN 'Kanagawa'
-    WHEN prefectures = 'Kochi' THEN 'Kochi'
-    WHEN prefectures = 'Kumamoto' THEN 'Kumamoto'
-    WHEN prefectures = 'Kyoto' THEN 'Kyoto'
-    WHEN prefectures = 'Mie' THEN 'Mie'
-    WHEN prefectures = 'Miyagi' THEN 'Miyagi'
-    WHEN prefectures = 'Miyazaki' THEN 'Miyazaki'
-    WHEN prefectures = 'Nagano' THEN 'Nagano'
-    WHEN prefectures = 'Nagasaki' THEN 'Nagasaki'
-    WHEN prefectures = 'Nara' THEN 'Nara'
-    WHEN prefectures = 'Niigata' THEN 'Niigata'
-    WHEN prefectures = 'Oita' THEN 'Oita'
-    WHEN prefectures = 'Okayama' THEN 'Okayama'
-    WHEN prefectures = 'Okinawa' THEN 'Okinawa'
-    WHEN prefectures = 'Ōsaka' THEN 'Osaka'
-    WHEN prefectures = 'Saga' THEN 'Saga'
-    WHEN prefectures = 'Saitama' THEN 'Saitama'
-    WHEN prefectures = 'Shiga' THEN 'Shiga'
-    WHEN prefectures = 'Shimane' THEN 'Shimane'
-    WHEN prefectures = 'Shizuoka' THEN 'Shizuoka'
-    WHEN prefectures = 'Chiba' THEN 'Chiba'
-    WHEN prefectures = 'Tochigi' THEN 'Tochigi'
-    WHEN prefectures = 'Tokushima' THEN 'Tokushima'
-    WHEN prefectures = 'Tokyo' THEN 'Tokyo'
-    WHEN prefectures = 'Tottori' THEN 'Tottori'
-    WHEN prefectures = 'Toyama' THEN 'Toyama'
-    WHEN prefectures = 'Wakayama' THEN 'Wakayama'
-    WHEN prefectures = 'Yamagata' THEN 'Yamagata'
-    WHEN prefectures = 'Yamaguchi' THEN 'Yamaguchi'
-    WHEN prefectures = 'Yamanashi' THEN 'Yamanashi'
-    ELSE prefectures
+    WHEN ip_prefectures = 'Aichi' THEN 'Aichi'
+    WHEN ip_prefectures = 'Akita' THEN 'Akita'
+    WHEN ip_prefectures = 'Aomori' THEN 'Aomori'
+    WHEN ip_prefectures = 'Ehime' THEN 'Ehime'
+    WHEN ip_prefectures = 'Gifu' THEN 'Gifu'
+    WHEN ip_prefectures = 'Gunma' THEN 'Gunma'
+    WHEN ip_prefectures = 'Hiroshima' THEN 'Hiroshima'
+    WHEN ip_prefectures = 'Hokkaido' THEN 'Hokkaido'
+    WHEN ip_prefectures = 'Fukui' THEN 'Fukui'
+    WHEN ip_prefectures = 'Fukuoka' THEN 'Fukuoka'
+    WHEN ip_prefectures = 'Fukushima-ken' THEN 'Fukushima'
+    WHEN ip_prefectures = 'Hyōgo' THEN 'Hyogo'
+    WHEN ip_prefectures = 'Ibaraki' THEN 'Ibaraki'
+    WHEN ip_prefectures = 'Ishikawa' THEN 'Ishikawa'
+    WHEN ip_prefectures = 'Iwate' THEN 'Iwate'
+    WHEN ip_prefectures = 'Kagawa' THEN 'Kagawa'
+    WHEN ip_prefectures = 'Kagoshima' THEN 'Kagoshima'
+    WHEN ip_prefectures = 'Kanagawa' THEN 'Kanagawa'
+    WHEN ip_prefectures = 'Kochi' THEN 'Kochi'
+    WHEN ip_prefectures = 'Kumamoto' THEN 'Kumamoto'
+    WHEN ip_prefectures = 'Kyoto' THEN 'Kyoto'
+    WHEN ip_prefectures = 'Mie' THEN 'Mie'
+    WHEN ip_prefectures = 'Miyagi' THEN 'Miyagi'
+    WHEN ip_prefectures = 'Miyazaki' THEN 'Miyazaki'
+    WHEN ip_prefectures = 'Nagano' THEN 'Nagano'
+    WHEN ip_prefectures = 'Nagasaki' THEN 'Nagasaki'
+    WHEN ip_prefectures = 'Nara' THEN 'Nara'
+    WHEN ip_prefectures = 'Niigata' THEN 'Niigata'
+    WHEN ip_prefectures = 'Oita' THEN 'Oita'
+    WHEN ip_prefectures = 'Okayama' THEN 'Okayama'
+    WHEN ip_prefectures = 'Okinawa' THEN 'Okinawa'
+    WHEN ip_prefectures = 'Ōsaka' THEN 'Osaka'
+    WHEN ip_prefectures = 'Saga' THEN 'Saga'
+    WHEN ip_prefectures = 'Saitama' THEN 'Saitama'
+    WHEN ip_prefectures = 'Shiga' THEN 'Shiga'
+    WHEN ip_prefectures = 'Shimane' THEN 'Shimane'
+    WHEN ip_prefectures = 'Shizuoka' THEN 'Shizuoka'
+    WHEN ip_prefectures = 'Chiba' THEN 'Chiba'
+    WHEN ip_prefectures = 'Tochigi' THEN 'Tochigi'
+    WHEN ip_prefectures = 'Tokushima' THEN 'Tokushima'
+    WHEN ip_prefectures = 'Tokyo' THEN 'Tokyo'
+    WHEN ip_prefectures = 'Tottori' THEN 'Tottori'
+    WHEN ip_prefectures = 'Toyama' THEN 'Toyama'
+    WHEN ip_prefectures = 'Wakayama' THEN 'Wakayama'
+    WHEN ip_prefectures = 'Yamagata' THEN 'Yamagata'
+    WHEN ip_prefectures = 'Yamaguchi' THEN 'Yamaguchi'
+    WHEN ip_prefectures = 'Yamanashi' THEN 'Yamanashi'
+    ELSE ip_prefectures
   END map_prefectures ,
-  city ,
+  ip_city ,
   read
-  ${media.custom_param}
+  ${media.custom_param_read}
 FROM
   t1
