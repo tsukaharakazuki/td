@@ -1,7 +1,7 @@
 WITH t1 AS (
   SELECT
     time ,
-    TD_SESSIONIZE_WINDOW(time, ${session_term}) OVER (PARTITION BY ${media.primary_cookie} ORDER BY time) AS session_id ,
+    TD_SESSIONIZE_WINDOW(time, ${session_term}) OVER (PARTITION BY ${media.primary_cookie_click} ORDER BY time) AS session_id ,
     IF(${media.primary_cookie_click} is not NULL, ${media.primary_cookie_click}, ${media.sub_cookie_click}) AS cookie ,
     td_client_id ,
     td_global_id ,
