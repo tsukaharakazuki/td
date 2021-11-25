@@ -1,0 +1,26 @@
+---
+# 初回実行時:true 日次実行:false
+first_time: true
+
+# MappingしたいIDが入っているDatabase/Table
+in_db: weblog
+in_tbl: web_access_log
+
+# 1)生データからユニーク化抽出するカラム指定
+set_columns:
+  columns:
+    - td_ssc_id
+    - td_client_id
+    - td_global_id
+    - google_gid
+
+# 2) 1で作ったテーブルに対して、Keyとしてユニーク化していくprimary/subのcookie指定と、それ以外の処理カラムを指定
+primary_cookie: td_ssc_id
+sub_cookie: td_client_id
+agg_columns:
+  columns:
+    - td_global_id
+    - google_gid
+
+# アウトプットされるTable名に入る文字列
+output_tbl_flag: google_gid

@@ -1,0 +1,10 @@
++function_set_columns:
+  td>:
+  query: |
+    SELECT
+      ARRAY_JOIN(ARRAY_AGG('MAX_BY('||val||', time) AS '||val||' ,ARRAY_AGG('||val||') AS '||val||'s'),',') AS agg_columns
+    FROM (
+      SELECT
+        SPLIT('${agg_columns.columns.join()}', ',') AS arr
+    ) CROSS JOIN UNNEST(arr) AS t(val)
+  store_last_results: true

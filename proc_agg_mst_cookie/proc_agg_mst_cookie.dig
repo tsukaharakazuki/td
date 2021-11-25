@@ -1,0 +1,56 @@
+timezone: "Asia/Tokyo"
+
+schedule:
+  cron>: 0 4 * * * 
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: td_sandbox #ベースの参照・出力先Database
+
++if:
+  if>: ${first_time}
+  _do:
+    +basic:
+      !include : function/set_columns.dig
+      +proc_basic:
+        td>: queries/p0001_basic.sql
+        create_table: basic_${output_tbl_flag}
+
+  _else_do:
+    +task_wait:
+      td_wait>: queries/p1000_check_record.sql
+
+    +rename_tables:
+      td_ddl>:
+      rename_tables:
+        - {from: "basic_${output_tbl_flag}", to: "tmp_basic_${output_tbl_flag}"}
+
+    +tmp_basic:
+      !include : function/set_columns.dig
+      +proc_tmp_basic:
+        td>: queries/p1001_tmp_basic_daily.sql
+        insert_into: tmp_basic_${output_tbl_flag}
+
+    +basic_daily:
+      !include : function/set_columns.dig
+      +basic_daily:
+        td>: queries/p1002_basic_daily.sql
+        create_table: basic_${output_tbl_flag}
+    
+    +drop_tmp_tables:
+      td_ddl>:
+      drop_tables: 
+        - "tmp_basic_${output_tbl_flag}"
+
++agg_basic:
+  !include : function/set_columns.dig
+  +proc_agg_basic:
+    td>: queries/p0002_agg_basic.sql
+    create_table: agg_basic_${output_tbl_flag}
+
++mst:
+  !include : function/agg_columns.dig
+  +proc_mst:
+    td>: queries/p0003_mst.sql
+    create_table: mst_${output_tbl_flag}
