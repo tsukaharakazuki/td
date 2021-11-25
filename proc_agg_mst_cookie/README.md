@@ -1,4 +1,4 @@
-#　はじめに  
+# はじめに  
 このWorkflowは、cookieやuser_idなどのID Mappingデータを簡単に生成するためのWorkflowです。
   
 ## params.ymlの変数設定  
