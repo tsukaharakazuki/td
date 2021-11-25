@@ -1,0 +1,17 @@
++rename_tables:
+  td_ddl>:
+  rename_tables:
+    - {from: "a", to: "a1"}
+    - {from: "b", to: "b1"}
+    
++empty_tables:
+  td_ddl>:
+  empty_tables: 
+    - "a"
+    - "b"
+
++drop_tables:
+  td_ddl>:
+  drop_tables: 
+    - "a"
+    - "b"
