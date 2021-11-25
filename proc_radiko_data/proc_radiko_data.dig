@@ -53,4 +53,4 @@ _export:
 #radiko_log_processing
 +call_radiko_log_processing:
   require>: proc_agg_radiko_data
-  project_id: 517101
+  project_name: proc_radiko_data
