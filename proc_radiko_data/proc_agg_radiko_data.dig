@@ -1,0 +1,86 @@
+timezone: "Asia/Tokyo"
+
+_export:
+  td:
+    database: l1_radio_radiko
+  firsttime: true #true or false 
+  in_radiko_db: radiko
+  session_sec: 240
+  master_segment: 111111 #set radiko master_segment id.You need create MasterSegment.
+
++in_radiko_log_check:
+  if>: ${firsttime}
+  _else_do:
+    +wait_enriched_listening_log_reception:
+      td_wait>: log_processing/queries/check_data_arriving_log_reception.sql
+      interval: 600s
+
++firsttime_check:
+  if>: ${firsttime}
+  _do:
+    +create_base:
+      td_ddl>:
+      empty_tables: 
+        - "tmp_agg_radiko_log"
+
+    +hive_agg_radiko_log:
+      td>: log_processing/queries/hive_agg_radiko_log.sql
+      insert_into: tmp_agg_radiko_log
+      engine: hive # Only Hive works
+      engine_version: stable
+
+    +drop_tables:
+      td_ddl>:
+      drop_tables: 
+        - "agg_radiko_log"
+
+    +rename_tables:
+      td_ddl>:
+      rename_tables:
+        - {from: "tmp_agg_radiko_log", to: "agg_radiko_log"}
+
+  _else_do:
+    +delete:
+      td>:
+      query: delete from agg_radiko_log where TD_TIME_RANGE(time, '${moment(session_date).add(-8, "days").format("YYYY-MM-DD 05:00:00")}', NULL, 'JST')
+
+    +agg_radiko_log:
+      td>: log_processing/queries/agg_radiko_log.sql
+      insert_into: agg_radiko_log
+      engine: hive # Only Hive works
+      engine_version: stable
+
++agg_map_radikoid_member_id:
+  td>: log_processing/queries/agg_map_radikoid_member_id.sql
+  create_table: agg_map_radikoid_member_id
+
++agg_user:
+  td>: log_processing/queries/agg_user.sql
+  create_table: agg_user
+
++dist_user_radikoid:
+  td>: log_processing/queries/dist_user_radikoid.sql
+  create_table: dist_user_radikoid
+
++agg_map_radikoid_ifa:
+  td>: log_processing/queries/agg_map_radikoid_ifa.sql
+  create_table: agg_map_radikoid_ifa
+
++dist_radikoid_ifa:
+  td>: log_processing/queries/dist_radikoid_ifa.sql
+  create_table: dist_radikoid_ifa
+
++mst_radiko_id_tdglobalid:
+  td>: log_processing/queries/mst_radiko_id_tdglobalid.sql
+  create_table: mst_radiko_id_tdglobalid
+  
+## Execute Master Segment
+#+kick_audience_workflow:
+#  http>: "https://api-cdp.treasuredata.com/audiences/${master_segment}/run"
+#  method: POST
+#  headers:
+#    - authorization: "TD1 ${td.apikey}"
+#  retry: true
+  
+
+
