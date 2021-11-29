@@ -1,0 +1,20 @@
+---
+line_ads:
+- brands: brands
+  #検索条件になっているため、AudienceStudioの設定と合わせる
+  ad_accont_id: AXXXXXXXXXX
+  #送信するコネクタに設定されているアカウントID
+  result_connection: YOUR_CONNECTOR_NAME
+  #送信するコネクタを記載
+  audience_name: AUCIENCE_NAME
+  #LINE側で表示されるオーディエンス名
+  action: ADD
+  #"ADD"　or "REPLACE"->初回送信時は必ずADD。2回目送信以降は、追加していく場合はそのまま、洗い変える場合はREPLACE
+  id_type: IFA
+  # IFA / HASHED_PHONE_NUMBER / HASHED_EMAIL / PRE_HASHED_PHONE_NUMBER / PRE_HASHED_EMAIL
+#- brands: brands
+#  ad_accont_id: AXXXXXXXXXX
+#  result_connection: YOUR_CONNECTOR_NAME
+#  audience_name: AUCIENCE_NAME
+#  action: ADD
+#  id_type: IFA

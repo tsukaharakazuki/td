@@ -1,0 +1,53 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 1 * * * * #カスタムクーロン
+#  daily>: 03:00:00 #日時バッジ
+
+_export:
+  !include : 'config/info_line_ads.yml'
+  td:
+    database: td_sandbox #ベースの参照・出力先Database
+  list_db: td_sandbox
+  list_tbl: list_line_segments
+  list_id_col: id
+  emails: &emails
+    - error@a.com
+    - error@b.com
+
+_error:
+  +error_mail:
+    mail>:
+      data: LINE連携でエラーが発生しました
+    subject: 【LINE連携】TD_Workflow_エラー
+    to: *emails
+
++create_send_line_ifa:
+  td>: queries/create_send_line_list.sql
+  create_table: send_line_list
+
++store_send_line_ifa:
+  td>: queries/store_send_line_ifa.sql
+  insert_into: store_send_line_list
+
++for_each_data:
+  for_each>:
+    line_ads: ${line_ads}
+  _do:
+    +line_export_task:
+      td>: queries/export_line_ads.sql
+      database: td_sandbox
+      result_connection: ${line_ads.result_connection}
+      result_settings:
+        type: line_ads
+        account_id: ${line_ads.ad_accont_id}
+        use_audience_id: false
+        action: PUSH_AUDIENCE
+        audience_action: ${line_ads.action}
+        audience_name: ${line_ads.audience_name}
+        id_type: ${line_ads.id_type}
+
++drop_and_create_table_list_line_ifa:
+  td_ddl>:
+  empty_tables: 
+    - "list_line_segments"
