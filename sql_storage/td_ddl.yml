@@ -9,6 +9,12 @@
   empty_tables: 
     - "a"
     - "b"
+    
++create_tables:
+  td_ddl>:
+  create_tables: 
+    - "a"
+    - "b"
 
 +drop_tables:
   td_ddl>:
