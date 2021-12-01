@@ -3,4 +3,4 @@ select
 from
   ${in_radiko_db}.in_user
 where
-  time = ${session_unixtime}
+  TD_DATE_TRUNC('day', time, 'JST')  = ${session_unixtime}
