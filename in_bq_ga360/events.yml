@@ -1,0 +1,99 @@
+in:
+  type: gcs
+  bucket: YOUR_BUCKET_NAME
+  path_prefix: PATH.csv
+  auth_method: json_key
+  json_keyfile:
+    content: "${secret:gcp.json_key}"
+  parser:
+    charset: UTF-8
+    newline: LF
+    type: csv
+    delimiter: ","
+    quote: "\""
+    escape: "\""
+    trim_if_not_quoted: false
+    skip_header_lines: 1
+    allow_extra_columns: true
+    allow_optional_columns: true
+    default_timezone: Asia/Tokyo
+    columns:
+    - {name: visitNumber, type: string}
+    - {name: visitId, type: string}
+    - {name: userId, type: string}
+    - {name: clientId, type: string}
+    - {name: fullvisitorId, type: string}
+    - {name: dateTime, type: timestamp, format: '%Y-%m-%d %H:%M', timezone: 'Asia/Tokyo'}
+    - {name: bounces, type: string}
+    - {name: visitType, type: string}
+    - {name: sessionQualityDim, type: string}
+    - {name: isTrueDirect, type: string}
+    - {name: medium, type: string}
+    - {name: source, type: string}
+    - {name: campaign, type: string}
+    - {name: keyword, type: string}
+    - {name: adContent, type: string}
+    - {name: gclId, type: string}
+    - {name: adNetworkType, type: string}
+    - {name: browser, type: string}
+    - {name: browserVersion, type: string}
+    - {name: browserSize, type: string}
+    - {name: operatingSystem, type: string}
+    - {name: operatingSystemVersion, type: string}
+    - {name: mobileDeviceBranding, type: string}
+    - {name: mobileDeviceModel, type: string}
+    - {name: mobileInputSelector, type: string}
+    - {name: mobileDeviceInfo, type: string}
+    - {name: mobileDeviceMarketingName, type: string}
+    - {name: language, type: string}
+    - {name: deviceCategory, type: string}
+    - {name: continent, type: string}
+    - {name: subContinent, type: string}
+    - {name: country, type: string}
+    - {name: region, type: string}
+    - {name: metro, type: string}
+    - {name: city, type: string}
+    - {name: networkDomain, type: string}
+    - {name: latitude, type: string}
+    - {name: longitude, type: string}
+    - {name: networkLocation, type: string}
+    - {name: hitNumber, type: string}
+    - {name: URL, type: string}
+    - {name: pageTitle, type: string}
+    - {name: isEntrance, type: string}
+    - {name: isExit, type: string}
+    - {name: referer, type: string}
+    - {name: searchKeyword, type: string}
+    - {name: searchCategory, type: string}
+    - {name: type, type: string}
+    - {name: contentGroup1, type: string}
+    - {name: contentGroup2, type: string}
+    - {name: contentGroup3, type: string}
+    - {name: contentGroup4, type: string}
+    - {name: contentGroup5, type: string}
+    - {name: dataSource, type: string}
+    - {name: channelGrouping, type: string}
+    - {name: eventCategory, type: string}
+    - {name: eventAction, type: string}
+    - {name: eventLabel, type: string}
+    - {name: eventValue, type: string}
+    - {name: pageLoadSample, type: string}
+    - {name: pageLoadTime, type: string}
+    - {name: pageDownloadTime, type: string}
+    - {name: redirectionTime, type: string}
+    - {name: speedMetricsSample, type: string}
+    - {name: domainLookupTime, type: string}
+    - {name: serverConnectionTime, type: string}
+    - {name: serverResponseTime, type: string}
+    - {name: domLatencyMetricsSample, type: string}
+    - {name: domInteractiveTime, type: string}
+    - {name: domContentLoadedTime, type: string}
+    - {name: userTimingValue, type: string}
+    - {name: userTimingSample, type: string}
+    - {name: userTimingVariable, type: string}
+    - {name: userTimingCategory, type: string}
+    - {name: userTimingLabel, type: string}
+out: {mode: append}
+time_column: datetime
+
+default_timezone: Japan
