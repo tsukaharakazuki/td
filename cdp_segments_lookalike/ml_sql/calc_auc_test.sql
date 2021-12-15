@@ -7,9 +7,9 @@ from (
     pred
     ,target
   from
-    predicted_${brand.brand_name} p
+    predicted_${segments.tbl_name} p
     inner join
-    train_${brand.brand_name} t
+    train_${segments.tbl_name} t
     on
       p.uid = t.uid
   where
