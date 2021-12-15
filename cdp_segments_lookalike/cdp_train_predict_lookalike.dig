@@ -3,11 +3,11 @@
     if>: ${segments.firsttime}
     _else_do:
       td>:
-      query: delete from id2feature_${segments.segment_name} where time = ${session_unixtime}
+      query: delete from id2feature_${segments.tbl_name} where time = ${session_unixtime}
 
   +insert:
     td>: ml_sql/id2feature.sql
-    create_table: id2feature_${segments.segment_name}
+    create_table: id2feature_${segments.tbl_name}
     engine: presto # Hive also works
 
 +aggregate_features:
@@ -15,11 +15,11 @@
     if>: ${segments.firsttime}
     _else_do:
       td>:
-      query: delete from preprocessed_${segments.segment_name} where time = ${session_unixtime}
+      query: delete from preprocessed_${segments.tbl_name} where time = ${session_unixtime}
 
   +insert:
     td>: ml_sql/aggregate_features.sql
-    create_table: preprocessed_${segments.segment_name}
+    create_table: preprocessed_${segments.tbl_name}
     engine: presto # Only presto works
 
 +training_data:
@@ -27,11 +27,11 @@
     if>: ${segments.firsttime}
     _else_do:
       td>:
-      query: delete from train_${segments.segment_name} where time = ${session_unixtime}
+      query: delete from train_${segments.tbl_name} where time = ${session_unixtime}
 
   +insert:
     td>: ml_sql/create_train.sql
-    create_table: train_${segments.segment_name}
+    create_table: train_${segments.tbl_name}
     engine: presto # Hive also works
 
 +train_predict:
@@ -39,7 +39,7 @@
     if>: ${segments.firsttime}
     _else_do:
       td>:
-      query: delete from predicted_${segments.segment_name} where time = ${session_unixtime}
+      query: delete from predicted_${segments.tbl_name} where time = ${session_unixtime}
 
   +insert:
     docker:
@@ -53,17 +53,17 @@
     database: ${td.database}
     n_split: ${ml.n_split}
     timezone: ${timezone}
-    tbl_name: ${segments.segment_name}
-    train: train_${segments.segment_name}
-    preprocessed: preprocessed_${segments.segment_name}
-    predicted: predicted_${segments.segment_name}
+    tbl_name: ${segments.tbl_name}
+    train: train_${segments.tbl_name}
+    preprocessed: preprocessed_${segments.tbl_name}
+    predicted: predicted_${segments.tbl_name}
 
 +summarize_result:
   +delete_if_exists:
     if>: ${segments.firsttime}
     _else_do:
       td>:
-      query: delete from result_summary_${segments.segment_name} where time = ${session_unixtime}
+      query: delete from result_summary_${segments.tbl_name} where time = ${session_unixtime}
 
   +insert:
     _parallel: true
@@ -71,10 +71,10 @@
       td>: ml_sql/calc_auc_train.sql
       engine: hive
       engine_version: stable
-      insert_into: result_summary_${segments.segment_name}
+      insert_into: result_summary_${segments.tbl_name}
 
     +test:
       td>: ml_sql/calc_auc_test.sql
       engine: hive
       engine_version: stable
-      insert_into: result_summary_${segments.segment_name}
+      insert_into: result_summary_${segments.tbl_name}
