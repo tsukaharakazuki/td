@@ -5,7 +5,7 @@ select
 from
   features f
   inner join 
-  target_${brand.brand_name} t
+  target_${segments.tbl_name} t
   on
     f.uid = t.uid
 group by
