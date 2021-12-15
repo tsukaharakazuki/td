@@ -5,7 +5,7 @@ with f as (
     ,val
   from
     -- features
-    preprocessed_${brand.brand_name}
+    preprocessed_${segments.tbl_name}
   union all
   select
     distinct uid
@@ -13,7 +13,7 @@ with f as (
     ,10 as val
   from
     -- features
-    preprocessed_${brand.brand_name}
+    preprocessed_${segments.tbl_name}
 )
 
 -- DIGDAG_INSERT_LINE
