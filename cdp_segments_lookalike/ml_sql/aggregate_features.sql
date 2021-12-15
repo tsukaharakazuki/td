@@ -5,7 +5,7 @@ select
 from
   features f
   inner join
-  id2feature_${brand.brand_name} i2f
+  id2feature_${segments.tbl_name}i2f
   on
     f.ftr = i2f.ftr
 where
