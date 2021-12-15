@@ -1,7 +1,7 @@
 select
-  cookie as uid
+  ${key_id} as uid
   ,td_path as ftr
-  ,cast(count(*) as double) / sum(count(*)) over(partition by cookie) as val
+  ,cast(count(*) as double) / sum(count(*)) over(partition by ${key_id}) as val
 from
   ${access_log_db}.${access_log_tb}
 where
@@ -12,12 +12,12 @@ group by
 union all
 
 select
-  cookie as uid
+  ${key_id} as uid
   ,max_by(td_os, n) as ftr
   ,1 as val
 from (
   select
-    cookie
+    ${key_id}
     ,td_os
     ,count(*) as n
   from
@@ -33,9 +33,9 @@ group by
 union all
 
 select
-  cookie as uid
+  ${key_id} as uid
   ,td_ref_name as ftr
-  ,cast(count(*) as double) / sum(count(*)) over(partition by cookie) as val
+  ,cast(count(*) as double) / sum(count(*)) over(partition by ${key_id}) as val
 from
   ${access_log_db}.${access_log_tb}
 where
@@ -46,12 +46,12 @@ group by
 union all
 
 select
-  cookie as uid
+  ${key_id} as uid
   ,max_by(prefectures, n) as ftr
   ,1 as val
 from (
   select
-    cookie
+    ${key_id}
     ,prefectures
     ,count(*) as n
   from
