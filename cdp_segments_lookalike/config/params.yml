@@ -2,6 +2,8 @@
 features_firsttime: true
 segments:
 - firsttime: false
-  segment_name: branda 
+  segment_name: セグメント1
+  tbl_name: seg_1
 - firsttime: false
-  segment_name: branda
+  segment_name: セグメント2
+  tbl_name: seg_2
