@@ -10,7 +10,7 @@ from (
       features
       ,target
     from 
-      train_${brand.brand_name}
+      train_${segments.tbl_name}
     where
      is_test = 0
     cluster by
