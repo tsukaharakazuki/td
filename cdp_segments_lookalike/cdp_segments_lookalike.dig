@@ -43,11 +43,11 @@ _export:
           if>: ${segments.firsttime}
           _else_do:
             td>:
-            query: delete from target_${brand.segment_name} where time = ${session_unixtime}
+            query: delete from target_${segments.tbl_name} where time = ${session_unixtime}
 
         +insert:
           td>: sql/create_target.sql
-          create_table: target_${segments.segment_name}
+          create_table: target_${segments.tbl_name}
           engine: presto
 
     +call_ml_template:
