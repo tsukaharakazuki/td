@@ -18,9 +18,9 @@ with positive as (
   WHERE
     td_time_range(time, '2020-01-01', null, 'JST')
     and 
-    cookie NOT IN (
+    ${key_id} NOT IN (
       SELECT 
-        cookie
+        ${key_id}
       FROM
         positive
     )
