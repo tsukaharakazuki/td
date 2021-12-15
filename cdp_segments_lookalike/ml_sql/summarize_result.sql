@@ -6,9 +6,9 @@ select
   ,sum(if(t.target = p.pred, 1, 0)) as correct_users
   ,${session_unixtime} as time
 from
-  predicted_${brand.brand_name} p
+  predicted_${segments.tbl_name} p
   left outer join
-  train_${brand.brand_name} t
+  train_${segments.tbl_name} t
   on
     p.uid = t.uid
 where
