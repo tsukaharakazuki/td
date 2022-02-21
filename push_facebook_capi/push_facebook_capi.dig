@@ -1,0 +1,41 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 1 * * * * #カスタムクーロン
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: capi_database #ベースの参照・出力先Database
+
++for_each_brands:
+  for_each>:
+    brand: ${brand}
+  _do:
+    +if_main:
+      if>: ${brand.main}
+      _do:
+        +main_base_data:
+          td>: queries/p0001_create_base_data.sql
+          create_table: fbcapi_base_data_${brand.brand_name}
+
+    +store_push_log:
+      td>: queries/p0010_insert_push_log.sql
+      insert_into: store_fbcapi_push_log
+
+    +check_results:
+      td>: 
+      query: SELECT COUNT(*) AS cnt FROM fbcapi_base_data_${brand.brand_name}
+      store_last_results: true
+
+    +check_send_fb:
+      if>: ${td.last_results.cnt > 0} #レコードなしの場合送信しない
+      _do:
+        +td-result-into-target:
+          td>: queries/p9000_push_fb.sql
+          result_connection: ${brand.connector}
+          result_settings:
+            skip_invalid: true
+
+
+

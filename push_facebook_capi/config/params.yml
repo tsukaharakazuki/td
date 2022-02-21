@@ -1,0 +1,24 @@
+---
+brand:
+- brand_name: brand_a #任意
+  log_db: brand_a_db #Dabtabase名
+  log_tbl: brand_a_tbl #固定
+  connector: brand_a_capi_connector #該当ブランドのCAPIコネクタ名
+  cnv_conditions: (td_path='/ordercomplete' OR td_path='/thanks')
+  event_name: Purchase
+  currency: JPY
+  action_source: website
+  price_col: price
+  email_col: email
+  event_id_col: event_id
+- brand_name: brand_b #任意
+  log_db: brand_b_db #Dabtabase名
+  log_tbl: brand_b_tbl #固定
+  connector: brand_b_capi_connector #該当ブランドのCAPIコネクタ名
+  cnv_conditions: (td_path='/ordercomplete' OR td_path='/thanks')
+  event_name: Purchase
+  currency: JPY
+  action_source: website
+  price_col: price
+  email_col: email
+  event_id_col: event_id
