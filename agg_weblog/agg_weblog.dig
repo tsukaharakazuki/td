@@ -1,0 +1,98 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 1 * * * *
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: l1_agg_weblog
+
++empty_tables:
+  if>: ${proc_firsttime}
+  _do:
+
+    +empty_base:
+      td_ddl>:
+      empty_tables: 
+        - "agg_weblog"
+
++media_process:
+  for_each>:
+    media: ${media}
+  _do:
+  
+    +daily_processing:
+      if>: ${media.firsttime_flag}
+      _do:
+        +empty_base:
+          td_ddl>:
+          empty_tables: 
+            - "tmp_agg_weblog"
+
+        +f_weblog_processing:
+          !include : config/set_columns_pageviews.dig
+          td>: query/p11_f_agg_weblog.sql
+          insert_into: tmp_agg_weblog
+          engine: hive # Only Hive works
+          engine_version: stable
+
+        +f_click_processing:
+          if>: ${media.check_click}
+          _do:
+            +f_agg_clicklog:
+              !include : config/set_columns_click.dig
+              td>: query/p12_f_agg_clicklog.sql
+              insert_into: tmp_agg_weblog
+              engine: hive # Only Hive works
+              engine_version: stable
+
+        +f_read_processing:
+          if>: ${media.read_click}
+          _do:
+            +f_agg_readlog:
+              config/set_columns_read.dig
+              td>: query/p13_f_agg_readlog.sql
+              insert_into: tmp_agg_weblog
+              engine: hive # Only Hive works
+              engine_version: stable
+
+        +f_sessionize_processing:
+          !include : config/set_columns_all.dig
+          td>: query/p14_f_sessionize.sql
+          insert_into: agg_weblog
+          engine: hive # Only Hive works
+          engine_version: stable
+
+      _else_do:
+        +empty_base:
+          td_ddl>:
+          empty_tables: 
+            - "tmp_agg_weblog"
+
+        +r_weblog_processing:
+          !include : config/set_columns_pageviews.dig
+          td>: query/p21_r_agg_weblog.sql
+          insert_into: tmp_agg_weblog
+
+        +r_click_processing:
+          if>: ${media.check_click}
+          _do:
+            +f_agg_clicklog:
+              !include : config/set_columns_click.dig
+              td>: query/p22_r_agg_clicklog.sql
+              insert_into: tmp_agg_weblog
+
+        +r_read_processing:
+          if>: ${media.read_click}
+          _do:
+            +f_agg_readlog:
+              config/set_columns_read.dig
+              td>: query/p23_r_agg_readlog.sql
+              insert_into: tmp_agg_weblog
+
+        +r_sessionize_processing:
+          !include : config/set_columns_all.dig
+          td>: query/p24_r_sessionize.sql
+          insert_into: agg_weblog
+
