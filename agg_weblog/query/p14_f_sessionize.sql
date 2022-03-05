@@ -1,7 +1,7 @@
 WITH t1 AS (
   SELECT
     time ,
-		td_data_type ,
+    td_data_type ,
     TD_SESSIONIZE(time, ${session_term}, cookie) as session_id ,
     cookie ,
     td_client_id ,
