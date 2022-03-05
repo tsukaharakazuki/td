@@ -69,7 +69,7 @@ SELECT
   TD_TIME_FORMAT(time,'a','JST') AS ampm ,
   session_id ,
   row_number() over (partition by session_id order by time ASC) AS session_num ,
-  cookie ,
+  cookie AS td_cookie ,
   td_client_id ,
   td_global_id ,
   td_ssc_id ,
