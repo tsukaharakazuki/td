@@ -51,7 +51,7 @@ WITH t1 AS (
     ip_country ,
     ip_prefectures ,
     ip_city 
-    ${media.custom_param}
+    ${td.last_results.set_columns}
   FROM
     tmp_agg_weblog
 )
@@ -323,6 +323,6 @@ SELECT
   ip_country ,
   REGEXP_REPLACE(REGEXP_REPLACE(ip_prefectures, '^Ō', 'O'), 'ō', 'o') AS ip_prefectures ,
   REGEXP_REPLACE(REGEXP_REPLACE(ip_city, '^Ō', 'O'), 'ō', 'o') AS ip_city 
-  ${media.custom_param}
+  ${td.last_results.set_columns}
 FROM
   t1
