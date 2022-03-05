@@ -21,15 +21,15 @@ _export:
   for_each>:
     media: ${media}
   _do:
-  
+
+    +empty_tmp_agg_weblog:
+      td_ddl>:
+      empty_tables: 
+        - "tmp_agg_weblog"
+
     +daily_processing:
       if>: ${media.firsttime_flag}
       _do:
-        +empty_base:
-          td_ddl>:
-          empty_tables: 
-            - "tmp_agg_weblog"
-
         +f_weblog_processing:
           !include : config/set_columns_pageviews.dig
           td>: query/p11_f_agg_weblog.sql
@@ -65,11 +65,6 @@ _export:
           engine_version: stable
 
       _else_do:
-        +empty_base:
-          td_ddl>:
-          empty_tables: 
-            - "tmp_agg_weblog"
-
         +r_weblog_processing:
           !include : config/set_columns_pageviews.dig
           td>: query/p21_r_agg_weblog.sql
