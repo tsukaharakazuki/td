@@ -1,7 +1,7 @@
 SELECT
 	time ,
 	'click' AS td_data_type ,
-	IF(${media.primary_cookie_click} is not NULL, ${media.primary_cookie_click}, ${media.sub_cookie_click}) AS cookie ,
+	IF(${media.primary_cookie} is NULL OR ${media.primary_cookie} = '' , ${media.sub_cookie}, ${media.primary_cookie}) AS cookie ,
 	td_client_id ,
 	td_global_id ,
 	${media.td_ssc_id_click} AS td_ssc_id ,
