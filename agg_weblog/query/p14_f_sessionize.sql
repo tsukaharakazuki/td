@@ -12,6 +12,24 @@ WITH t1 AS (
     utm_medium ,
     utm_source ,
     utm_term ,
+    CASE
+      WHEN td_ref_host = '' OR td_ref_host = td_host
+        THEN '(direct)/(none)'
+      WHEN td_ref_host RLIKE '(mail)\.(google|yahoo|nifty|excite|ocn|odn|jimdo)\.'
+        THEN CONCAT(REGEXP_EXTRACT(td_ref_host, '(mail)\.(google|yahoo|nifty|excite|ocn|odn|jimdo)\.', 2), '/mail')
+      WHEN td_ref_host RLIKE '^outlook.live.com$'
+        THEN 'outlook/mail'
+      WHEN td_ref_host RLIKE '\.*(facebook|instagram|line|ameblo)\.'
+        THEN CONCAT(REGEXP_EXTRACT(td_ref_host, '\.*(facebook|instagram|line|ameblo)\.', 1), '/social')
+      WHEN td_ref_host RLIKE '^t.co$'
+        THEN 'twitter/social'
+      WHEN td_ref_host RLIKE '\.(criteo|outbrain)\.'
+        THEN CONCAT(REGEXP_EXTRACT(td_ref_host, '\.(criteo|outbrain)\.', 1), '/display')
+      WHEN td_ref_host RLIKE '(search)*\.*(google|yahoo|biglobe|nifty|goo|so-net|livedoor|rakuten|auone|docomo|naver|hao123|myway|dolphin-browser|fenrir|norton|uqmobile|net-lavi|newsplus|jword|ask|myjcom|1and1|excite|mysearch|kensakuplus)\.' 
+        THEN CONCAT(REGEXP_EXTRACT(td_ref_host, '(search)*\.*(google|yahoo|biglobe|nifty|goo|so-net|livedoor|rakuten|auone|docomo|naver|hao123|myway|dolphin-browser|fenrir|norton|uqmobile|net-lavi|newsplus|jword|ask|myjcom|1and1|excite|mysearch|kensakuplus)\.', 2), '/organic')
+      WHEN td_ref_host = 'kids.yahoo.co.jp' AND SPLIT(parse_url(td_referrer,'PATH'), '/')[2] = 'search' THEN 'yahoo/organic'
+      ELSE CONCAT(td_ref_host, '/referral')
+    END source_medium ,
     td_referrer ,
     td_ref_host ,
     td_url ,
@@ -69,6 +87,8 @@ SELECT
   utm_medium ,
   utm_source ,
   utm_term ,
+  SPLIT(source_medium, '/')[1] AS td_source ,
+  SPLIT(source_medium, '/')[2] AS td_medium ,
   td_referrer ,
   td_ref_host ,
   CASE
@@ -312,57 +332,8 @@ SELECT
   ua_browser ,
   ua_category ,
   ip_country ,
-  CASE
-    WHEN ip_prefectures = 'Aichi' THEN 'Aichi'
-    WHEN ip_prefectures = 'Akita' THEN 'Akita'
-    WHEN ip_prefectures = 'Aomori' THEN 'Aomori'
-    WHEN ip_prefectures = 'Ehime' THEN 'Ehime'
-    WHEN ip_prefectures = 'Gifu' THEN 'Gifu'
-    WHEN ip_prefectures = 'Gunma' THEN 'Gunma'
-    WHEN ip_prefectures = 'Hiroshima' THEN 'Hiroshima'
-    WHEN ip_prefectures = 'Hokkaido' THEN 'Hokkaido'
-    WHEN ip_prefectures = 'Fukui' THEN 'Fukui'
-    WHEN ip_prefectures = 'Fukuoka' THEN 'Fukuoka'
-    WHEN ip_prefectures = 'Fukushima-ken' THEN 'Fukushima'
-    WHEN ip_prefectures = 'Hyōgo' THEN 'Hyogo'
-    WHEN ip_prefectures = 'Ibaraki' THEN 'Ibaraki'
-    WHEN ip_prefectures = 'Ishikawa' THEN 'Ishikawa'
-    WHEN ip_prefectures = 'Iwate' THEN 'Iwate'
-    WHEN ip_prefectures = 'Kagawa' THEN 'Kagawa'
-    WHEN ip_prefectures = 'Kagoshima' THEN 'Kagoshima'
-    WHEN ip_prefectures = 'Kanagawa' THEN 'Kanagawa'
-    WHEN ip_prefectures = 'Kochi' THEN 'Kochi'
-    WHEN ip_prefectures = 'Kumamoto' THEN 'Kumamoto'
-    WHEN ip_prefectures = 'Kyoto' THEN 'Kyoto'
-    WHEN ip_prefectures = 'Mie' THEN 'Mie'
-    WHEN ip_prefectures = 'Miyagi' THEN 'Miyagi'
-    WHEN ip_prefectures = 'Miyazaki' THEN 'Miyazaki'
-    WHEN ip_prefectures = 'Nagano' THEN 'Nagano'
-    WHEN ip_prefectures = 'Nagasaki' THEN 'Nagasaki'
-    WHEN ip_prefectures = 'Nara' THEN 'Nara'
-    WHEN ip_prefectures = 'Niigata' THEN 'Niigata'
-    WHEN ip_prefectures = 'Oita' THEN 'Oita'
-    WHEN ip_prefectures = 'Okayama' THEN 'Okayama'
-    WHEN ip_prefectures = 'Okinawa' THEN 'Okinawa'
-    WHEN ip_prefectures = 'Ōsaka' THEN 'Osaka'
-    WHEN ip_prefectures = 'Saga' THEN 'Saga'
-    WHEN ip_prefectures = 'Saitama' THEN 'Saitama'
-    WHEN ip_prefectures = 'Shiga' THEN 'Shiga'
-    WHEN ip_prefectures = 'Shimane' THEN 'Shimane'
-    WHEN ip_prefectures = 'Shizuoka' THEN 'Shizuoka'
-    WHEN ip_prefectures = 'Chiba' THEN 'Chiba'
-    WHEN ip_prefectures = 'Tochigi' THEN 'Tochigi'
-    WHEN ip_prefectures = 'Tokushima' THEN 'Tokushima'
-    WHEN ip_prefectures = 'Tokyo' THEN 'Tokyo'
-    WHEN ip_prefectures = 'Tottori' THEN 'Tottori'
-    WHEN ip_prefectures = 'Toyama' THEN 'Toyama'
-    WHEN ip_prefectures = 'Wakayama' THEN 'Wakayama'
-    WHEN ip_prefectures = 'Yamagata' THEN 'Yamagata'
-    WHEN ip_prefectures = 'Yamaguchi' THEN 'Yamaguchi'
-    WHEN ip_prefectures = 'Yamanashi' THEN 'Yamanashi'
-    ELSE ip_prefectures
-  END ip_prefectures ,
-  ip_city 
+  REGEXP_REPLACE(REGEXP_REPLACE(ip_prefectures, '^Ō', 'O'), 'ō', 'o') AS ip_prefectures ,
+  REGEXP_REPLACE(REGEXP_REPLACE(ip_city, '^Ō', 'O'), 'ō', 'o') AS ip_city 
   ${td.last_results.set_columns}
 FROM
   t1
