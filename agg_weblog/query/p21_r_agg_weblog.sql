@@ -1,7 +1,7 @@
 SELECT
 	time ,
 	'pageviews' AS td_data_type ,
-	IF(${media.primary_cookie} is not NULL, ${media.primary_cookie}, ${media.sub_cookie}) AS cookie ,
+	IF(${media.primary_cookie} is NULL OR ${media.primary_cookie} = '' , ${media.sub_cookie}, ${media.primary_cookie}) AS cookie ,
 	td_client_id ,
 	td_global_id ,
 	${media.td_ssc_id} AS td_ssc_id ,
