@@ -53,7 +53,7 @@ WITH t1 AS (
     ip_city 
     ${td.last_results.set_columns}
   FROM
-    tmp_agg_weblog
+    tmp_agg_weblog_regular
 )
 
 
