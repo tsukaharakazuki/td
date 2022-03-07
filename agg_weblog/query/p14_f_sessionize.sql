@@ -56,7 +56,7 @@ WITH t1 AS (
 		SELECT
 			* 
 		FROM
-			tmp_agg_weblog
+			tmp_agg_weblog_first
 		DISTRIBUTE BY 
 			cookie
 		SORT BY 
