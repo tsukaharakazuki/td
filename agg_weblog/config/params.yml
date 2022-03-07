@@ -27,7 +27,7 @@ media:
     columns:
       - text #追加カラムがない場合未記載
   # 読了設定
-  read_click: true
+  check_read: true
   read_db: YOUR_READ_LOG_DB
   read_tb: YOUR_READ_LOG_TB
   read_col: scroll_depth_threshold
