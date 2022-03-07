@@ -78,6 +78,8 @@ SELECT
   utm_medium ,
   utm_source ,
   utm_term ,
+  SPLIT(source_medium, '/')[1] AS td_source ,
+  SPLIT(source_medium, '/')[2] AS td_medium ,
   td_referrer ,
   td_ref_host ,
   CASE
