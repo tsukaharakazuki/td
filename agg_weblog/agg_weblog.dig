@@ -20,20 +20,19 @@ _export:
   for_each>:
     media: ${media}
   _do:
-
-    +empty_tmp_agg_weblog:
-      td_ddl>:
-      empty_tables: 
-        - "tmp_agg_weblog"
-
     +daily_processing:
       if>: ${media.firsttime_flag}
       _do:
+        +empty_tmp_agg_weblog_first:
+          td_ddl>:
+          empty_tables: 
+            - "tmp_agg_weblog_first"
+        
         +f_weblog_processing:
           !include : config/set_columns_pageviews.dig
           +pv:
             td>: query/p11_f_agg_weblog.sql
-            insert_into: tmp_agg_weblog
+            insert_into: tmp_agg_weblog_first
             engine: hive # Only Hive works
             engine_version: stable
 
@@ -44,18 +43,18 @@ _export:
               !include : config/set_columns_click.dig
               +click:
                 td>: query/p12_f_agg_clicklog.sql
-                insert_into: tmp_agg_weblog
+                insert_into: tmp_agg_weblog_first
                 engine: hive # Only Hive works
                 engine_version: stable
 
         +f_read_processing:
-          if>: ${media.read_click}
+          if>: ${media.check_read}
           _do:
             +f_agg_readlog:
               !include : config/set_columns_read.dig
               +read:
                 td>: query/p13_f_agg_readlog.sql
-                insert_into: tmp_agg_weblog
+                insert_into: tmp_agg_weblog_first
                 engine: hive # Only Hive works
                 engine_version: stable
 
@@ -66,35 +65,49 @@ _export:
             insert_into: agg_weblog
             engine: hive # Only Hive works
             engine_version: stable
-
+            
+        +drop_tmp_tbl:
+          td_ddl>:
+          drop_tables: 
+            - "tmp_agg_weblog_first"
+            
       _else_do:
+        +empty_tmp_agg_weblog_regular:
+          td_ddl>:
+          empty_tables: 
+            - "tmp_agg_weblog_regular"
+            
         +r_weblog_processing:
             !include : config/set_columns_pageviews.dig
           +pv:
             td>: query/p21_r_agg_weblog.sql
-            insert_into: tmp_agg_weblog
+            insert_into: tmp_agg_weblog_regular
 
         +r_click_processing:
           if>: ${media.check_click}
           _do:
-            +f_agg_clicklog:
+            +r_agg_clicklog:
               !include : config/set_columns_click.dig
               +click:
                 td>: query/p22_r_agg_clicklog.sql
-                insert_into: tmp_agg_weblog
+                insert_into: tmp_agg_weblog_regular
 
         +r_read_processing:
-          if>: ${media.read_click}
+          if>: ${media.check_read}
           _do:
-            +f_agg_readlog:
+            +r_agg_readlog:
               !include : config/set_columns_read.dig
               +read:
                 td>: query/p23_r_agg_readlog.sql
-                insert_into: tmp_agg_weblog
+                insert_into: tmp_agg_weblog_regular
 
         +r_sessionize_processing:
           !include : config/set_columns_all.dig
           +dist:
             td>: query/p24_r_sessionize.sql
             insert_into: agg_weblog
-
+            
+        +drop_tmp_tbl:
+          td_ddl>:
+          drop_tables: 
+            - "tmp_agg_weblog_regular"
