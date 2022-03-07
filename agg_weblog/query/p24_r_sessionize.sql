@@ -13,7 +13,7 @@ WITH t1 AS (
     utm_source ,
     utm_term ,
     CASE
-      WHEN td_ref_host = '' OR td_ref_host = td_host
+      WHEN td_ref_host = '' OR td_ref_host = td_host OR td_ref_host is NULL
         THEN '(direct)/(none)'
       WHEN REGEXP_LIKE(td_ref_host, '(mail)\.(google|yahoo|nifty|excite|ocn|odn|jimdo)\.')
         THEN CONCAT(REGEXP_EXTRACT(td_ref_host, '(mail)\.(google|yahoo|nifty|excite|ocn|odn|jimdo)\.', 2), '/mail')
