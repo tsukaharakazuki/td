@@ -68,6 +68,8 @@ SELECT
   TD_TIME_FORMAT(time,'ww','JST') AS week ,
   TD_TIME_FORMAT(time,'EEE','JST') AS diw ,
   TD_TIME_FORMAT(time,'a','JST') AS ampm ,
+  MIN(time) OVER (PARTITION BY session_id) AS session_start_time ,
+  MAX(time) OVER (PARTITION BY session_id) AS session_end_time ,
   session_id ,
   row_number() over (partition by session_id order by time ASC) AS session_num ,
   cookie AS td_cookie ,
