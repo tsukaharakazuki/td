@@ -78,7 +78,7 @@ _export:
             - "tmp_agg_weblog_regular"
             
         +r_weblog_processing:
-            !include : config/set_columns_pageviews.dig
+          !include : config/set_columns_pageviews.dig
           +pv:
             td>: query/p21_r_agg_weblog.sql
             insert_into: tmp_agg_weblog_regular
