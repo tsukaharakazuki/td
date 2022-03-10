@@ -5,6 +5,7 @@ media:
   sample_1:
     media_name: sample_1
     firsttime_flag: true #true or false 
+    regular_span: 1h
     # Pageviwe設定
     log_db: YOUR_WEB_LOG_DB #set web_log database
     log_tb: YOUR_WEB_LOG_TB #set web_log table
