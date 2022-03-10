@@ -35,7 +35,7 @@ SELECT
 FROM
 	${media[params].log_db}.${media[params].log_tb}
 WHERE
-	TD_INTERVAL(time, '-1h', 'JST') AND
+	TD_INTERVAL(time, '-${regular_span}', 'JST') AND
 	TD_PARSE_AGENT(td_user_agent) ['category'] <> 'crawler' AND
 	td_client_id != '00000000-0000-4000-8000-000000000000' AND
 	NOT regexp_like(td_browser, '^(?:Googlebot(?:-.*)?|BingPreview|bingbot|YandexBot|PingdomBot)$') AND
