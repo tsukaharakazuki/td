@@ -7,7 +7,6 @@ WITH t1 AS (
     td_client_id ,
     td_global_id ,
     td_ssc_id ,
-    ga_id ,
     user_id ,
     utm_campaign ,
     utm_medium ,
