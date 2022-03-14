@@ -1,0 +1,47 @@
+---
+media:
+  sample1:
+    media_name: sample1
+    firsttime: true
+    master_segment_id:  # 初回データ作成時など、Master Segmentの更新をしない場合は空白
+    output_db: l2_master_segments
+    log_span: 7d
+    # WebLog設定
+    check_web: true
+    key_id_web: td_cookie
+    set_td_url_web: "'サンプル'||'_'||td_title||' '||td_url"
+    weblog_db: l1_sample #set web_log database
+    weblog_tbl: sample_weblog #set web_log table
+    where_condition_web:
+      condition:
+        - session_num = 1
+    # AppLog設定
+    check_app: true
+    key_id_app: td_uid
+    set_td_url_app: event
+    applog_db: l1_sample #set web_log database
+    applog_tbl: sample_applog #set web_log table
+    where_condition_app:
+      condition:
+
+  sample2:
+    media_name: sample2
+    firsttime: true
+    master_segment_id:  # 初回データ作成時など、Master Segmentの更新をしない場合は空白
+    output_db: l2_master_segments
+    log_span: 7d
+    check_web: true
+    key_id_web: td_cookie
+    set_td_url_web: "'サンプル2'||'_'||td_title||' '||td_url"
+    weblog_db: l1_sample #set web_log database
+    weblog_tbl: sample_weblog #set web_log table
+    where_condition_web:
+      condition:
+        - session_num = 1
+    check_app: true
+    key_id_app: td_uid
+    set_td_url_app: event
+    applog_db: l1_sample #set web_log database
+    applog_tbl: sample_applog #set web_log table
+    where_condition_app:
+      condition:

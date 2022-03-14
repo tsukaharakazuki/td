@@ -1,0 +1,73 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 1 2 * * *
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: database_name
+
++media_process:
+  for_each>:
+    params: ${Object.keys(media)}
+  _do:
+    +empty_dist_tables:
+      td_ddl>:
+      empty_tables: 
+        - "l2_master_segment_behavior"
+        - "l2_master_segment_master_table"
+      database: ${media[params].output_db}
+
+    +check_weblog:
+      if>: ${media[params].check_web}
+      _do:
+        +create_behavior_weblog:
+          !include : config/set_colmuns_web.dig
+          +weblog:
+            td>: query/p11_behavior_weblog.sql
+            insert_into: ${media[params].output_db}.l2_master_segment_behavior
+
+    +check_applog:
+      if>: ${media[params].check_app}
+      _do:
+        +create_behavior_applog:
+          +applog:
+            td>: query/p12_behavior_applog.sql
+            insert_into: ${media[params].output_db}.l2_master_segment_behavior
+
+    +proc_master_table:
+      +check_weblog:
+        if>: ${media[params].check_web}
+        _do:
+          +check_applog:
+            if>: ${media[params].check_app}
+            _do:
+              +create_master_table_webapp:
+                td>: query/p21_master_table_webapp.sql
+                insert_into: ${media[params].output_db}.l2_master_segment_master_table
+            
+            _else_do:
+              +create_master_table_web:
+                td>: query/p22_master_table_web.sql
+                insert_into: ${media[params].output_db}.l2_master_segment_master_table
+
+        _else_do:
+          +check_applog:
+            if>: ${media[params].check_app}
+            _do:
+              +create_master_table_app:
+                td>: query/p23_master_table_app.sql
+                insert_into: ${media[params].output_db}.l2_master_segment_master_table
+
+    +check_kick_audience_workflow:
+      if>: ${(Object.prototype.toString.call(media[params].master_segment_id) === '[object Number]')}
+      _do:
+        +kick_audience_workflow:
+          http>: "https://api-cdp.treasuredata.com/audiences/${media[params].master_segment_id}/run"
+          method: POST
+          headers:
+            - authorization: "TD1 ${secret:td.apikey}"
+          retry: true
+
+          
