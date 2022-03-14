@@ -1,0 +1,8 @@
+---
+media:
+  sample:
+    set_columns:
+      columns:
+        - a
+        - b
+        - c
