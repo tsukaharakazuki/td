@@ -1,0 +1,11 @@
+---
+create_all_tbl: true
+integration_db: integration # 統合DB名
+media:
+  sample1:
+    media_name: sample1
+    firsttime_flag: false #true or false 
+    output_db: sample1_db
+    log_db: sample1_weblog 
+    weblog_tbl: l1_agg_weblog #set web_log database
+    criteo_tbl: l0_criteo

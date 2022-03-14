@@ -1,0 +1,75 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 1 * * * *
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: integration
+    
++empty_tables:
+  if>: ${create_all_tbl}
+  _do:
+    +empty_l1_croteo_all:
+      td_ddl>:
+      empty_tables: 
+        - "l1_croteo_all"
+      database: ${integration_db}
+
++media_process:
+  for_each>:
+    params: ${Object.keys(media)}
+  _do:
+    +daily_processing:
+      if>: ${media[params].firsttime_flag}
+      _do:
+        +empty_tmp_agg_weblog_first:
+          td_ddl>:
+          empty_tables: 
+            - "l1_criteo"
+            - "l1_map_td_cookie_td_crient_id"
+          database: ${media[params].output_db}
+
+        +map_td_cookie_td_crient_id_first:
+          td>: query/p11_map_td_cookie_td_crient_id_first.sql
+          insert_into: ${media[params].output_db}.l1_map_td_cookie_td_crient_id
+          #engine: hive # Only Hive works
+          #engine_version: stable
+
+        +create_l1_criteo:
+          td>: query/p12_create_l1_criteo.sql
+          insert_into: ${media[params].output_db}.l1_criteo
+          #engine: hive # Only Hive works
+          #engine_version: stable
+
+        +insert_l1_criteo_all:
+          td>: query/p31_insert_l1_criteo_all.sql
+          insert_into: ${integration_db}.l1_croteo_all
+
+      _else_do:
+        +rename_tables:
+          td_ddl>:
+          rename_tables:
+            - {from: "l1_criteo", to: "tmp_l1_criteo"}
+            - {from: "l1_map_td_cookie_td_crient_id", to: "tmp_l1_map_td_cookie_td_crient_id"}
+          database: ${media[params].output_db}
+
+        +map_td_cookie_td_crient_id_regular:
+          td>: query/p21_map_td_cookie_td_crient_id_regular.sql
+          create_table: ${media[params].output_db}.l1_map_td_cookie_td_crient_id
+
+        +create_l1_criteo:
+          td>: query/p22_create_l1_criteo.sql
+          create_table: ${media[params].output_db}.l1_criteo
+
+        +insert_l1_criteo_all:
+          td>: query/p31_insert_l1_criteo_all.sql
+          insert_into: ${integration_db}.l1_croteo_all
+
+        +drop_tmp_tbl:
+          td_ddl>:
+          drop_tables: 
+            - "tmp_l1_criteo"
+            - "tmp_l1_map_td_cookie_td_crient_id"
+          database: ${media[params].output_db}
