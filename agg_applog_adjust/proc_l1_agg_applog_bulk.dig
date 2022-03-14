@@ -1,0 +1,54 @@
+timezone: "Asia/Tokyo"
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: integration #ベースの参照・出力先Database
+
++empty_tables:
+  if>: ${create_all_tbl}
+  _do:
+    +empty_base:
+      td_ddl>:
+      empty_tables: 
+        - "l1_agg_applog_all"
+      database: ${integration_db}
+
++for_each_apps:
+  for_each>:
+    params: ${Object.keys(apps)}
+  _do:
+    +if:
+      if>: ${apps[params].firsttime_flag}
+      _do:
+        +empty_tmp_agg_weblog_first:
+          td_ddl>:
+          empty_tables: 
+            - "l1_agg_applog"
+            - "tmp_agg_applog_first"
+          database: ${apps[params].output_db}
+
+        +first:
+          +proc_firsttime:
+            td>: queries/p11_proc_firsttime.sql
+            insert_into: ${apps[params].output_db}.tmp_agg_applog_first
+            engine: hive # Only Hive works
+            engine_version: stable #Tez
+
+        +proc_insert_first:
+          for_each>:
+            env: 
+              - db: ${integration_db}
+                tbl: l1_agg_applog_all
+              - db: ${apps[params].output_db}
+                tbl: l1_agg_applog
+          _do:
+            +insert:
+              td>: queries/p12_insert_first.sql
+              insert_into: ${env.db}.${env.tbl}
+
+        +drop_tmp_tbl:
+          td_ddl>:
+          drop_tables: 
+            - "tmp_agg_applog_first"
+          database: ${apps[params].output_db}

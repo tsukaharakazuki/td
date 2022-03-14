@@ -1,0 +1,45 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  cron>: 20 0 * * * 
+
+_export:
+  !include : 'config/params.yml'
+  td:
+    database: integration #ベースの参照・出力先Database
+
++for_each_apps:
+  for_each>:
+    params: ${Object.keys(apps)}
+  _do:
+    +if:
+      if>: ${apps[params].firsttime_flag}
+      _else_do:
+        +empty_tmp_agg_weblog_regular:
+          td_ddl>:
+          empty_tables: 
+            - "tmp_agg_applog_regular"
+          database: ${apps[params].output_db}
+
+        +regular:
+          +proc_regular:
+            td>: queries/p21_proc_regular.sql
+            insert_into: ${apps[params].output_db}.tmp_agg_applog_regular
+
+        +proc_insert_regular:
+          for_each>:
+            env: 
+              - db: ${integration_db}
+                tbl: l1_agg_applog_all
+              - db: ${apps[params].output_db}
+                tbl: l1_agg_applog
+          _do:
+            +insert:
+              td>: queries/p22_insert_regular.sql
+              insert_into: ${env.db}.${env.tbl}
+
+        +drop_tmp_tbl:
+          td_ddl>:
+          drop_tables: 
+            - "tmp_agg_applog_regular"
+          database: ${apps[params].output_db}
