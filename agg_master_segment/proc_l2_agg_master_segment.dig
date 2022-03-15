@@ -17,6 +17,7 @@ _export:
       empty_tables: 
         - "l2_master_segment_behavior"
         - "l2_master_segment_master_table"
+        - "l2_master_segment_attribute_engagement_score"
       database: ${media[params].output_db}
 
     +check_weblog:
@@ -59,6 +60,29 @@ _export:
               +create_master_table_app:
                 td>: query/p23_master_table_app.sql
                 insert_into: ${media[params].output_db}.l2_master_segment_master_table
+
+    +create_engagement_score:
+      !include : config/engagement_score_date.dig
+      +weblog:
+        td>: query/p31_attribute_engagement_score.sql
+        insert_into: ${media[params].output_db}.l2_master_segment_attribute_engagement_score
+
+    +check_predict_dataset:
+      if>: ${media[params].check_predict_dataset}
+      _do:
+        +media_process:
+          for_each>:
+            pred: ${media[params].predict_dataset}
+          _do:
+            +empty_attr_tables:
+              td_ddl>:
+              empty_tables: 
+                - "l2_master_segment_attribute_${pred.colmuns}"
+              database: ${media[params].output_db}
+
+            +create_predict_dataset:
+              td>: query/p41_attribute_predict_dataset.sql
+              insert_into: ${media[params].output_db}.l2_master_segment_attribute_${pred.colmuns}
 
     +check_kick_audience_workflow:
       if>: ${(Object.prototype.toString.call(media[params].master_segment_id) === '[object Number]')}
