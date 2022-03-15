@@ -4,7 +4,7 @@ WITH base AS (
     CAST(TRUNCATE((MAX(time)- TO_UNIXTIME(now()))/ 86400) AS INT) AS recency ,
     COUNT(DISTINCT TD_TIME_FORMAT(time,'yyyy-MM-dd','JST')) AS frequency ,
     COUNT(DISTINCT engagement_vols) AS volume
-    ${(Object.prototype.toString.call(media[params].add_calculation.columns) === '[object Array]')?','+media[params].add_calculation.columns.join():''}
+    ${(Object.prototype.toString.call(media[params].add_engagement_calc.columns) === '[object Array]')?','+media[params].add_engagement_calc.columns.join():''}
   FROM
     ${media[params].output_db}.l2_master_segment_behavior
   GROUP BY
