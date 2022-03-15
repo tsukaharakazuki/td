@@ -63,14 +63,14 @@ _export:
 
     +create_engagement_score:
       !include : config/engagement_score_date.dig
-      +weblog:
+      +engagement_score:
         td>: query/p31_attribute_engagement_score.sql
         insert_into: ${media[params].output_db}.l2_master_segment_attribute_engagement_score
 
     +check_predict_dataset:
       if>: ${media[params].check_predict_dataset}
       _do:
-        +media_process:
+        +predict_process:
           for_each>:
             pred: ${media[params].predict_dataset}
           _do:
