@@ -1,0 +1,10 @@
+_export:
+  date: ${moment(session_date).subtract(1, 'days').format("YYYY-MM-DD")}
+  diw: 5
+  #0->6:日曜->土曜
+
++run_if_param_is_true:
+  if>: ${moment(session_date).day() == diw}
+  _do:
+    +say_hello:
+      echo>: ${date}
