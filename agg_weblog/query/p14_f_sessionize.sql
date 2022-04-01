@@ -337,7 +337,8 @@ SELECT
   ua_category ,
   ip_country ,
   REGEXP_REPLACE(REGEXP_REPLACE(ip_prefectures, '^Ō', 'O'), 'ō', 'o') AS ip_prefectures ,
-  REGEXP_REPLACE(REGEXP_REPLACE(ip_city, '^Ō', 'O'), 'ō', 'o') AS ip_city 
+  REGEXP_REPLACE(REGEXP_REPLACE(ip_city, '^Ō', 'O'), 'ō', 'o') AS ip_city ,
+  UNIX_TIMESTAMP() AS td_proc_date 
   ${(Object.prototype.toString.call(media[params].all_columns.columns) === '[object Array]')?','+media[params].all_columns.columns.join():''}
   ${(Object.prototype.toString.call(media[params].all_first_regular_other_process.first) === '[object Array]')?','+media[params].all_first_regular_other_process.first.join():''}
 FROM
