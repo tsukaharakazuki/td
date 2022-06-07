@@ -7,9 +7,9 @@ _export:
   for_each>:
     params: ${Object.keys(media)}
   _do:
-		+set_columns:
-				!include : config/set_columns.dig
-				+pv:
-				td>: query/hoge.sql
-				insert_into: fuga
+    +set_columns:
+      !include : config/set_columns.dig
+      +pv:
+      td>: query/hoge.sql
+      insert_into: fuga
 				
