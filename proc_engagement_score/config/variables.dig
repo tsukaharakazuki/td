@@ -1,0 +1,25 @@
+---
+media:
+  bland_name:
+    media_name: sample
+    output_db: td_sandbox
+    calc_log_db: weblog_db
+    calc_log_tbl: weblog_tbl
+    # エンゲージメントスコア_KEY_IDカラム
+    key_id: td_ssc_id
+    # エンゲージメントスコア_ボリュームカラム
+    engagement_vols: DISTINCT td_path 
+    # エンゲージメントスコア出力追加設定
+    add_engagement_calc:
+      sql: 
+        - ARRAY_AGG(DISTINCT ranking) FILTER(WHERE ranking IS NOT NULL) AS ranking
+    # エンゲージメントスコア_カテゴリを分けた集計設定
+    check_by_category: true
+    by_category_dataset:
+      - colmuns: item
+        dest_db_name: item
+      - colmuns: item||' | '||category
+        dest_db_name: item_category
+
+
+      

@@ -1,0 +1,93 @@
+timezone: "Asia/Tokyo"
+
+#schedule:
+#  daily>: 03:00:00 #日時バッジ
+
+_export:
+  !include : config/variables.dig
+  td:
+    database: td_sandbox #ベースの参照・出力先Database
+  emails: &emails
+    - hogehoge@treasure-data.com
+  proc_dt: ${session_date}
+
+_error:
+  +error_mail:
+    mail>:
+      data: エラーが発生しました
+    subject: 【TreasureData】エンゲージメントスコアWF処理エラー
+    to: *emails
+
++calc_process:
+  for_each>:
+    params: ${Object.keys(media)}
+  _do:
+    +empty_dist_tables:
+      td_ddl>:
+      empty_tables: 
+        - "engagement_score_all"
+        - "engagement_score_28d"
+      database: ${media[params].output_db}
+
+    +proc_base_engagement_score:
+      +engagement_score_all:
+        !include : config/engagement_score_date.dig
+        +engagement_score:
+          td>: queries/p11_engagement_score_all.sql
+          insert_into: ${media[params].output_db}.engagement_score_all
+
+      +engagement_score_28d:
+        td>: queries/p12_engagement_score_28d.sql
+        insert_into: ${media[params].output_db}.engagement_score_28d
+
+      +store_engagement_score:
+        for_each>:
+          env: 
+            - db: ${media[params].output_db}
+              tbl: engagement_score_all
+              dst: store_engagement_score_all
+            - db: ${media[params].output_db}
+              tbl: engagement_score_28d
+              dst: store_engagement_score_28d
+        _do:
+          +insert:
+            td>: queries/p00_store_engagement_score.sql
+            insert_into: ${env.db}.${env.dst}
+              
+    +check_engagement_score_by_category:
+      if>: ${media[params].check_by_category}
+      _do:
+        +engagement_score_by_category:
+          for_each>:
+            by_cate: ${media[params].by_category_dataset}
+          _do:
+            +empty_attr_tables:
+              td_ddl>:
+              empty_tables: 
+                - "engagement_score_all_${by_cate.dest_db_name}"
+                - "engagement_score_28d_${by_cate.dest_db_name}"
+              database: ${media[params].output_db}
+
+            +engagement_score_all:
+              !include : config/engagement_score_date.dig
+              +engagement_score:
+                td>: queries/p21_engagement_score_all_by_category.sql
+                insert_into: ${media[params].output_db}.engagement_score_all_${by_cate.dest_db_name}
+
+            +engagement_score_28d:
+              td>: queries/p22_engagement_score_28d_by_category.sql
+              insert_into: ${media[params].output_db}.engagement_score_28d_${by_cate.dest_db_name}
+
+            +store_engagement_score:
+              for_each>:
+                env: 
+                  - db: ${media[params].output_db}
+                    tbl: engagement_score_all_by_category
+                    dst: store_engagement_score_all_${by_cate.dest_db_name}
+                  - db: ${media[params].output_db}
+                    tbl: engagement_score_28d_by_category
+                    dst: store_engagement_score_28d_${by_cate.dest_db_name}
+              _do:
+                +insert:
+                  td>: queries/p01_store_engagement_score_by_category.sql
+                  insert_into: ${env.db}.${env.dst}
