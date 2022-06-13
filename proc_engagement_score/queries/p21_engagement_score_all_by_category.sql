@@ -19,7 +19,7 @@ WITH base AS (
 
 SELECT
   * ,
-  ntile(10) OVER (ORDER BY engagement_score DESC) AS decile
+  ntile(10) OVER (PARTITION BY by_category ORDER BY engagement_score DESC) AS decile
 FROM (
   SELECT
     * ,
