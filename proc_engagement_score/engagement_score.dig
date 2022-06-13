@@ -82,11 +82,11 @@ _error:
               for_each>:
                 env: 
                   - db: ${media[params].output_db}
-                    tbl: engagement_score_all_by_category
-                    dst: store_engagement_score_all_${by_cate.dest_db_name}
+                    tbl: engagement_score_all_${by_cate.dest_db_name}
+                    dst: store_engagement_score_all_by_category
                   - db: ${media[params].output_db}
-                    tbl: engagement_score_28d_by_category
-                    dst: store_engagement_score_28d_${by_cate.dest_db_name}
+                    tbl: engagement_score_28d_${by_cate.dest_db_name}
+                    dst: store_engagement_score_28d_by_category
               _do:
                 +insert:
                   td>: queries/p01_store_engagement_score_by_category.sql
