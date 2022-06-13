@@ -2,7 +2,7 @@ WITH base AS (
   SELECT
     ${by_cate.colmuns} AS by_category ,
     ${media[params].key_id} AS device_id ,
-    '${by_cate.colmuns}' AS by_category_type ,
+    '${by_cate.category_type}' AS by_category_type ,
     '${media[params].key_id}' AS device_id_type ,
     CAST(TRUNCATE((MAX(time)- TO_UNIXTIME(now()))/ 86400) AS INT) AS recency ,
     COUNT(DISTINCT TD_TIME_FORMAT(time,'yyyy-MM-dd','JST')) AS frequency ,
@@ -15,8 +15,7 @@ WITH base AS (
       TD_TIME_FORMAT(CAST(TO_UNIXTIME(now()) AS BIGINT)- (60 * 60 * 24 * 7 * 4), 'yyyy-MM-dd', 'JST'),
       TD_TIME_FORMAT(CAST(TO_UNIXTIME(now()) AS BIGINT)- (60 * 60 * 24 * 1), 'yyyy-MM-dd', 'JST')
     )
-    AND ${by_cate.colmuns} is not NULL
-    AND ${by_cate.colmuns} <> ''
+    AND ${by_cate.where_condition}
   GROUP BY
     1,2
 )
