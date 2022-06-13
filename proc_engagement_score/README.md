@@ -14,6 +14,7 @@
 
 - サンプル
 ```
+---
 media:
   bland_name:
     media_name: sample
@@ -33,8 +34,12 @@ media:
     by_category_dataset:
       - colmuns: item
         dest_db_name: item
+        category_type: item
+        where_condition: item is not NULL AND item <> ''
       - colmuns: item||' | '||category
         dest_db_name: item_category
+        category_type: item_category
+        where_condition: item is not NULL AND item <> '' AND category is not NULL AND category <> ''
 ```
   
 1. 変更不要点  
