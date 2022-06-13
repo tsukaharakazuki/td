@@ -1,7 +1,8 @@
 WITH base AS (
   SELECT
-    ${by_cate.colmuns} ,
+    ${by_cate.colmuns} AS by_category ,
     ${media[params].key_id} AS device_id ,
+    '${by_cate.colmuns}' AS by_category_type ,
     '${media[params].key_id}' AS device_id_type ,
     CAST(TRUNCATE((MAX(time)- TO_UNIXTIME(now()))/ 86400) AS INT) AS recency ,
     COUNT(DISTINCT TD_TIME_FORMAT(time,'yyyy-MM-dd','JST')) AS frequency ,
