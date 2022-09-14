@@ -60,7 +60,7 @@
 
 +summarize_result:
   +delete_if_exists:
-    if>: ${brand.firsttime}
+    if>: ${set[params].firsttime}
     _else_do:
       td>:
       query: delete from result_summary_${set[params].name} where time = ${session_unixtime}
