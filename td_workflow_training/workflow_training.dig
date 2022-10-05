@@ -1,6 +1,3 @@
-# Workflowテンプレサンプル　
-# https://github.com/tsukaharakazuki/td/blob/master/workflow_template/template.dig
-
 # 処理実行されるタイムゾーンを設定
 # スケジュールの実行時間などをどのタイムゾーンで実行するかに影響
 timezone: "Asia/Tokyo"
