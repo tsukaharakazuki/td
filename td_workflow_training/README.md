@@ -1,4 +1,4 @@
-### Workflowテンプレサンプル　
+### Workflowサンプルテンプレート　
 https://github.com/tsukaharakazuki/td/blob/master/workflow_template/template.dig
 
 # timezone
