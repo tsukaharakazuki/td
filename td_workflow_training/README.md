@@ -71,7 +71,7 @@ http://docs.digdag.io/operators.html
 ```
 +sql_variable:
   td>: queries/sample_query_variable.sql
-  create_table: ${result_table} 
+  create_table: ${result_table}
 ```
 
 ## td>: Hiveでの処理実行
@@ -129,7 +129,7 @@ https://docs.digdag.io/workflow_definition.html?highlight=moment%20js#calculatin
 https://momentjs.com/  
 ex.   
 `${moment(session_time).add(1, 'days').format("YYYYMMDD")}`  
-たとえば2022/1/1にWorkflow実行された場合、'20220102'が出力されます  
+たとえば2022/1/1にWorkflow実行された場合、`20220102`が出力されます  
 ファイル名に前日日付を記載したい場合などに使用
 
 
