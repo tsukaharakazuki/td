@@ -8,7 +8,7 @@ https://github.com/tsukaharakazuki/td/blob/master/workflow_template/template.dig
 timezone: "Asia/Tokyo"
 ```
 
-# スケシュール設定
+# スケジュール設定
 http://docs.digdag.io/scheduling_workflow.html?highlight=schedule
 ```
 schedule:
