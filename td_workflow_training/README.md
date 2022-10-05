@@ -119,7 +119,8 @@ https://docs.digdag.io/operators/td_ddl.html
 
 5. `${session_date}`など予約変数
 https://docs.digdag.io/workflow_definition.html#using-variables  
-Workflowには${session_date}->'2023-01-01'(Workflowが実行された日付が代入される)  
+Workflowには`${session_date}`->`2023-01-01`  
+(Workflowが実行された日付が代入される)  
 など、予約された変数が存在します。s3にデータを出力する際に日付prefixを末尾につける場合などにも使用
 
 
