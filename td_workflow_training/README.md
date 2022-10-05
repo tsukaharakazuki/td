@@ -71,7 +71,7 @@ http://docs.digdag.io/operators.html
 ```
 +sql_variable:
   td>: queries/sample_query_variable.sql
-  create_table: ${result_table} #(存在するテーブルを削除して作り直す)
+  create_table: ${result_table} 
 ```
 
 ## td>: Hiveでの処理実行
