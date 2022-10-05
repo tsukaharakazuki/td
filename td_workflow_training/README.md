@@ -151,6 +151,7 @@ ex.
 _do: trueの際に処理実行  
 _else_do: falseの際に処理実行  
 
+#### `if:`での判定処理記述例
 `${if_type == 'treasure'}`  
 変数if_typeで設定したテキストが同じだった場合true
 
