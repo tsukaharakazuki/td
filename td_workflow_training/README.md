@@ -85,7 +85,7 @@ http://docs.digdag.io/operators.html
 WITH区を含むSQLの場合、INSERT区を挿入する場所に`-- DIGDAG_INSERT_LINE`を記載
 
 
-4. td_ddl>: tableの作成やdropなどの処理実行
+4. td_ddl>: tableの作成やdropなどの処理実行. 
 https://docs.digdag.io/operators/td_ddl.html
 
 ### tableが存在しない場合は作成、存在する場合はそのまま
