@@ -11,4 +11,4 @@ SELECT
   id_col ,
   MAX(time) AS time 
 FROM
-  hive_tbl
+  t0
