@@ -59,7 +59,7 @@ _error:
 http://docs.digdag.io/operators.html
 
 # 処理記述例
-1. td>: Workflow内に存在するsqlファイルを実行
+## td>: Workflow内に存在するsqlファイルを実行
 ```
 +sql:
   td>: queries/sample_query.sql
@@ -67,14 +67,14 @@ http://docs.digdag.io/operators.html
   #insert_into: test_ec #(存在するテーブルに追記で書き込み)
 ```
 
-2. td>: _exportで定義した変数を読み込んで処理実行
+## td>: _exportで定義した変数を読み込んで処理実行
 ```
 +sql_variable:
   td>: queries/sample_query_variable.sql
   create_table: ${result_table} #(存在するテーブルを削除して作り直す)
 ```
 
-3. td>: Hiveでの処理実行
+## td>: Hiveでの処理実行
 ```
 +sql_hive:
   td>: queries/sample_query_hive.sql
@@ -85,7 +85,7 @@ http://docs.digdag.io/operators.html
 WITH区を含むSQLの場合、INSERT区を挿入する場所に`-- DIGDAG_INSERT_LINE`を記載
 
 
-4. td_ddl>: tableの作成やdropなどの処理実行  
+## td_ddl>: tableの作成やdropなどの処理実行  
 https://docs.digdag.io/operators/td_ddl.html
 
 ### tableが存在しない場合は作成、存在する場合はそのまま
@@ -117,14 +117,14 @@ https://docs.digdag.io/operators/td_ddl.html
     - {from: "my_table_${session_date_compact}", to: "my_table"}
 ```
 
-5. `${session_date}`など予約変数
+## `${session_date}`など予約変数
 https://docs.digdag.io/workflow_definition.html#using-variables  
 Workflowには`${session_date}`->`2023-01-01`  
 (Workflowが実行された日付が代入される)  
 など、予約された変数が存在します。s3にデータを出力する際に日付prefixを末尾につける場合などにも使用
 
 
-6. moment.jsでの日付処理  
+## moment.jsでの日付処理  
 https://docs.digdag.io/workflow_definition.html?highlight=moment%20js#calculating-variables  
 https://momentjs.com/  
 ex.   
@@ -133,7 +133,7 @@ ex.
 ファイル名に前日日付を記載したい場合などに使用
 
 
-7. if>: 処理分岐
+## if>: 処理分岐
 ```
 +if:
   if>: true #true or false
@@ -161,7 +161,7 @@ _else_do: falseの際に処理実行
 変数dowで設定した曜日と実行日が同じだった場合true
 
 
-8. for_each>: 変数設定を変更して複数回同一処理実行
+## for_each>: 変数設定を変更して複数回同一処理実行
 ```
 +for_each:
   for_each>:
@@ -187,7 +187,7 @@ _else_do: falseの際に処理実行
       create_table: result_${val.tbl}
 ```
 
-9. loop>: Loopでの処理実行
+## loop>: Loopでの処理実行
 ```
 +loop:
   loop>: 10
@@ -202,7 +202,7 @@ loop>: 10 この場合後続処理を10回繰り返します
 `${i}`は0から始まるので、上記サンプルでは${i + 1}として1からスタートするようにしています
 
 
-10. call>:/require>: 別のdigファイル呼び出し
+## call>:/require>: 別のdigファイル呼び出し
 https://plazma.red/user_engagement/howto/0107
 ```
 +call_other_dig:
@@ -214,7 +214,7 @@ https://plazma.red/user_engagement/howto/0107
   project_name: PROJECT_NAME
 ```
 
-11. コネクタでのデータアウトプット
+## コネクタでのデータアウトプット
 Google Sheet出力サンプル
 ```
 +result_google_sheets:
@@ -228,7 +228,7 @@ Google Sheet出力サンプル
     mode: truncate
 ```
 
-12. py>: Custom Scripy(Python operator)
+## py>: Custom Scripy(Python operator)
 WorkflowではDockerを立ち上げPython Scriptを実行することが可能です  
 機械学習、APIを叩いて他ツールからデータを取り込む、SQLでは処理できないデータ処理などを実行することができます  
 https://docs.treasuredata.com/display/public/PD/Introduction+to+Custom+Scripts  
