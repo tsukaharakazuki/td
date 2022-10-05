@@ -12,3 +12,5 @@ SELECT
   MAX(time) AS time 
 FROM
   t0
+GROUP BY
+  1
