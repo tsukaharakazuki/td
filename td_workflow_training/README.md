@@ -230,7 +230,7 @@ Google Sheet出力サンプル
     mode: truncate
 ```
 
-## `py>:` Custom Scripy(Python operator)
+## `py>:` Custom Script(Python operator)
 WorkflowではDockerを立ち上げPython Scriptを実行することが可能です  
 機械学習、APIを叩いて他ツールからデータを取り込む、SQLでは処理できないデータ処理などを実行することができます  
 https://docs.treasuredata.com/display/public/PD/Introduction+to+Custom+Scripts  
