@@ -154,13 +154,13 @@ ex.
 
 #### `if>:`での判定処理記述例
 `${if_type == 'treasure'}`  
-変数if_typeで設定したテキストが同じだった場合true
+変数`if_type`で設定したテキストが同じだった場合`true`
 
 `${if_val === '[object Array]')}`  
-変数if_typeが配列だった場合true
+変数`if_val`が配列だった場合`true`
 
 `${moment().format('dddd') === dow} `  
-変数dowで設定した曜日と実行日が同じだった場合true
+変数`dow`で設定した曜日と実行日が同じだった場合`true`
 
 
 ## `for_each>:` 変数設定を変更して複数回同一処理実行
