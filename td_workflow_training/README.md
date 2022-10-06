@@ -20,7 +20,7 @@ schedule:
 cronについて  
 https://docs.treasuredata.com/display/public/PD/Cron+Schedule+Values
 
-#  `_export`での変数設定
+#  `_export:`での変数設定
 https://docs.digdag.io/workflow_definition.html#using-export-parameter
 ```
 _export:
