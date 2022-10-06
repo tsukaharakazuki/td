@@ -8,7 +8,7 @@ https://github.com/tsukaharakazuki/td/blob/master/workflow_template/template.dig
 timezone: "Asia/Tokyo"
 ```
 
-# スケジュール設定
+# `schedule:`スケジュール設定
 http://docs.digdag.io/scheduling_workflow.html?highlight=schedule
 ```
 schedule:
@@ -20,7 +20,7 @@ schedule:
 cronについて  
 https://docs.treasuredata.com/display/public/PD/Cron+Schedule+Values
 
-# _exportでの変数設定
+#  `_export`での変数設定
 https://docs.digdag.io/workflow_definition.html#using-export-parameter
 ```
 _export:
@@ -33,8 +33,9 @@ _export:
     result_table: result_sql_hive
 ```
 
-# エラー通知設定
-Workflowの途中でエラーになった場合、config/error.digに記述した処理が実行されます  
+# `_error:`エラー通知設定
+Workflowの途中でエラーになった場合、`_error:` で記述したタスクが実行されます  
+サンプルでは`config/error.dig`が実行されます  
 サンプルではメールでの通知ですが、Slack、Teams、Chatworkなどチャットツールなどに通知することも可能です
 ```
 _error:
@@ -59,7 +60,7 @@ _error:
 http://docs.digdag.io/operators.html
 
 # 処理記述例
-## td>: Workflow内に存在するsqlファイルを実行
+## `td>:` Workflow内に存在するsqlファイルを実行
 ```
 +sql:
   td>: queries/sample_query.sql
@@ -67,14 +68,14 @@ http://docs.digdag.io/operators.html
   #insert_into: test_ec #(存在するテーブルに追記で書き込み)
 ```
 
-## td>: _exportで定義した変数を読み込んで処理実行
+## `td>:` _exportで定義した変数を読み込んで処理実行
 ```
 +sql_variable:
   td>: queries/sample_query_variable.sql
   create_table: ${result_table}
 ```
 
-## td>: Hiveでの処理実行
+## `td>:` Hiveでの処理実行
 ```
 +sql_hive:
   td>: queries/sample_query_hive.sql
@@ -85,31 +86,31 @@ http://docs.digdag.io/operators.html
 WITH区を含むSQLの場合、INSERT区を挿入する場所に`-- DIGDAG_INSERT_LINE`を記載
 
 
-## td_ddl>: tableの作成やdropなどの処理実行  
+## `td_ddl>:` tableの作成やdropなどの処理実行  
 https://docs.digdag.io/operators/td_ddl.html
 
-### tableが存在しない場合は作成、存在する場合はそのまま
+### `create_tables` tableが存在しない場合は作成、存在する場合はそのまま
 ```
 +create_tables:
   td_ddl>:
   create_tables: 
     - "my_table_${session_date_compact}"
 ```
-### tableの削除
+### `drop_tables` tableの削除
 ```
 +drop_tables:
   td_ddl>:
   drop_tables: 
     - "my_table_${session_date_compact}"
 ```
-### tableが存在しない場合は作成、存在する場合は削除してから再作成
+### `empty_tables` tableが存在しない場合は作成、存在する場合は削除してから再作成
 ```
 +empty_tables:
   td_ddl>:
   empty_tables: 
     - "my_table_${session_date_compact}"
 ```
-### table名の変更
+### `rename_tables` table名の変更
 ```
 +rename_tables:
   td_ddl>:
@@ -120,20 +121,20 @@ https://docs.digdag.io/operators/td_ddl.html
 ## `${session_date}`など予約変数
 https://docs.digdag.io/workflow_definition.html#using-variables  
 Workflowには`${session_date}`->`2023-01-01`  
-(Workflowが実行された日付が代入される)  
+*Workflowが実行された日付が代入される  
 など、予約された変数が存在します。s3にデータを出力する際に日付prefixを末尾につける場合などにも使用
 
 
-## moment.jsでの日付処理  
+## `moment.js`での日付処理  
 https://docs.digdag.io/workflow_definition.html?highlight=moment%20js#calculating-variables  
 https://momentjs.com/  
 ex.   
 `${moment(session_time).add(1, 'days').format("YYYYMMDD")}`  
-たとえば2022/1/1にWorkflow実行された場合、`20220102`が出力されます  
+たとえば`2022/1/1`にWorkflow実行された場合、`20220102`が出力されます  
 ファイル名に前日日付を記載したい場合などに使用
 
 
-## if>: 処理分岐
+## `if>:` 処理分岐
 ```
 +if:
   if>: true #true or false
@@ -148,8 +149,8 @@ ex.
       empty_tables: 
         - "if_table_false"
 ```
-_do: trueの際に処理実行  
-_else_do: falseの際に処理実行  
+`_do:` trueの際に処理実行  
+`_else_do:` falseの際に処理実行  
 
 #### `if>:`での判定処理記述例
 `${if_type == 'treasure'}`  
@@ -162,7 +163,7 @@ _else_do: falseの際に処理実行
 変数dowで設定した曜日と実行日が同じだった場合true
 
 
-## for_each>: 変数設定を変更して複数回同一処理実行
+## `for_each>:` 変数設定を変更して複数回同一処理実行
 ```
 +for_each:
   for_each>:
@@ -188,7 +189,7 @@ _else_do: falseの際に処理実行
       create_table: result_${val.tbl}
 ```
 
-## loop>: Loopでの処理実行
+## `loop>:` Loopでの処理実行
 ```
 +loop:
   loop>: 10
@@ -198,12 +199,12 @@ _else_do: falseの際に処理実行
       query: SELECT '${i + 1}' AS col_${i + 1}
       insert_into: loop_table
 ```
-loop>: 10 この場合後続処理を10回繰り返します  
+`loop>: 10` この場合後続処理を`10回`繰り返します  
 `${i}`がloop回数で変動する変数になります  
-`${i}`は0から始まるので、上記サンプルでは${i + 1}として1からスタートするようにしています
+`${i}`は`0`から始まるので、上記サンプルでは`${i + 1}`として`1`からスタートするようにしています
 
 
-## call>:/require>: 別のdigファイル呼び出し
+## `call>:`/`require>:` 別のdigファイル呼び出し
 https://plazma.red/user_engagement/howto/0107
 ```
 +call_other_dig:
@@ -229,7 +230,7 @@ Google Sheet出力サンプル
     mode: truncate
 ```
 
-## py>: Custom Scripy(Python operator)
+## `py>:` Custom Scripy(Python operator)
 WorkflowではDockerを立ち上げPython Scriptを実行することが可能です  
 機械学習、APIを叩いて他ツールからデータを取り込む、SQLでは処理できないデータ処理などを実行することができます  
 https://docs.treasuredata.com/display/public/PD/Introduction+to+Custom+Scripts  
