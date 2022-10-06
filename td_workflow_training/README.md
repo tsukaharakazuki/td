@@ -27,10 +27,6 @@ _export:
   !include : 'config/params.yml'
   td:
     database: td_sandbox #ベースの参照・出力先Database
-    endpoint: api.treasuredata.co.jp
-  result_table: result_sql
-  hive:
-    result_table: result_sql_hive
 ```
 
 # `_error:`エラー通知設定
