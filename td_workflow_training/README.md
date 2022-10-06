@@ -54,7 +54,7 @@ _error:
   オペレーター>: 実行ファイル
   出力設定: 出力先データベース.テーブル名
 ```
-タスク名'task_template:'は同一インデントでユニーク
+タスク名`task_template:`は同一インデントでユニーク
 
 オペレータードキュメント  
 http://docs.digdag.io/operators.html
