@@ -15,7 +15,7 @@ media:
     user_id: user_id #set user_id column未取得の場合 "''"
     pv_columns:
       columns:
-        - text #追加カラムがない場合未記載(計算クエリ可)
+        #- text #追加カラムがない場合未記載(計算クエリ可)
     pv_first_regular_other_process: # Hive/Prestoで異なるカラム展開処理がある場合
       first: 
         #- IF(a RLILE 'aa',1,0) AS col1
@@ -32,7 +32,7 @@ media:
     user_id_click: "''" #set user_id column未取得の場合 "''"
     click_columns:
       columns:
-        - text #追加カラムがない場合未記載(計算クエリ可)
+        #- text #追加カラムがない場合未記載(計算クエリ可)
     click_first_regular_other_process:
       first: 
       regular:
@@ -47,16 +47,16 @@ media:
     user_id_read: "''" #set user_id column未取得の場合 "''"
     read_columns:
       columns:
-        - text #追加カラムがない場合未記載(計算クエリ可)
+        #- text #追加カラムがない場合未記載(計算クエリ可)
     read_first_regular_other_process:
       first: 
       regular:
     # 設定したすべてのカスタムカラム設定
     all_columns:
       columns:
-        - click_url # クリック集計している場合
+        #- click_url # クリック集計している場合
         #- read # 読了集計している場合
-        - text #追加カラムがない場合未記載
+        #- text #追加カラムがない場合未記載
     # 最終処理でもう一度展開処理が発生する場合
     all_first_regular_other_process:
       first: 
