@@ -152,7 +152,7 @@ ex.
 `${if_type == 'treasure'}`  
 変数`if_type`で設定したテキストが同じだった場合`true`
 
-`${if_val === '[object Array]')}`  
+`${(Object.prototype.toString.call(if_val) === '[object Array]')}`  
 変数`if_val`が配列だった場合`true`
 
 `${moment().format('dddd') === dow} `  
