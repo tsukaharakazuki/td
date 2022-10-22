@@ -229,8 +229,8 @@ https://docs.digdag.io/operators/td_for_each.html
       query: SELECT '${td.each.key}' AS key , ${td.each.val} AS val FROM ${td.each.tbl}
       create_table: result_${td.each.name}
 ```
-`queries/search_td_for_each_params.sql`で出力されたカラム名を変数にしてeach処理の実行が可能  
-後続処理では、`${td.each.○○○○}`で変数の呼び出し
+`queries/search_td_for_each_params.sql`で出力された値を変数にしてeach処理の実行が可能  
+後続処理では、`${td.each.○○○○}`でカラム名を指定し、変数の呼び出し
 
 ## `store_last_results`での変数引き継ぎ  
 https://plazma.red/user_engagement/howto/0317
@@ -248,7 +248,7 @@ store_last_results: true
       query: SELECT key , val FROM target_tbl
 ```
 `store_last_results: true`で処理されたSQLの値を後続の処理で変数として使用  
-後続処理では、`${td.last_results.○○○○}`で変数の呼び出し
+後続処理では、`${td.last_results.○○○○}`でカラム名を指定し、変数の呼び出し
 
 ## コネクタでのデータアウトプット
 Google Sheet出力サンプル
